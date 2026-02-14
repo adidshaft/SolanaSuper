@@ -31,6 +31,7 @@ add_custom_command(
     # For this environment, we assume `cargo` is available.
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/rust"
     COMMENT "Building Rust library for ${RUST_TARGET}"
+    DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/rust/src/lib.rs" "${CMAKE_CURRENT_SOURCE_DIR}/rust/Cargo.toml"
     VERBATIM
 )
 

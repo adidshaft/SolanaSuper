@@ -39,13 +39,18 @@ class IdentityKeyManager {
     }
 
     fun signData(data: ByteArray): ByteArray {
+        val signature = initSignature() ?: return ByteArray(0)
+        signature.update(data)
+        return signature.sign()
+    }
+
+    fun initSignature(): Signature? {
         val entry = keyStore.getEntry(KEY_ALIAS, null) as? KeyStore.PrivateKeyEntry
-            ?: return ByteArray(0)
+            ?: return null
             
         val signature = Signature.getInstance("SHA256withECDSA")
         signature.initSign(entry.privateKey)
-        signature.update(data)
-        return signature.sign()
+        return signature
     }
     
     fun getPublicKey(): ByteArray? {

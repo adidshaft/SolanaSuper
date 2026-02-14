@@ -1,0 +1,482 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:2:1-38:12
+INJECTED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:2:1-38:12
+INJECTED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:2:1-38:12
+INJECTED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:2:1-38:12
+MERGED from [com.google.android.gms:play-services-nearby:19.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7258a216e9aa4d294a7774011327e0bd/transformed/jetified-play-services-nearby-19.0.0/AndroidManifest.xml:2:1-16:12
+MERGED from [com.google.android.gms:play-services-base:18.0.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/ccb04a83dc461e2be8f1c7fea1943f09/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:16:1-24:12
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/26c3f627cbb72debf4504df8a1a36768/transformed/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/b3343fd0084669c7a904ab1c0a4112c3/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:16:1-26:12
+MERGED from [androidx.compose.material3:material3-android:1.2.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/f9453c6f5c65f9e6579d4a1601c1efbc/transformed/jetified-material3-release/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.compose.material:material-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/16144d021cced848f1d770e17c70b009/transformed/jetified-material-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material:material-icons-core-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/6142a7ba76bcd3ac18590984e963a468/transformed/jetified-material-icons-core-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material:material-ripple-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3408dec453fd18476f644c35b14253d6/transformed/jetified-material-ripple-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.foundation:foundation-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c0a0f17d89c959bd3ff347ecb11cf7c0/transformed/jetified-foundation-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.animation:animation-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/47df37b5a166ecd07639cc9d682e8fae/transformed/jetified-animation-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/56f0a7b9a366bc46575c4d2647c51d65/transformed/jetified-foundation-layout-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.animation:animation-core-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/9c97e873c4e39b2a291a0d0533c406e6/transformed/jetified-animation-core-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-tooling-data-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/712073ac12646fe58ff83db1923a0595/transformed/jetified-ui-tooling-data-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-unit-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/8b07d0f8ee0f84f7baa349e219f50ed5/transformed/jetified-ui-unit-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-geometry-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/475408288ededfc652752c276217ae81/transformed/jetified-ui-geometry-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-util-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/be05d271b8c4b50c82ae3a06b1c2e592/transformed/jetified-ui-util-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-text-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7712fccb9797e691d87effa37529c32b/transformed/jetified-ui-text-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/89e05ea56a815fde93d4d5c600f094e5/transformed/jetified-ui-tooling-preview-release/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.compose.ui:ui-graphics-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/763e67a85464184567cca77518bb26d3/transformed/jetified-ui-graphics-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/b70a0a1640edafbd4cfb1965a55e59b9/transformed/jetified-ui-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-test-manifest:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/fa14547c182a6915ebf788b392a07ce1/transformed/jetified-ui-test-manifest-1.6.1/AndroidManifest.xml:17:1-28:12
+MERGED from [androidx.compose.ui:ui-tooling-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e130f4dd1eb8e3291d26f0f01d566c62/transformed/jetified-ui-tooling-release/AndroidManifest.xml:17:1-28:12
+MERGED from [androidx.activity:activity-compose:1.8.2] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/b796dcff5d43831dd7d2ed1ca859a3a6/transformed/jetified-activity-compose-1.8.2/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.activity:activity-ktx:1.8.2] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/bc055a674538b29a6d729554cd092c60/transformed/jetified-activity-ktx-1.8.2/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.activity:activity:1.8.2] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e2d80a0c1f802473ce46828d2782d2ca/transformed/jetified-activity-1.8.2/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.fragment:fragment:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/6fd05ade89a5447a4f842ad807a0155b/transformed/fragment-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.autofill:autofill:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/d24576e05b3fbb4b924dfff32e3b0f61/transformed/jetified-autofill-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/072b6098964bb9a5dc3ccbf4d2351529/transformed/legacy-support-core-ui-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/cf88a31282da3e3fffad2443c6c30eaf/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3e4b7142c567e913b625e210cb1db6e5/transformed/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3d295b6242318c51ef9c9908b59e7387/transformed/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/8a4b23e8deb3ba1d09df7a166f6917f9/transformed/coordinatorlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/eba1539bafeb1969bf4b454ccc6d244b/transformed/drawerlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/a33d5a111a1e5b529e6fc79275592667/transformed/slidingpanelayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/4540cfea4d43a22f68988625e23d88af/transformed/customview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/d9bc7e5fcf5115eb9d2769fcc363ddae/transformed/swiperefreshlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/6f67c89420b96a1ba69cddf706c053f2/transformed/asynclayoutinflater-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3cc565ef3a6cac4ad91f550d33c1042e/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.core:core:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c01a204d40664a1768915600e8448da6/transformed/core-1.12.0/AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/1aa0c19782169ebfc8490d49c259404d/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/2a49889595b48fb8c119de48dd6f2cbe/transformed/jetified-lifecycle-livedata-core-ktx-2.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/ae309425eeaf1d4c3783ce7afa668105/transformed/lifecycle-livedata-2.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/bfea0774a912ee4f60dcafa1a02963df/transformed/lifecycle-livedata-core-2.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e4d2b9435ca3591f82c767193b5ec3b8/transformed/jetified-lifecycle-viewmodel-ktx-2.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/031f989931101b6f5e9d23def0bd81d1/transformed/lifecycle-viewmodel-2.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/33a35af02de391abb376fcfcae3e6745/transformed/jetified-lifecycle-runtime-ktx-2.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/0e7e2ce0ecc5defa05fb5a69e5db3b1a/transformed/lifecycle-runtime-2.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/0465f9f86cb25ebb91320dc614e59255/transformed/jetified-savedstate-ktx-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate:1.2.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c238bea02c54a9c98dd2f45622f0cdf8/transformed/jetified-savedstate-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7205610095fdca13f26d2d282f7e1c26/transformed/jetified-lifecycle-viewmodel-savedstate-2.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/8fea539c72abb6e69105d676db20c0ee/transformed/jetified-customview-poolingcontainer-1.0.0/AndroidManifest.xml:17:1-23:12
+MERGED from [androidx.core:core-ktx:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/bab8869c2a964440b0fac9488467c086/transformed/jetified-core-ktx-1.12.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.room:room-runtime:2.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c65c9c46acc3392a6022bcb67cb7f491/transformed/room-runtime-2.6.1/AndroidManifest.xml:17:1-31:12
+MERGED from [androidx.room:room-ktx:2.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/af63cf62066ca52debe6c2321212d86e/transformed/jetified-room-ktx-2.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [net.zetetic:android-database-sqlcipher:4.5.4] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e70f0aee9e5559747c61c3b349dc07e3/transformed/jetified-android-database-sqlcipher-4.5.4/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.sqlite:sqlite-framework:2.4.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/26dcb24486c2196177131097a29995f4/transformed/sqlite-framework-2.4.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.sqlite:sqlite:2.4.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/ab171da6050b544f9e8cbe84071b9845/transformed/sqlite-2.4.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/9d52b452c7ca03851e412e67ee039d59/transformed/jetified-runtime-saveable-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.runtime:runtime-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/8ff7d87979006c44952d1aad7a439995/transformed/jetified-runtime-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.annotation:annotation-experimental:1.4.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/690e5dba34ff21436ec9e3bcbb10328d/transformed/jetified-annotation-experimental-1.4.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/17abf2b0411a35b842d8f526a2eccfef/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.security:security-crypto:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/1d1384c7873b88e56429051474d7e8cf/transformed/jetified-security-crypto-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/aec4a6ba0842c1500e5fe14832e28a39/transformed/core-runtime-2.2.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c147044ea42d1843c4f4a87da31e98fc/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:17:1-55:12
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/31ada31f1d07ae40e6e036744d252148/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.tracing:tracing:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/f4bed9b4cd57c6d94e3a1ecb2fea2194/transformed/jetified-tracing-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/83a198037b2b478541d11ce72f41554c/transformed/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/0dfc12de3d1b1219809999e78f23255a/transformed/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e8184cac740f17e4e829e4d05793472f/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/46eb185b1c6c6031bc89f75cec85e3a7/transformed/print-1.0.0/AndroidManifest.xml:17:1-22:12
+	package
+		INJECTED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.BLUETOOTH
+ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:6:5-68
+	android:name
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:6:22-65
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:7:5-74
+	android:name
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:7:22-71
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:8:5-76
+	android:name
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:8:22-73
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:9:5-76
+	android:name
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:9:22-73
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:10:5-81
+	android:name
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:10:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:11:5-79
+	android:name
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:11:22-76
+uses-permission#android.permission.NEARBY_WIFI_DEVICES
+ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:12:5-125
+	android:usesPermissionFlags
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:12:76-122
+	android:name
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:12:22-75
+uses-permission#android.permission.INTERNET
+ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:13:5-67
+	android:name
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:13:22-64
+uses-permission#android.permission.USE_BIOMETRIC
+ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:14:5-72
+	android:name
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:14:22-69
+application
+ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:16:5-36:19
+INJECTED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:16:5-36:19
+MERGED from [com.google.android.gms:play-services-nearby:19.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7258a216e9aa4d294a7774011327e0bd/transformed/jetified-play-services-nearby-19.0.0/AndroidManifest.xml:9:5-14:19
+MERGED from [com.google.android.gms:play-services-nearby:19.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7258a216e9aa4d294a7774011327e0bd/transformed/jetified-play-services-nearby-19.0.0/AndroidManifest.xml:9:5-14:19
+MERGED from [com.google.android.gms:play-services-base:18.0.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/ccb04a83dc461e2be8f1c7fea1943f09/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.android.gms:play-services-base:18.0.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/ccb04a83dc461e2be8f1c7fea1943f09/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/26c3f627cbb72debf4504df8a1a36768/transformed/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/26c3f627cbb72debf4504df8a1a36768/transformed/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/b3343fd0084669c7a904ab1c0a4112c3/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:20:5-24:19
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/b3343fd0084669c7a904ab1c0a4112c3/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:20:5-24:19
+MERGED from [androidx.compose.ui:ui-test-manifest:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/fa14547c182a6915ebf788b392a07ce1/transformed/jetified-ui-test-manifest-1.6.1/AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.compose.ui:ui-test-manifest:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/fa14547c182a6915ebf788b392a07ce1/transformed/jetified-ui-test-manifest-1.6.1/AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.compose.ui:ui-tooling-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e130f4dd1eb8e3291d26f0f01d566c62/transformed/jetified-ui-tooling-release/AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.compose.ui:ui-tooling-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e130f4dd1eb8e3291d26f0f01d566c62/transformed/jetified-ui-tooling-release/AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3cc565ef3a6cac4ad91f550d33c1042e/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3cc565ef3a6cac4ad91f550d33c1042e/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.core:core:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c01a204d40664a1768915600e8448da6/transformed/core-1.12.0/AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c01a204d40664a1768915600e8448da6/transformed/core-1.12.0/AndroidManifest.xml:28:5-89
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/1aa0c19782169ebfc8490d49c259404d/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/1aa0c19782169ebfc8490d49c259404d/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.room:room-runtime:2.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c65c9c46acc3392a6022bcb67cb7f491/transformed/room-runtime-2.6.1/AndroidManifest.xml:23:5-29:19
+MERGED from [androidx.room:room-runtime:2.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c65c9c46acc3392a6022bcb67cb7f491/transformed/room-runtime-2.6.1/AndroidManifest.xml:23:5-29:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/17abf2b0411a35b842d8f526a2eccfef/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/17abf2b0411a35b842d8f526a2eccfef/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/31ada31f1d07ae40e6e036744d252148/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/31ada31f1d07ae40e6e036744d252148/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+	android:extractNativeLibs
+		INJECTED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c01a204d40664a1768915600e8448da6/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
+	android:supportsRtl
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:23:9-35
+	android:label
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:21:9-37
+	android:fullBackupContent
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:19:9-54
+	android:roundIcon
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:22:9-54
+	tools:targetApi
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:25:9-29
+	android:icon
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:20:9-43
+	android:allowBackup
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:17:9-35
+	android:theme
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:24:9-72
+	android:dataExtractionRules
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:18:9-65
+activity#com.solanasuper.MainActivity
+ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:26:9-35:20
+	android:exported
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:28:13-36
+	android:theme
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:29:13-76
+	android:name
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:27:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:30:13-34:29
+action#android.intent.action.MAIN
+ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:31:17-69
+	android:name
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:31:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:33:17-77
+	android:name
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:33:27-74
+uses-sdk
+INJECTED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml
+INJECTED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml
+MERGED from [com.google.android.gms:play-services-nearby:19.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7258a216e9aa4d294a7774011327e0bd/transformed/jetified-play-services-nearby-19.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-nearby:19.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7258a216e9aa4d294a7774011327e0bd/transformed/jetified-play-services-nearby-19.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-base:18.0.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/ccb04a83dc461e2be8f1c7fea1943f09/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-base:18.0.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/ccb04a83dc461e2be8f1c7fea1943f09/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/26c3f627cbb72debf4504df8a1a36768/transformed/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/26c3f627cbb72debf4504df8a1a36768/transformed/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/b3343fd0084669c7a904ab1c0a4112c3/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/b3343fd0084669c7a904ab1c0a4112c3/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:18:5-43
+MERGED from [androidx.compose.material3:material3-android:1.2.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/f9453c6f5c65f9e6579d4a1601c1efbc/transformed/jetified-material3-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.material3:material3-android:1.2.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/f9453c6f5c65f9e6579d4a1601c1efbc/transformed/jetified-material3-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.material:material-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/16144d021cced848f1d770e17c70b009/transformed/jetified-material-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/16144d021cced848f1d770e17c70b009/transformed/jetified-material-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-core-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/6142a7ba76bcd3ac18590984e963a468/transformed/jetified-material-icons-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-core-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/6142a7ba76bcd3ac18590984e963a468/transformed/jetified-material-icons-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-ripple-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3408dec453fd18476f644c35b14253d6/transformed/jetified-material-ripple-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-ripple-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3408dec453fd18476f644c35b14253d6/transformed/jetified-material-ripple-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c0a0f17d89c959bd3ff347ecb11cf7c0/transformed/jetified-foundation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c0a0f17d89c959bd3ff347ecb11cf7c0/transformed/jetified-foundation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/47df37b5a166ecd07639cc9d682e8fae/transformed/jetified-animation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/47df37b5a166ecd07639cc9d682e8fae/transformed/jetified-animation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/56f0a7b9a366bc46575c4d2647c51d65/transformed/jetified-foundation-layout-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/56f0a7b9a366bc46575c4d2647c51d65/transformed/jetified-foundation-layout-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-core-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/9c97e873c4e39b2a291a0d0533c406e6/transformed/jetified-animation-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-core-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/9c97e873c4e39b2a291a0d0533c406e6/transformed/jetified-animation-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-tooling-data-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/712073ac12646fe58ff83db1923a0595/transformed/jetified-ui-tooling-data-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-tooling-data-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/712073ac12646fe58ff83db1923a0595/transformed/jetified-ui-tooling-data-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-unit-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/8b07d0f8ee0f84f7baa349e219f50ed5/transformed/jetified-ui-unit-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-unit-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/8b07d0f8ee0f84f7baa349e219f50ed5/transformed/jetified-ui-unit-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-geometry-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/475408288ededfc652752c276217ae81/transformed/jetified-ui-geometry-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-geometry-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/475408288ededfc652752c276217ae81/transformed/jetified-ui-geometry-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-util-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/be05d271b8c4b50c82ae3a06b1c2e592/transformed/jetified-ui-util-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-util-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/be05d271b8c4b50c82ae3a06b1c2e592/transformed/jetified-ui-util-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-text-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7712fccb9797e691d87effa37529c32b/transformed/jetified-ui-text-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-text-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7712fccb9797e691d87effa37529c32b/transformed/jetified-ui-text-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/89e05ea56a815fde93d4d5c600f094e5/transformed/jetified-ui-tooling-preview-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/89e05ea56a815fde93d4d5c600f094e5/transformed/jetified-ui-tooling-preview-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.ui:ui-graphics-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/763e67a85464184567cca77518bb26d3/transformed/jetified-ui-graphics-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-graphics-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/763e67a85464184567cca77518bb26d3/transformed/jetified-ui-graphics-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/b70a0a1640edafbd4cfb1965a55e59b9/transformed/jetified-ui-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/b70a0a1640edafbd4cfb1965a55e59b9/transformed/jetified-ui-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-test-manifest:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/fa14547c182a6915ebf788b392a07ce1/transformed/jetified-ui-test-manifest-1.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.ui:ui-test-manifest:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/fa14547c182a6915ebf788b392a07ce1/transformed/jetified-ui-test-manifest-1.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.ui:ui-tooling-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e130f4dd1eb8e3291d26f0f01d566c62/transformed/jetified-ui-tooling-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.ui:ui-tooling-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e130f4dd1eb8e3291d26f0f01d566c62/transformed/jetified-ui-tooling-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity-compose:1.8.2] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/b796dcff5d43831dd7d2ed1ca859a3a6/transformed/jetified-activity-compose-1.8.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-compose:1.8.2] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/b796dcff5d43831dd7d2ed1ca859a3a6/transformed/jetified-activity-compose-1.8.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.8.2] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/bc055a674538b29a6d729554cd092c60/transformed/jetified-activity-ktx-1.8.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.8.2] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/bc055a674538b29a6d729554cd092c60/transformed/jetified-activity-ktx-1.8.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity:1.8.2] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e2d80a0c1f802473ce46828d2782d2ca/transformed/jetified-activity-1.8.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.8.2] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e2d80a0c1f802473ce46828d2782d2ca/transformed/jetified-activity-1.8.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/6fd05ade89a5447a4f842ad807a0155b/transformed/fragment-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/6fd05ade89a5447a4f842ad807a0155b/transformed/fragment-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.autofill:autofill:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/d24576e05b3fbb4b924dfff32e3b0f61/transformed/jetified-autofill-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.autofill:autofill:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/d24576e05b3fbb4b924dfff32e3b0f61/transformed/jetified-autofill-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/072b6098964bb9a5dc3ccbf4d2351529/transformed/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/072b6098964bb9a5dc3ccbf4d2351529/transformed/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/cf88a31282da3e3fffad2443c6c30eaf/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/cf88a31282da3e3fffad2443c6c30eaf/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3e4b7142c567e913b625e210cb1db6e5/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3e4b7142c567e913b625e210cb1db6e5/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3d295b6242318c51ef9c9908b59e7387/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3d295b6242318c51ef9c9908b59e7387/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/8a4b23e8deb3ba1d09df7a166f6917f9/transformed/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/8a4b23e8deb3ba1d09df7a166f6917f9/transformed/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/eba1539bafeb1969bf4b454ccc6d244b/transformed/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/eba1539bafeb1969bf4b454ccc6d244b/transformed/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/a33d5a111a1e5b529e6fc79275592667/transformed/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/a33d5a111a1e5b529e6fc79275592667/transformed/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/4540cfea4d43a22f68988625e23d88af/transformed/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/4540cfea4d43a22f68988625e23d88af/transformed/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/d9bc7e5fcf5115eb9d2769fcc363ddae/transformed/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/d9bc7e5fcf5115eb9d2769fcc363ddae/transformed/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/6f67c89420b96a1ba69cddf706c053f2/transformed/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/6f67c89420b96a1ba69cddf706c053f2/transformed/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3cc565ef3a6cac4ad91f550d33c1042e/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3cc565ef3a6cac4ad91f550d33c1042e/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.core:core:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c01a204d40664a1768915600e8448da6/transformed/core-1.12.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c01a204d40664a1768915600e8448da6/transformed/core-1.12.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/1aa0c19782169ebfc8490d49c259404d/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/1aa0c19782169ebfc8490d49c259404d/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/2a49889595b48fb8c119de48dd6f2cbe/transformed/jetified-lifecycle-livedata-core-ktx-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/2a49889595b48fb8c119de48dd6f2cbe/transformed/jetified-lifecycle-livedata-core-ktx-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/ae309425eeaf1d4c3783ce7afa668105/transformed/lifecycle-livedata-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/ae309425eeaf1d4c3783ce7afa668105/transformed/lifecycle-livedata-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/bfea0774a912ee4f60dcafa1a02963df/transformed/lifecycle-livedata-core-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/bfea0774a912ee4f60dcafa1a02963df/transformed/lifecycle-livedata-core-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e4d2b9435ca3591f82c767193b5ec3b8/transformed/jetified-lifecycle-viewmodel-ktx-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e4d2b9435ca3591f82c767193b5ec3b8/transformed/jetified-lifecycle-viewmodel-ktx-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/031f989931101b6f5e9d23def0bd81d1/transformed/lifecycle-viewmodel-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/031f989931101b6f5e9d23def0bd81d1/transformed/lifecycle-viewmodel-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/33a35af02de391abb376fcfcae3e6745/transformed/jetified-lifecycle-runtime-ktx-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/33a35af02de391abb376fcfcae3e6745/transformed/jetified-lifecycle-runtime-ktx-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/0e7e2ce0ecc5defa05fb5a69e5db3b1a/transformed/lifecycle-runtime-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/0e7e2ce0ecc5defa05fb5a69e5db3b1a/transformed/lifecycle-runtime-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/0465f9f86cb25ebb91320dc614e59255/transformed/jetified-savedstate-ktx-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/0465f9f86cb25ebb91320dc614e59255/transformed/jetified-savedstate-ktx-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c238bea02c54a9c98dd2f45622f0cdf8/transformed/jetified-savedstate-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c238bea02c54a9c98dd2f45622f0cdf8/transformed/jetified-savedstate-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7205610095fdca13f26d2d282f7e1c26/transformed/jetified-lifecycle-viewmodel-savedstate-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7205610095fdca13f26d2d282f7e1c26/transformed/jetified-lifecycle-viewmodel-savedstate-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/8fea539c72abb6e69105d676db20c0ee/transformed/jetified-customview-poolingcontainer-1.0.0/AndroidManifest.xml:20:5-21:38
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/8fea539c72abb6e69105d676db20c0ee/transformed/jetified-customview-poolingcontainer-1.0.0/AndroidManifest.xml:20:5-21:38
+MERGED from [androidx.core:core-ktx:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/bab8869c2a964440b0fac9488467c086/transformed/jetified-core-ktx-1.12.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/bab8869c2a964440b0fac9488467c086/transformed/jetified-core-ktx-1.12.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.room:room-runtime:2.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c65c9c46acc3392a6022bcb67cb7f491/transformed/room-runtime-2.6.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.room:room-runtime:2.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c65c9c46acc3392a6022bcb67cb7f491/transformed/room-runtime-2.6.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.room:room-ktx:2.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/af63cf62066ca52debe6c2321212d86e/transformed/jetified-room-ktx-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.room:room-ktx:2.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/af63cf62066ca52debe6c2321212d86e/transformed/jetified-room-ktx-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [net.zetetic:android-database-sqlcipher:4.5.4] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e70f0aee9e5559747c61c3b349dc07e3/transformed/jetified-android-database-sqlcipher-4.5.4/AndroidManifest.xml:5:5-7:41
+MERGED from [net.zetetic:android-database-sqlcipher:4.5.4] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e70f0aee9e5559747c61c3b349dc07e3/transformed/jetified-android-database-sqlcipher-4.5.4/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.sqlite:sqlite-framework:2.4.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/26dcb24486c2196177131097a29995f4/transformed/sqlite-framework-2.4.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.sqlite:sqlite-framework:2.4.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/26dcb24486c2196177131097a29995f4/transformed/sqlite-framework-2.4.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.sqlite:sqlite:2.4.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/ab171da6050b544f9e8cbe84071b9845/transformed/sqlite-2.4.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.sqlite:sqlite:2.4.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/ab171da6050b544f9e8cbe84071b9845/transformed/sqlite-2.4.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/9d52b452c7ca03851e412e67ee039d59/transformed/jetified-runtime-saveable-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/9d52b452c7ca03851e412e67ee039d59/transformed/jetified-runtime-saveable-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/8ff7d87979006c44952d1aad7a439995/transformed/jetified-runtime-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/8ff7d87979006c44952d1aad7a439995/transformed/jetified-runtime-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/690e5dba34ff21436ec9e3bcbb10328d/transformed/jetified-annotation-experimental-1.4.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/690e5dba34ff21436ec9e3bcbb10328d/transformed/jetified-annotation-experimental-1.4.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/17abf2b0411a35b842d8f526a2eccfef/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/17abf2b0411a35b842d8f526a2eccfef/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.security:security-crypto:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/1d1384c7873b88e56429051474d7e8cf/transformed/jetified-security-crypto-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.security:security-crypto:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/1d1384c7873b88e56429051474d7e8cf/transformed/jetified-security-crypto-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/aec4a6ba0842c1500e5fe14832e28a39/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/aec4a6ba0842c1500e5fe14832e28a39/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c147044ea42d1843c4f4a87da31e98fc/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c147044ea42d1843c4f4a87da31e98fc/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/31ada31f1d07ae40e6e036744d252148/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/31ada31f1d07ae40e6e036744d252148/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.tracing:tracing:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/f4bed9b4cd57c6d94e3a1ecb2fea2194/transformed/jetified-tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/f4bed9b4cd57c6d94e3a1ecb2fea2194/transformed/jetified-tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/83a198037b2b478541d11ce72f41554c/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/83a198037b2b478541d11ce72f41554c/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/0dfc12de3d1b1219809999e78f23255a/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/0dfc12de3d1b1219809999e78f23255a/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e8184cac740f17e4e829e4d05793472f/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e8184cac740f17e4e829e4d05793472f/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/46eb185b1c6c6031bc89f75cec85e3a7/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/46eb185b1c6c6031bc89f75cec85e3a7/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+	android:targetSdkVersion
+		INJECTED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [com.google.android.gms:play-services-nearby:19.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7258a216e9aa4d294a7774011327e0bd/transformed/jetified-play-services-nearby-19.0.0/AndroidManifest.xml:7:5-79
+	android:name
+		ADDED from [com.google.android.gms:play-services-nearby:19.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7258a216e9aa4d294a7774011327e0bd/transformed/jetified-play-services-nearby-19.0.0/AndroidManifest.xml:7:22-76
+service#com.google.android.gms.nearby.exposurenotification.WakeUpService
+ADDED from [com.google.android.gms:play-services-nearby:19.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7258a216e9aa4d294a7774011327e0bd/transformed/jetified-play-services-nearby-19.0.0/AndroidManifest.xml:10:9-13:105
+	android:exported
+		ADDED from [com.google.android.gms:play-services-nearby:19.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7258a216e9aa4d294a7774011327e0bd/transformed/jetified-play-services-nearby-19.0.0/AndroidManifest.xml:12:13-36
+	android:permission
+		ADDED from [com.google.android.gms:play-services-nearby:19.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7258a216e9aa4d294a7774011327e0bd/transformed/jetified-play-services-nearby-19.0.0/AndroidManifest.xml:13:13-102
+	android:name
+		ADDED from [com.google.android.gms:play-services-nearby:19.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7258a216e9aa4d294a7774011327e0bd/transformed/jetified-play-services-nearby-19.0.0/AndroidManifest.xml:11:13-92
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:18.0.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/ccb04a83dc461e2be8f1c7fea1943f09/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:18.0.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/ccb04a83dc461e2be8f1c7fea1943f09/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:22:19-43
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:18.0.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/ccb04a83dc461e2be8f1c7fea1943f09/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:21:19-78
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:18.0.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/ccb04a83dc461e2be8f1c7fea1943f09/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:19-85
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:18.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/b3343fd0084669c7a904ab1c0a4112c3/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:21:9-23:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:18.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/b3343fd0084669c7a904ab1c0a4112c3/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:23:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:18.0.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/b3343fd0084669c7a904ab1c0a4112c3/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:22:13-58
+activity#androidx.activity.ComponentActivity
+ADDED from [androidx.compose.ui:ui-test-manifest:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/fa14547c182a6915ebf788b392a07ce1/transformed/jetified-ui-test-manifest-1.6.1/AndroidManifest.xml:23:9-25:39
+	android:exported
+		ADDED from [androidx.compose.ui:ui-test-manifest:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/fa14547c182a6915ebf788b392a07ce1/transformed/jetified-ui-test-manifest-1.6.1/AndroidManifest.xml:25:13-36
+	android:name
+		ADDED from [androidx.compose.ui:ui-test-manifest:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/fa14547c182a6915ebf788b392a07ce1/transformed/jetified-ui-test-manifest-1.6.1/AndroidManifest.xml:24:13-63
+activity#androidx.compose.ui.tooling.PreviewActivity
+ADDED from [androidx.compose.ui:ui-tooling-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e130f4dd1eb8e3291d26f0f01d566c62/transformed/jetified-ui-tooling-release/AndroidManifest.xml:23:9-25:39
+	android:exported
+		ADDED from [androidx.compose.ui:ui-tooling-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e130f4dd1eb8e3291d26f0f01d566c62/transformed/jetified-ui-tooling-release/AndroidManifest.xml:25:13-36
+	android:name
+		ADDED from [androidx.compose.ui:ui-tooling-android:1.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e130f4dd1eb8e3291d26f0f01d566c62/transformed/jetified-ui-tooling-release/AndroidManifest.xml:24:13-71
+provider#androidx.startup.InitializationProvider
+ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3cc565ef3a6cac4ad91f550d33c1042e/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/1aa0c19782169ebfc8490d49c259404d/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/1aa0c19782169ebfc8490d49c259404d/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/31ada31f1d07ae40e6e036744d252148/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/31ada31f1d07ae40e6e036744d252148/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+	tools:node
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3cc565ef3a6cac4ad91f550d33c1042e/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:28:13-31
+	android:authorities
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3cc565ef3a6cac4ad91f550d33c1042e/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:26:13-68
+	android:exported
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3cc565ef3a6cac4ad91f550d33c1042e/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3cc565ef3a6cac4ad91f550d33c1042e/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:25:13-67
+meta-data#androidx.emoji2.text.EmojiCompatInitializer
+ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3cc565ef3a6cac4ad91f550d33c1042e/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3cc565ef3a6cac4ad91f550d33c1042e/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3cc565ef3a6cac4ad91f550d33c1042e/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:30:17-75
+permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c01a204d40664a1768915600e8448da6/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c01a204d40664a1768915600e8448da6/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c01a204d40664a1768915600e8448da6/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
+permission#com.solanasuper.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c01a204d40664a1768915600e8448da6/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c01a204d40664a1768915600e8448da6/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c01a204d40664a1768915600e8448da6/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
+uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c01a204d40664a1768915600e8448da6/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c01a204d40664a1768915600e8448da6/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
+uses-permission#com.solanasuper.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c01a204d40664a1768915600e8448da6/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.12.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c01a204d40664a1768915600e8448da6/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
+meta-data#androidx.lifecycle.ProcessLifecycleInitializer
+ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/1aa0c19782169ebfc8490d49c259404d/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/1aa0c19782169ebfc8490d49c259404d/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/1aa0c19782169ebfc8490d49c259404d/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:30:17-78
+service#androidx.room.MultiInstanceInvalidationService
+ADDED from [androidx.room:room-runtime:2.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c65c9c46acc3392a6022bcb67cb7f491/transformed/room-runtime-2.6.1/AndroidManifest.xml:24:9-28:63
+	android:exported
+		ADDED from [androidx.room:room-runtime:2.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c65c9c46acc3392a6022bcb67cb7f491/transformed/room-runtime-2.6.1/AndroidManifest.xml:27:13-37
+	tools:ignore
+		ADDED from [androidx.room:room-runtime:2.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c65c9c46acc3392a6022bcb67cb7f491/transformed/room-runtime-2.6.1/AndroidManifest.xml:28:13-60
+	android:directBootAware
+		ADDED from [androidx.room:room-runtime:2.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c65c9c46acc3392a6022bcb67cb7f491/transformed/room-runtime-2.6.1/AndroidManifest.xml:26:13-43
+	android:name
+		ADDED from [androidx.room:room-runtime:2.6.1] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/c65c9c46acc3392a6022bcb67cb7f491/transformed/room-runtime-2.6.1/AndroidManifest.xml:25:13-74
+meta-data#androidx.profileinstaller.ProfileInstallerInitializer
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+receiver#androidx.profileinstaller.ProfileInstallReceiver
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+	android:enabled
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+	android:permission
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+	android:directBootAware
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+intent-filter#action:name:androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+action#androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+intent-filter#action:name:androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+action#androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+intent-filter#action:name:androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+action#androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+intent-filter#action:name:androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+action#androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/e6eec1afedc03785e38647e3e21a48ce/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:25-92

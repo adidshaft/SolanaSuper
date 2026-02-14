@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.solanasuper.app-debug-55:/xml_data_extraction_rules.xml.flat",
+        "source": "com.solanasuper.app-main-57:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.solanasuper.app-debug-55:/xml_backup_rules.xml.flat",
+        "source": "com.solanasuper.app-main-57:/xml/backup_rules.xml"
+    }
+]

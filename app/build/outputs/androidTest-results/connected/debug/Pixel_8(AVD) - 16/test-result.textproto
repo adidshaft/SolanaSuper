@@ -1,5 +1,5 @@
 # proto-message: google.testing.platform.proto.api.core.TestSuiteResult
-# 2026-02-14T19:03:30.037680Z:
+# 2026-02-14T19:06:42.342543Z:
 test_suite_meta_data {
   scheduled_test_case_count: 1
   device {
@@ -7,31 +7,26 @@ test_suite_meta_data {
     friendly_name: "primary"
   }
 }
-test_status: FAILED
+test_status: PASSED
 test_result {
   test_case {
     test_class: "HealthScreenTest"
     test_package: "com.solanasuper.ui.health"
     test_method: "healthScreen_startsLocked_andHidesRecords"
     start_time {
-      seconds: 1771095808
-      nanos: 442000000
+      seconds: 1771096000
+      nanos: 589000000
     }
     end_time {
-      seconds: 1771095809
-      nanos: 590000000
+      seconds: 1771096001
+      nanos: 806000000
     }
     device {
       id: "emulator-5554"
       friendly_name: "primary"
     }
   }
-  test_status: FAILED
-  error {
-    error_message: "java.lang.AssertionError: Assert failed: The component is not displayed!\nat androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)\nat com.solanasuper.ui.health.HealthScreenTest.healthScreen_startsLocked_andHidesRecords(HealthScreenTest.kt:27)\n"
-    error_type: "java.lang.AssertionError"
-    stack_trace: "java.lang.AssertionError: Assert failed: The component is not displayed!\nat androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)\nat com.solanasuper.ui.health.HealthScreenTest.healthScreen_startsLocked_andHidesRecords(HealthScreenTest.kt:27)\n"
-  }
+  test_status: PASSED
   output_artifact {
     label {
       label: "logcat"

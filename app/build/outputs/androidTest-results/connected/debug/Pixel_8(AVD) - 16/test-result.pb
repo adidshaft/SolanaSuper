@@ -1,17 +1,9 @@
 
 
-emulator-5554primaryş
-
+emulator-5554primaryÏ
 
-HealthScreenTestcom.solanasuper.ui.health)healthScreen_startsLocked_andHidesRecords2€ÃÌ€ÅáÒ:ÃÌ€ßª™B
-emulator-5554primary¬
-†java.lang.AssertionError: Assert failed: The component is not displayed!
-at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
-at com.solanasuper.ui.health.HealthScreenTest.healthScreen_startsLocked_andHidesRecords(HealthScreenTest.kt:27)
-java.lang.AssertionError†java.lang.AssertionError: Assert failed: The component is not displayed!
-at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
-at com.solanasuper.ui.health.HealthScreenTest.healthScreen_startsLocked_andHidesRecords(HealthScreenTest.kt:27)
-"æ
+HealthScreenTestcom.solanasuper.ui.health)healthScreen_startsLocked_andHidesRecords2ÀÃÌÀÚí˜:ÁÃÌ€«ª€B
+emulator-5554primary"æ
 
 logcatandroidĞ
 Í/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/logcat-com.solanasuper.ui.health.HealthScreenTest-healthScreen_startsLocked_andHidesRecords.txt"˜

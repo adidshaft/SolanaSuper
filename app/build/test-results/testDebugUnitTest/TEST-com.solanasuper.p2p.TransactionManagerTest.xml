@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.solanasuper.p2p.TransactionManagerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-02-14T16:22:14.271Z" hostname="Amans-MacBook-Pro.local" time="0.445">
+<testsuite name="com.solanasuper.p2p.TransactionManagerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-02-14T16:29:44.257Z" hostname="Amans-MacBook-Pro.local" time="0.087">
   <properties/>
-  <testcase name="lockFunds should create locked transaction and deduct balance" classname="com.solanasuper.p2p.TransactionManagerTest" time="0.443"/>
+  <testcase name="lockFunds should create locked transaction and deduct balance" classname="com.solanasuper.p2p.TransactionManagerTest" time="0.084"/>
   <testcase name="lockFunds should throw exception if insufficient funds" classname="com.solanasuper.p2p.TransactionManagerTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

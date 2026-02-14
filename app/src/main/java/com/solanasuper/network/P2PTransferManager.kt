@@ -61,6 +61,7 @@ class P2PTransferManager(private val context: Context) {
     }
 
     fun startAdvertising() {
+        android.util.Log.d("SovereignLifeOS", "P2PTransferManager: Starting Advertising via Nearby Connections")
         val options = AdvertisingOptions.Builder().setStrategy(strategy).build()
         connectionsClient.startAdvertising(
             "SolanaSuperUser", // Should be random alias
@@ -71,11 +72,13 @@ class P2PTransferManager(private val context: Context) {
     }
 
     fun startDiscovery() {
+        android.util.Log.d("SovereignLifeOS", "P2PTransferManager: Starting Discovery via Nearby Connections")
         val options = DiscoveryOptions.Builder().setStrategy(strategy).build()
         connectionsClient.startDiscovery(
             serviceId,
             object : com.google.android.gms.nearby.connection.EndpointDiscoveryCallback() {
                 override fun onEndpointFound(endpointId: String, info: com.google.android.gms.nearby.connection.DiscoveredEndpointInfo) {
+                    android.util.Log.d("SovereignLifeOS", "P2PTransferManager: Independent Peer Found: $endpointId")
                     callback?.onPeerFound(endpointId)
                     // Auto-connect for prototype
                     connectionsClient.requestConnection("SolanaSuperPeer", endpointId, connectionLifecycleCallback)

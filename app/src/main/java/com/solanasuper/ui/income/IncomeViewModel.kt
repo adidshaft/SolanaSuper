@@ -50,9 +50,10 @@ class IncomeViewModel(
             // Mock UBI Claim
             _state.update { it.copy(isLoading = true) }
             delay(1000)
-            // Ideally we insert a "Deposit" transaction, but our current system is mostly for spending.
-            // Let's assume we can add funds via a back-door for this prototype.
-            // Or just refresh.
+            
+            // Insert Deposit
+            transactionManager.receiveFunds(1000, "Global UBI")
+            
             loadData()
         }
     }

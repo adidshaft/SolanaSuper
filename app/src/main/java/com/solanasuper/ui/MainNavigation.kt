@@ -109,7 +109,15 @@ fun MainNavigation(
             }
             composable(Screen.Health.route) {
                 // Health (Pillar 5)
-                HealthScreen()
+                val viewModel: com.solanasuper.ui.health.HealthViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
+                    factory = com.solanasuper.ui.health.HealthViewModel.Factory(promptManager)
+                )
+                val state by viewModel.state.collectAsState()
+                
+                HealthScreen(
+                    state = state,
+                    onUnlock = { viewModel.unlockVault() }
+                )
             }
         }
     }

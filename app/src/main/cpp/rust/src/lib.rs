@@ -62,17 +62,27 @@ pub mod enclave {
 
 use enclave::{EnclaveRequest, EnclaveResponse, IdentityRequest, GovernanceRequest, IncomeRequest};
 
+use log::LevelFilter; 
+use android_logger::Config;
+
 #[no_mangle]
 pub extern "system" fn Java_com_solanasuper_core_ZKProver_processEnclaveRequest(
     mut env: JNIEnv,
     _class: JClass,
     request_bytes: JByteArray,
 ) -> jbyteArray {
+    // 0. Initialize Logger (once ideally, but for now every call is okayish or use std::sync::Once)
+    android_logger::init_once(
+        Config::default().with_max_level(LevelFilter::Debug).with_tag("SovereignLifeOS")
+    );
+
     // 1. Read input bytes from Java
     let input: Vec<u8> = match env.convert_byte_array(&request_bytes) {
         Ok(bytes) => bytes,
         Err(_) => return std::ptr::null_mut(), // Should throw exception ideally
     };
+    
+    log::debug!("Rust Enclave Received Request Bytes: Length = {}", input.len());
 
     // 2. Deserialize Protobuf
     let request = match EnclaveRequest::decode(&input[..]) {

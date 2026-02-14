@@ -1,10 +1,9 @@
-
 package com.solanasuper.core
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.protobuf.ByteString
-import com.solanasuper.core.proto.EnclaveProto.*
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -12,27 +11,22 @@ import org.junit.runner.RunWith
 class ZKProverTest {
 
     @Test
-    fun testIdentityProofGeneration() {
-        // 1. Create a request
-        val request = EnclaveRequest.newBuilder()
-            .setIdentityReq(
-                IdentityRequest.newBuilder()
-                    .setAttributeId("age_over_18")
-                    .setEncryptedIdentitySeed(ByteString.copyFromUtf8("mock_seed"))
-                    .build()
-            )
+    fun processRequest_shouldCallNativeMethodAndReturnResponse() {
+        // Arrange
+        val request = EnclaveProto.EnclaveRequest.newBuilder()
+            .setRequestId("req-123")
+            .setActionType("GENERATE_PROOF")
+            .setPayload(ByteString.copyFromUtf8("dummy_data"))
             .build()
 
-        // 2. Call the JNI bridge (This will likely fail with UnsatisfiedLinkError until we implement the Rust lib)
-        try {
-            val response = ZKProver.processRequest(request)
-            
-            // 3. Assert success
-            assertTrue("Enclave should return success", response.success)
-            assertFalse("Proof should not be empty", response.zkProof.isEmpty)
-        } catch (e: UnleatisfiedLinkError) {
-            // Expected for now in TDD, but we want to see it fail in the report
-            fail("Native library not linked: ${e.message}")
-        }
+        // Act
+        // This runs on the emulator/device, so it should successfully load libsolanasuper_core.so
+        val response = ZKProver.processRequest(request)
+        
+        // Assert
+        assertEquals("req-123", response.requestId)
+        assertEquals(true, response.success)
+        assertEquals("", response.errorMessage)
+        assertFalse(response.proofData.isEmpty)
     }
 }

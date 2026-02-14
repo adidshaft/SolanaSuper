@@ -1,4 +1,3 @@
-
 package com.solanasuper.data
 
 import androidx.room.Dao
@@ -8,12 +7,13 @@ import androidx.room.Query
 
 @Dao
 interface HealthDao {
-    @Query("SELECT * FROM health_records WHERE id = :id")
-    fun getRecord(id: String): HealthRecord?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(record: HealthRecord)
+    fun insertHealthRecord(record: HealthEntity)
+
+    @Query("SELECT * FROM health_records WHERE id = :id")
+    fun getHealthRecord(id: String): HealthEntity?
     
     @Query("SELECT * FROM health_records")
-    fun getAllRecords(): List<HealthRecord>
+    fun getAllHealthRecords(): List<HealthEntity>
 }

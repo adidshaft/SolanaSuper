@@ -1,14 +1,23 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<testsuite name="com.solanasuper.security.IdentityKeyManagerTest" tests="1" failures="1" errors="0" skipped="0" time="0.404" timestamp="2026-02-14T18:05:29" hostname="localhost">
+<testsuite name="com.solanasuper.security.IdentityKeyManagerTest" tests="1" failures="1" errors="0" skipped="0" time="0.511" timestamp="2026-02-14T18:06:30" hostname="localhost">
   <properties>
     <property name="device" value="Pixel_8(AVD) - 16" />
     <property name="flavor" value="" />
     <property name="project" value=":app" />
   </properties>
   <testcase name="generateKey_shouldRequireUserAuthentication" classname="com.solanasuper.security.IdentityKeyManagerTest" time="0.012">
-    <failure>java.lang.AssertionError: Key usage should require user authentication, but it succeeded without it.
-at org.junit.Assert.fail(Assert.java:89)
-at com.solanasuper.security.IdentityKeyManagerTest.generateKey_shouldRequireUserAuthentication(IdentityKeyManagerTest.kt:24)
+    <failure>java.security.InvalidAlgorithmParameterException: java.lang.IllegalStateException: At least one biometric must be enrolled to create keys requiring user authentication for every use
+at android.security.keystore2.AndroidKeyStoreKeyPairGeneratorSpi.initialize(AndroidKeyStoreKeyPairGeneratorSpi.java:368)
+at java.security.KeyPairGenerator$Delegate.initialize(KeyPairGenerator.java:720)
+at java.security.KeyPairGenerator.initialize(KeyPairGenerator.java:461)
+at com.solanasuper.security.IdentityKeyManager.generateIdentityKey(IdentityKeyManager.kt:37)
+at com.solanasuper.security.IdentityKeyManagerTest.generateKey_shouldRequireUserAuthentication(IdentityKeyManagerTest.kt:15)
+... 32 trimmed
+Caused by: java.lang.IllegalStateException: At least one biometric must be enrolled to create keys requiring user authentication for every use
+at android.security.keystore2.KeyStore2ParameterUtils.addSids(KeyStore2ParameterUtils.java:269)
+at android.security.keystore2.KeyStore2ParameterUtils.addUserAuthArgs(KeyStore2ParameterUtils.java:330)
+at android.security.keystore2.AndroidKeyStoreKeyPairGeneratorSpi.initialize(AndroidKeyStoreKeyPairGeneratorSpi.java:366)
+... 37 more
 </failure>
   </testcase>
 </testsuite>

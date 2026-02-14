@@ -20,26 +20,12 @@ class ZKProverTest {
             .build()
 
         // Act
-        // This is expected to fail with UnsatisfiedLinkError because the native library 
-        // "solanasuper_core" is not yet built or available in the unit test environment.
-        try {
-            val response = ZKProver.processRequest(request)
-            
-            // If by some miracle it works (e.g. mocked), we assert success
-            // But realistically, we expect the native call to happen.
-            // Since we cannot easily mock the `external` function in a unit test without 
-            // more complex setup (like Robolectric or an interface wrapper), 
-            // the failure of this test (UnsatisfiedLinkError) CONFIRMS that we are reaching the JNI layer.
-            
-            // For the purpose of the "Red Phase", failing with LinkError is acceptable proof 
-            // that the Kotlin code is trying to bridge to Rust.
-            
-        } catch (e: UnsatisfiedLinkError) {
-            // This catches the missing library error. 
-            // In a strict TDD world, we might want to verify the implementation logic *around* the JNI call.
-            // But here, the requirement is to show the integration point fails.
-            assertEquals("java.library.path", System.getProperty("java.library.path")) 
-            throw e // Re-throw to ensure the test technically "fails" in the report
-        }
+        val response = ZKProver.processRequest(request)
+        
+        // Assert
+        assertEquals("req-123", response.requestId)
+        assertEquals(true, response.success)
+        assertEquals("", response.errorMessage)
+        assertFalse(response.proofData.isEmpty)
     }
 }

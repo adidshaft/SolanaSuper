@@ -1,0 +1,1 @@
+/Users/amanpandey/Desktop/SolanaSuper/app/src/main/cpp/rust/target/i686-linux-android/release/libsolanasuper_core.so: /Users/amanpandey/Desktop/SolanaSuper/app/src/main/cpp/rust/src/lib.rs

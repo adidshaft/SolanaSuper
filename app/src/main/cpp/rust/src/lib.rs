@@ -1,15 +1,34 @@
-
 use jni::JNIEnv;
 use jni::objects::{JClass, JByteArray};
 use jni::sys::jbyteArray;
 use prost::Message;
 
-// Include the generated protobuf modules
+// Manually defined Protobuf structs to avoid prost-build dependency hell
 pub mod enclave {
-    include!(concat!(env!("OUT_DIR"), "/enclave.rs"));
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct EnclaveRequest {
+        #[prost(string, tag="1")]
+        pub request_id: ::prost::alloc::string::String,
+        #[prost(string, tag="2")]
+        pub action_type: ::prost::alloc::string::String,
+        #[prost(bytes="vec", tag="3")]
+        pub payload: ::prost::alloc::vec::Vec<u8>,
+    }
+
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct EnclaveResponse {
+        #[prost(string, tag="1")]
+        pub request_id: ::prost::alloc::string::String,
+        #[prost(bool, tag="2")]
+        pub success: bool,
+        #[prost(string, tag="3")]
+        pub error_message: ::prost::alloc::string::String,
+        #[prost(bytes="vec", tag="4")]
+        pub proof_data: ::prost::alloc::vec::Vec<u8>,
+    }
 }
 
-use enclave::{EnclaveRequest, EnclaveResponse, enclave_request::Payload};
+use enclave::{EnclaveRequest, EnclaveResponse};
 
 #[no_mangle]
 pub extern "system" fn Java_com_solanasuper_core_ZKProver_processEnclaveRequest(
@@ -17,77 +36,54 @@ pub extern "system" fn Java_com_solanasuper_core_ZKProver_processEnclaveRequest(
     _class: JClass,
     request_bytes: JByteArray,
 ) -> jbyteArray {
-    // 1. Read input bytes
+    // 1. Read input bytes from Java
     let input: Vec<u8> = match env.convert_byte_array(&request_bytes) {
         Ok(bytes) => bytes,
-        Err(_) => return std::ptr::null_mut(), // Should throw exception
+        Err(_) => return std::ptr::null_mut(), // Should throw exception ideally
     };
 
-    // 2. Decode Protobuf
+    // 2. Deserialize Protobuf
     let request = match EnclaveRequest::decode(&input[..]) {
         Ok(req) => req,
-        Err(e) => return create_error_response(&mut env, &format!("Decode error: {}", e)),
-    };
-
-    // 3. Process Logic (Mock ZK)
-    let response = process_logic(request);
-
-    // 4. Encode Response
-    let mut output = Vec::new();
-    if let Err(e) = response.encode(&mut output) {
-        return create_error_response(&mut env, &format!("Encode error: {}", e));
-    }
-
-    // 5. Return as Java ByteArray
-    match env.byte_array_from_slice(&output) {
-        Ok(arr) => arr.into_raw(),
-        Err(_) => std::ptr::null_mut(),
-    }
-}
-
-fn process_logic(request: EnclaveRequest) -> EnclaveResponse {
-    let mut response = EnclaveResponse {
-        success: true,
-        zk_proof: vec![0xCA, 0xFE, 0xBA, 0xBE], // Mock proof
-        error_message: String::new(),
-    };
-
-    match request.payload {
-        Some(Payload::IdentityReq(req)) => {
-            if req.attribute_id == "invalid" {
-                 response.success = false;
-                 response.error_message = "Invalid attribute".to_string();
-            }
-            // In real ZK, we would verify encrypted_identity_seed here
-        },
-        Some(Payload::GovernanceReq(_)) => {
-            // Mock vote proof
-        },
-        Some(Payload::IncomeReq(_)) => {
-            // Mock payment proof
-        },
-        Some(Payload::HealthReq(_)) => {
-             // Mock health proof
-        },
-        None => {
-            response.success = false;
-            response.error_message = "Empty payload".to_string();
+        Err(e) => {
+            // Return error response
+            let response = EnclaveResponse {
+                request_id: "unknown".to_string(),
+                success: false,
+                error_message: format!("Failed to decode request: {}", e),
+                proof_data: vec![],
+            };
+            return serialize_response(&mut env, response);
         }
-    }
+    };
 
-    response
+    // 3. Process Request (Mock Logic for now)
+    let response = process_request_logic(request);
+
+    // 4. Serialize and Return
+    serialize_response(&mut env, response)
 }
 
-fn create_error_response(env: &mut JNIEnv, msg: &str) -> jbyteArray {
-    let response = EnclaveResponse {
-        success: false,
-        zk_proof: vec![],
-        error_message: msg.to_string(),
-    };
+fn process_request_logic(request: EnclaveRequest) -> EnclaveResponse {
+    // In a real app, this would dispatch to ZK circuits based on action_type
+    let mock_proof = b"mock_zk_proof_data".to_vec();
+    
+    EnclaveResponse {
+        request_id: request.request_id,
+        success: true,
+        error_message: String::new(),
+        proof_data: mock_proof,
+    }
+}
+
+fn serialize_response(env: &mut JNIEnv, response: EnclaveResponse) -> jbyteArray {
     let mut output = Vec::new();
-    let _ = response.encode(&mut output);
+    if let Err(_) = response.encode(&mut output) {
+        return std::ptr::null_mut();
+    }
+
     match env.byte_array_from_slice(&output) {
-        Ok(arr) => arr.into_raw(),
+        Ok(jbytes) => jbytes.into_raw(),
         Err(_) => std::ptr::null_mut(),
     }
 }

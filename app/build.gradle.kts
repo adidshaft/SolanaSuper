@@ -55,6 +55,13 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+        unitTests.all {
+            it.systemProperty("java.library.path", file("src/main/cpp/rust/target/debug").absolutePath)
+        }
+    }
 }
 
 // Custom Task to build Rust
@@ -66,6 +73,8 @@ tasks.register<Exec>("cargoBuild") {
 }
 
 dependencies {
+    implementation(libs.androidx.core.ktx)
+    // ... rest (dependencies block starts later?)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

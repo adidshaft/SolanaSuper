@@ -27,36 +27,40 @@ class TransactionManagerTest {
     }
 
     @Test
-    fun `lockFunds should create locked transaction and deduct balance`() = runBlocking {
-        // Arrange
-        val amount = 500L
-        val currentBalance = 1000L
-        `when`(transactionDao.getBalance()).thenReturn(currentBalance)
+    fun `lockFunds should create locked transaction and deduct balance`() {
+        runBlocking {
+            // Arrange
+            val amount = 500L
+            val currentBalance = 1000L
+            `when`(transactionDao.getBalance()).thenReturn(currentBalance)
 
-        // Act
-        transactionManager.lockFunds(amount)
+            // Act
+            transactionManager.lockFunds(amount)
 
-        // Assert
-        verify(transactionDao).insert(
-            org.mockito.kotlin.argThat { 
-                status == TransactionStatus.LOCKED && this.amount == amount 
-            }
-        )
+            // Assert
+            verify(transactionDao).insert(
+                org.mockito.kotlin.argThat { 
+                    status == TransactionStatus.LOCKED && this.amount == amount 
+                }
+            )
+        }
     }
 
     @Test
-    fun `lockFunds should throw exception if insufficient funds`() = runBlocking {
-        // Arrange
-        val amount = 1500L
-        val currentBalance = 1000L
-        `when`(transactionDao.getBalance()).thenReturn(currentBalance)
+    fun `lockFunds should throw exception if insufficient funds`() {
+        runBlocking {
+            // Arrange
+            val amount = 1500L
+            val currentBalance = 1000L
+            `when`(transactionDao.getBalance()).thenReturn(currentBalance)
 
-        // Act & Assert
-        val exception = assertThrows(IllegalStateException::class.java) {
-            runBlocking {
-                transactionManager.lockFunds(amount)
+            // Act & Assert
+            val exception = assertThrows(IllegalStateException::class.java) {
+                runBlocking {
+                    transactionManager.lockFunds(amount)
+                }
             }
+            assertEquals("Insufficient funds", exception.message)
         }
-        assertEquals("Insufficient funds", exception.message)
     }
 }

@@ -49,4 +49,24 @@ class ZKProverTest {
         val proofStr = response.proofData.toStringUtf8()
         assertEquals("identity_proof_for_age_over_18", proofStr)
     }
+    @Test
+    fun testIncomeRequest() {
+        val incomeReq = EnclaveProto.IncomeRequest.newBuilder()
+            .setAmount(500)
+            .setReceiverPubkey("receiver_addr_xyz")
+            .build()
+            
+        val request = EnclaveProto.EnclaveRequest.newBuilder()
+            .setRequestId("income_req_001")
+            .setActionType("GENERATE_INCOME_PROOF")
+            .setIncomeReq(incomeReq)
+            .build()
+            
+        val response = ZKProver.processRequest(request)
+        
+        assertNotNull(response)
+        assertTrue(response.success)
+        val proofStr = response.proofData.toStringUtf8()
+        assertEquals("zk_income_proof_for_receiver_addr_xyz_amount_500", proofStr)
+    }
 }

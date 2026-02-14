@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "offline_transactions")
 data class OfflineTransaction(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    @PrimaryKey val id: String, // Changed to String to match "tx_001"
     val amount: Long,
     val timestamp: Long,
     val recipientId: String?, // Nullable if just locking for a general purpose initially

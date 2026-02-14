@@ -24,6 +24,14 @@ pub mod enclave {
     }
 
     #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct IncomeRequest {
+        #[prost(int64, tag="1")]
+        pub amount: i64,
+        #[prost(string, tag="2")]
+        pub receiver_pubkey: ::prost::alloc::string::String,
+    }
+
+    #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct EnclaveRequest {
         #[prost(string, tag="1")]
         pub request_id: ::prost::alloc::string::String,
@@ -35,6 +43,8 @@ pub mod enclave {
         pub identity_req: ::core::option::Option<IdentityRequest>,
         #[prost(message, optional, tag="5")]
         pub governance_req: ::core::option::Option<GovernanceRequest>,
+        #[prost(message, optional, tag="6")]
+        pub income_req: ::core::option::Option<IncomeRequest>,
     }
 
     #[derive(Clone, PartialEq, ::prost::Message)]
@@ -50,7 +60,7 @@ pub mod enclave {
     }
 }
 
-use enclave::{EnclaveRequest, EnclaveResponse, IdentityRequest, GovernanceRequest};
+use enclave::{EnclaveRequest, EnclaveResponse, IdentityRequest, GovernanceRequest, IncomeRequest};
 
 #[no_mangle]
 pub extern "system" fn Java_com_solanasuper_core_ZKProver_processEnclaveRequest(
@@ -95,6 +105,10 @@ fn process_request_logic(request: EnclaveRequest) -> EnclaveResponse {
         // Mock MPC Vote Share Generation
         // In real MPC, we'd split the vote into shares encrypted for Arcium nodes
         format!("mpc_vote_share_for_{}", governance_req.proposal_id).into_bytes()
+    } else if let Some(income_req) = request.income_req {
+        // Mock Income Proof Generation (Double-Spend Protection)
+        // In real ZK, this proves we have the private key for the funds and haven't spent them (via nullifier)
+        format!("zk_income_proof_for_{}_amount_{}", income_req.receiver_pubkey, income_req.amount).into_bytes()
     } else {
         b"mock_zk_proof_data".to_vec()
     };

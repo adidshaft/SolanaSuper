@@ -6,6 +6,14 @@ use prost::Message;
 // Manually defined Protobuf structs to avoid prost-build dependency hell
 pub mod enclave {
     #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct IdentityRequest {
+        #[prost(string, tag="1")]
+        pub attribute_id: ::prost::alloc::string::String,
+        #[prost(bytes="vec", tag="2")]
+        pub encrypted_identity_seed: ::prost::alloc::vec::Vec<u8>,
+    }
+
+    #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct EnclaveRequest {
         #[prost(string, tag="1")]
         pub request_id: ::prost::alloc::string::String,
@@ -13,6 +21,8 @@ pub mod enclave {
         pub action_type: ::prost::alloc::string::String,
         #[prost(bytes="vec", tag="3")]
         pub payload: ::prost::alloc::vec::Vec<u8>,
+        #[prost(message, optional, tag="4")]
+        pub identity_req: ::core::option::Option<IdentityRequest>,
     }
 
     #[derive(Clone, PartialEq, ::prost::Message)]
@@ -28,7 +38,7 @@ pub mod enclave {
     }
 }
 
-use enclave::{EnclaveRequest, EnclaveResponse};
+use enclave::{EnclaveRequest, EnclaveResponse, IdentityRequest};
 
 #[no_mangle]
 pub extern "system" fn Java_com_solanasuper_core_ZKProver_processEnclaveRequest(
@@ -65,14 +75,20 @@ pub extern "system" fn Java_com_solanasuper_core_ZKProver_processEnclaveRequest(
 }
 
 fn process_request_logic(request: EnclaveRequest) -> EnclaveResponse {
-    // In a real app, this would dispatch to ZK circuits based on action_type
-    let mock_proof = b"mock_zk_proof_data".to_vec();
+    // Dispatch based on action_type or presence of fields
+    let proof_data = if let Some(identity_req) = request.identity_req {
+        // Mock Identity Proof Generation
+        // In real ZK, we'd verify the signature in encrypted_identity_seed matches the claim
+        format!("identity_proof_for_{}", identity_req.attribute_id).into_bytes()
+    } else {
+        b"mock_zk_proof_data".to_vec()
+    };
     
     EnclaveResponse {
         request_id: request.request_id,
         success: true,
         error_message: String::new(),
-        proof_data: mock_proof,
+        proof_data,
     }
 }
 

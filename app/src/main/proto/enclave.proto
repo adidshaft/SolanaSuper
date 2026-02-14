@@ -5,10 +5,16 @@ package com.solanasuper.core;
 option java_package = "com.solanasuper.core";
 option java_outer_classname = "EnclaveProto";
 
+message IdentityRequest {
+  string attribute_id = 1;
+  bytes encrypted_identity_seed = 2;
+}
+
 message EnclaveRequest {
   string request_id = 1;
   string action_type = 2; // e.g., "GENERATE_PROOF", "VERIFY_PROOF"
   bytes payload = 3;      // The actual data to process (health record, transaction, etc.)
+  IdentityRequest identity_req = 4; 
 }
 
 message EnclaveResponse {

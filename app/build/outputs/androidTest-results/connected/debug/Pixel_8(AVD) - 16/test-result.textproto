@@ -1,44 +1,95 @@
 # proto-message: google.testing.platform.proto.api.core.TestSuiteResult
-# 2026-02-14T18:06:30.031969Z:
+# 2026-02-14T18:09:33.520182Z:
 test_suite_meta_data {
-  scheduled_test_case_count: 1
+  scheduled_test_case_count: 2
   device {
     id: "emulator-5554"
     friendly_name: "primary"
   }
 }
-test_status: FAILED
+test_status: PASSED
 test_result {
   test_case {
-    test_class: "IdentityKeyManagerTest"
-    test_package: "com.solanasuper.security"
-    test_method: "generateKey_shouldRequireUserAuthentication"
+    test_class: "ZKProverTest"
+    test_package: "com.solanasuper.core"
+    test_method: "testIdentityRequest"
     start_time {
-      seconds: 1771092389
-      nanos: 481000000
+      seconds: 1771092572
+      nanos: 950000000
     }
     end_time {
-      seconds: 1771092389
-      nanos: 506000000
+      seconds: 1771092572
+      nanos: 975000000
     }
     device {
       id: "emulator-5554"
       friendly_name: "primary"
     }
   }
-  test_status: FAILED
-  error {
-    error_message: "java.security.InvalidAlgorithmParameterException: java.lang.IllegalStateException: At least one biometric must be enrolled to create keys requiring user authentication for every use\nat android.security.keystore2.AndroidKeyStoreKeyPairGeneratorSpi.initialize(AndroidKeyStoreKeyPairGeneratorSpi.java:368)\nat java.security.KeyPairGenerator$Delegate.initialize(KeyPairGenerator.java:720)\nat java.security.KeyPairGenerator.initialize(KeyPairGenerator.java:461)\nat com.solanasuper.security.IdentityKeyManager.generateIdentityKey(IdentityKeyManager.kt:37)\nat com.solanasuper.security.IdentityKeyManagerTest.generateKey_shouldRequireUserAuthentication(IdentityKeyManagerTest.kt:15)\n... 32 trimmed\nCaused by: java.lang.IllegalStateException: At least one biometric must be enrolled to create keys requiring user authentication for every use\nat android.security.keystore2.KeyStore2ParameterUtils.addSids(KeyStore2ParameterUtils.java:269)\nat android.security.keystore2.KeyStore2ParameterUtils.addUserAuthArgs(KeyStore2ParameterUtils.java:330)\nat android.security.keystore2.AndroidKeyStoreKeyPairGeneratorSpi.initialize(AndroidKeyStoreKeyPairGeneratorSpi.java:366)\n... 37 more\n"
-    error_type: "java.lang.IllegalStateException"
-    stack_trace: "java.security.InvalidAlgorithmParameterException: java.lang.IllegalStateException: At least one biometric must be enrolled to create keys requiring user authentication for every use\nat android.security.keystore2.AndroidKeyStoreKeyPairGeneratorSpi.initialize(AndroidKeyStoreKeyPairGeneratorSpi.java:368)\nat java.security.KeyPairGenerator$Delegate.initialize(KeyPairGenerator.java:720)\nat java.security.KeyPairGenerator.initialize(KeyPairGenerator.java:461)\nat com.solanasuper.security.IdentityKeyManager.generateIdentityKey(IdentityKeyManager.kt:37)\nat com.solanasuper.security.IdentityKeyManagerTest.generateKey_shouldRequireUserAuthentication(IdentityKeyManagerTest.kt:15)\n... 32 trimmed\nCaused by: java.lang.IllegalStateException: At least one biometric must be enrolled to create keys requiring user authentication for every use\nat android.security.keystore2.KeyStore2ParameterUtils.addSids(KeyStore2ParameterUtils.java:269)\nat android.security.keystore2.KeyStore2ParameterUtils.addUserAuthArgs(KeyStore2ParameterUtils.java:330)\nat android.security.keystore2.AndroidKeyStoreKeyPairGeneratorSpi.initialize(AndroidKeyStoreKeyPairGeneratorSpi.java:366)\n... 37 more\n"
-  }
+  test_status: PASSED
   output_artifact {
     label {
       label: "logcat"
       namespace: "android"
     }
     source_path {
-      path: "/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/logcat-com.solanasuper.security.IdentityKeyManagerTest-generateKey_shouldRequireUserAuthentication.txt"
+      path: "/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/logcat-com.solanasuper.core.ZKProverTest-testIdentityRequest.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/cpuinfo"
+    }
+  }
+}
+test_result {
+  test_case {
+    test_class: "ZKProverTest"
+    test_package: "com.solanasuper.core"
+    test_method: "testProcessEnclaveRequest"
+    start_time {
+      seconds: 1771092572
+      nanos: 986000000
+    }
+    end_time {
+      seconds: 1771092572
+      nanos: 986000000
+    }
+    device {
+      id: "emulator-5554"
+      friendly_name: "primary"
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/logcat-com.solanasuper.core.ZKProverTest-testProcessEnclaveRequest.txt"
     }
   }
   output_artifact {

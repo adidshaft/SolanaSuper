@@ -12,7 +12,7 @@ INFO: Configuring Android Instrumentation driver: android_instrumentation_runtim
     }
     args_map {
       key: "class"
-      value: "com.solanasuper.security.IdentityKeyManagerTest"
+      value: "com.solanasuper.core.ZKProverTest"
     }
   }
 }
@@ -41,29 +41,5 @@ INFO: Copying files from device to host: /sdcard/Android/media/com.solanasuper/a
 INFO: Stop logcat streaming.
 INFO: Uninstalling com.solanasuper for device emulator-5554.
 INFO: Uninstalling com.solanasuper.test for device emulator-5554.
-SEVERE: Execute com.solanasuper.security.IdentityKeyManagerTest.generateKey_shouldRequireUserAuthentication: FAILED
-java.lang.IllegalStateException: java.security.InvalidAlgorithmParameterException: java.lang.IllegalStateException: At least one biometric must be enrolled to create keys requiring user authentication for every use
-at android.security.keystore2.AndroidKeyStoreKeyPairGeneratorSpi.initialize(AndroidKeyStoreKeyPairGeneratorSpi.java:368)
-at java.security.KeyPairGenerator$Delegate.initialize(KeyPairGenerator.java:720)
-at java.security.KeyPairGenerator.initialize(KeyPairGenerator.java:461)
-at com.solanasuper.security.IdentityKeyManager.generateIdentityKey(IdentityKeyManager.kt:37)
-at com.solanasuper.security.IdentityKeyManagerTest.generateKey_shouldRequireUserAuthentication(IdentityKeyManagerTest.kt:15)
-... 32 trimmed
-Caused by: java.lang.IllegalStateException: At least one biometric must be enrolled to create keys requiring user authentication for every use
-at android.security.keystore2.KeyStore2ParameterUtils.addSids(KeyStore2ParameterUtils.java:269)
-at android.security.keystore2.KeyStore2ParameterUtils.addUserAuthArgs(KeyStore2ParameterUtils.java:330)
-at android.security.keystore2.AndroidKeyStoreKeyPairGeneratorSpi.initialize(AndroidKeyStoreKeyPairGeneratorSpi.java:366)
-... 37 more
-
-java.security.InvalidAlgorithmParameterException: java.lang.IllegalStateException: At least one biometric must be enrolled to create keys requiring user authentication for every use
-at android.security.keystore2.AndroidKeyStoreKeyPairGeneratorSpi.initialize(AndroidKeyStoreKeyPairGeneratorSpi.java:368)
-at java.security.KeyPairGenerator$Delegate.initialize(KeyPairGenerator.java:720)
-at java.security.KeyPairGenerator.initialize(KeyPairGenerator.java:461)
-at com.solanasuper.security.IdentityKeyManager.generateIdentityKey(IdentityKeyManager.kt:37)
-at com.solanasuper.security.IdentityKeyManagerTest.generateKey_shouldRequireUserAuthentication(IdentityKeyManagerTest.kt:15)
-... 32 trimmed
-Caused by: java.lang.IllegalStateException: At least one biometric must be enrolled to create keys requiring user authentication for every use
-at android.security.keystore2.KeyStore2ParameterUtils.addSids(KeyStore2ParameterUtils.java:269)
-at android.security.keystore2.KeyStore2ParameterUtils.addUserAuthArgs(KeyStore2ParameterUtils.java:330)
-at android.security.keystore2.AndroidKeyStoreKeyPairGeneratorSpi.initialize(AndroidKeyStoreKeyPairGeneratorSpi.java:366)
-... 37 more
+INFO: Execute com.solanasuper.core.ZKProverTest.testIdentityRequest: PASSED
+INFO: Execute com.solanasuper.core.ZKProverTest.testProcessEnclaveRequest: PASSED

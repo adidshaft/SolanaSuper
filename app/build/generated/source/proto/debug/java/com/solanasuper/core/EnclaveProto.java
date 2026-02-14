@@ -9,6 +9,364 @@ public final class EnclaveProto {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistryLite registry) {
   }
+  public interface IdentityRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.solanasuper.core.IdentityRequest)
+      com.google.protobuf.MessageLiteOrBuilder {
+
+    /**
+     * <code>string attribute_id = 1;</code>
+     * @return The attributeId.
+     */
+    java.lang.String getAttributeId();
+    /**
+     * <code>string attribute_id = 1;</code>
+     * @return The bytes for attributeId.
+     */
+    com.google.protobuf.ByteString
+        getAttributeIdBytes();
+
+    /**
+     * <code>bytes encrypted_identity_seed = 2;</code>
+     * @return The encryptedIdentitySeed.
+     */
+    com.google.protobuf.ByteString getEncryptedIdentitySeed();
+  }
+  /**
+   * Protobuf type {@code com.solanasuper.core.IdentityRequest}
+   */
+  public  static final class IdentityRequest extends
+      com.google.protobuf.GeneratedMessageLite<
+          IdentityRequest, IdentityRequest.Builder> implements
+      // @@protoc_insertion_point(message_implements:com.solanasuper.core.IdentityRequest)
+      IdentityRequestOrBuilder {
+    private IdentityRequest() {
+      attributeId_ = "";
+      encryptedIdentitySeed_ = com.google.protobuf.ByteString.EMPTY;
+    }
+    public static final int ATTRIBUTE_ID_FIELD_NUMBER = 1;
+    private java.lang.String attributeId_;
+    /**
+     * <code>string attribute_id = 1;</code>
+     * @return The attributeId.
+     */
+    @java.lang.Override
+    public java.lang.String getAttributeId() {
+      return attributeId_;
+    }
+    /**
+     * <code>string attribute_id = 1;</code>
+     * @return The bytes for attributeId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAttributeIdBytes() {
+      return com.google.protobuf.ByteString.copyFromUtf8(attributeId_);
+    }
+    /**
+     * <code>string attribute_id = 1;</code>
+     * @param value The attributeId to set.
+     */
+    private void setAttributeId(
+        java.lang.String value) {
+      java.lang.Class<?> valueClass = value.getClass();
+  
+      attributeId_ = value;
+    }
+    /**
+     * <code>string attribute_id = 1;</code>
+     */
+    private void clearAttributeId() {
+
+      attributeId_ = getDefaultInstance().getAttributeId();
+    }
+    /**
+     * <code>string attribute_id = 1;</code>
+     * @param value The bytes for attributeId to set.
+     */
+    private void setAttributeIdBytes(
+        com.google.protobuf.ByteString value) {
+      checkByteStringIsUtf8(value);
+      attributeId_ = value.toStringUtf8();
+
+    }
+
+    public static final int ENCRYPTED_IDENTITY_SEED_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString encryptedIdentitySeed_;
+    /**
+     * <code>bytes encrypted_identity_seed = 2;</code>
+     * @return The encryptedIdentitySeed.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getEncryptedIdentitySeed() {
+      return encryptedIdentitySeed_;
+    }
+    /**
+     * <code>bytes encrypted_identity_seed = 2;</code>
+     * @param value The encryptedIdentitySeed to set.
+     */
+    private void setEncryptedIdentitySeed(com.google.protobuf.ByteString value) {
+      java.lang.Class<?> valueClass = value.getClass();
+  
+      encryptedIdentitySeed_ = value;
+    }
+    /**
+     * <code>bytes encrypted_identity_seed = 2;</code>
+     */
+    private void clearEncryptedIdentitySeed() {
+
+      encryptedIdentitySeed_ = getDefaultInstance().getEncryptedIdentitySeed();
+    }
+
+    public static com.solanasuper.core.EnclaveProto.IdentityRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.solanasuper.core.EnclaveProto.IdentityRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.solanasuper.core.EnclaveProto.IdentityRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.solanasuper.core.EnclaveProto.IdentityRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.solanasuper.core.EnclaveProto.IdentityRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.solanasuper.core.EnclaveProto.IdentityRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.solanasuper.core.EnclaveProto.IdentityRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, input);
+    }
+    public static com.solanasuper.core.EnclaveProto.IdentityRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, input, extensionRegistry);
+    }
+
+    public static com.solanasuper.core.EnclaveProto.IdentityRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+    }
+
+    public static com.solanasuper.core.EnclaveProto.IdentityRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+    }
+    public static com.solanasuper.core.EnclaveProto.IdentityRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, input);
+    }
+    public static com.solanasuper.core.EnclaveProto.IdentityRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() {
+      return (Builder) DEFAULT_INSTANCE.createBuilder();
+    }
+    public static Builder newBuilder(com.solanasuper.core.EnclaveProto.IdentityRequest prototype) {
+      return DEFAULT_INSTANCE.createBuilder(prototype);
+    }
+
+    /**
+     * Protobuf type {@code com.solanasuper.core.IdentityRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          com.solanasuper.core.EnclaveProto.IdentityRequest, Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.solanasuper.core.IdentityRequest)
+        com.solanasuper.core.EnclaveProto.IdentityRequestOrBuilder {
+      // Construct using com.solanasuper.core.EnclaveProto.IdentityRequest.newBuilder()
+      private Builder() {
+        super(DEFAULT_INSTANCE);
+      }
+
+
+      /**
+       * <code>string attribute_id = 1;</code>
+       * @return The attributeId.
+       */
+      @java.lang.Override
+      public java.lang.String getAttributeId() {
+        return instance.getAttributeId();
+      }
+      /**
+       * <code>string attribute_id = 1;</code>
+       * @return The bytes for attributeId.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getAttributeIdBytes() {
+        return instance.getAttributeIdBytes();
+      }
+      /**
+       * <code>string attribute_id = 1;</code>
+       * @param value The attributeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAttributeId(
+          java.lang.String value) {
+        copyOnWrite();
+        instance.setAttributeId(value);
+        return this;
+      }
+      /**
+       * <code>string attribute_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAttributeId() {
+        copyOnWrite();
+        instance.clearAttributeId();
+        return this;
+      }
+      /**
+       * <code>string attribute_id = 1;</code>
+       * @param value The bytes for attributeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAttributeIdBytes(
+          com.google.protobuf.ByteString value) {
+        copyOnWrite();
+        instance.setAttributeIdBytes(value);
+        return this;
+      }
+
+      /**
+       * <code>bytes encrypted_identity_seed = 2;</code>
+       * @return The encryptedIdentitySeed.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getEncryptedIdentitySeed() {
+        return instance.getEncryptedIdentitySeed();
+      }
+      /**
+       * <code>bytes encrypted_identity_seed = 2;</code>
+       * @param value The encryptedIdentitySeed to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEncryptedIdentitySeed(com.google.protobuf.ByteString value) {
+        copyOnWrite();
+        instance.setEncryptedIdentitySeed(value);
+        return this;
+      }
+      /**
+       * <code>bytes encrypted_identity_seed = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEncryptedIdentitySeed() {
+        copyOnWrite();
+        instance.clearEncryptedIdentitySeed();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:com.solanasuper.core.IdentityRequest)
+    }
+    @java.lang.Override
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
+        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
+        java.lang.Object arg0, java.lang.Object arg1) {
+      switch (method) {
+        case NEW_MUTABLE_INSTANCE: {
+          return new com.solanasuper.core.EnclaveProto.IdentityRequest();
+        }
+        case NEW_BUILDER: {
+          return new Builder();
+        }
+        case BUILD_MESSAGE_INFO: {
+            java.lang.Object[] objects = new java.lang.Object[] {
+              "attributeId_",
+              "encryptedIdentitySeed_",
+            };
+            java.lang.String info =
+                "\u0000\u0002\u0000\u0000\u0001\u0002\u0002\u0000\u0000\u0000\u0001\u0208\u0002\n" +
+                "";
+            return newMessageInfo(DEFAULT_INSTANCE, info, objects);
+        }
+        // fall through
+        case GET_DEFAULT_INSTANCE: {
+          return DEFAULT_INSTANCE;
+        }
+        case GET_PARSER: {
+          com.google.protobuf.Parser<com.solanasuper.core.EnclaveProto.IdentityRequest> parser = PARSER;
+          if (parser == null) {
+            synchronized (com.solanasuper.core.EnclaveProto.IdentityRequest.class) {
+              parser = PARSER;
+              if (parser == null) {
+                parser =
+                    new DefaultInstanceBasedParser<com.solanasuper.core.EnclaveProto.IdentityRequest>(
+                        DEFAULT_INSTANCE);
+                PARSER = parser;
+              }
+            }
+          }
+          return parser;
+      }
+      case GET_MEMOIZED_IS_INITIALIZED: {
+        return (byte) 1;
+      }
+      case SET_MEMOIZED_IS_INITIALIZED: {
+        return null;
+      }
+      }
+      throw new UnsupportedOperationException();
+    }
+
+
+    // @@protoc_insertion_point(class_scope:com.solanasuper.core.IdentityRequest)
+    private static final com.solanasuper.core.EnclaveProto.IdentityRequest DEFAULT_INSTANCE;
+    static {
+      IdentityRequest defaultInstance = new IdentityRequest();
+      // New instances are implicitly immutable so no need to make
+      // immutable.
+      DEFAULT_INSTANCE = defaultInstance;
+      com.google.protobuf.GeneratedMessageLite.registerDefaultInstance(
+        IdentityRequest.class, defaultInstance);
+    }
+
+    public static com.solanasuper.core.EnclaveProto.IdentityRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static volatile com.google.protobuf.Parser<IdentityRequest> PARSER;
+
+    public static com.google.protobuf.Parser<IdentityRequest> parser() {
+      return DEFAULT_INSTANCE.getParserForType();
+    }
+  }
+
   public interface EnclaveRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:com.solanasuper.core.EnclaveRequest)
       com.google.protobuf.MessageLiteOrBuilder {
@@ -54,6 +412,17 @@ public final class EnclaveProto {
      * @return The payload.
      */
     com.google.protobuf.ByteString getPayload();
+
+    /**
+     * <code>.com.solanasuper.core.IdentityRequest identity_req = 4;</code>
+     * @return Whether the identityReq field is set.
+     */
+    boolean hasIdentityReq();
+    /**
+     * <code>.com.solanasuper.core.IdentityRequest identity_req = 4;</code>
+     * @return The identityReq.
+     */
+    com.solanasuper.core.EnclaveProto.IdentityRequest getIdentityReq();
   }
   /**
    * Protobuf type {@code com.solanasuper.core.EnclaveRequest}
@@ -68,6 +437,7 @@ public final class EnclaveProto {
       actionType_ = "";
       payload_ = com.google.protobuf.ByteString.EMPTY;
     }
+    private int bitField0_;
     public static final int REQUEST_ID_FIELD_NUMBER = 1;
     private java.lang.String requestId_;
     /**
@@ -219,6 +589,52 @@ public final class EnclaveProto {
     private void clearPayload() {
 
       payload_ = getDefaultInstance().getPayload();
+    }
+
+    public static final int IDENTITY_REQ_FIELD_NUMBER = 4;
+    private com.solanasuper.core.EnclaveProto.IdentityRequest identityReq_;
+    /**
+     * <code>.com.solanasuper.core.IdentityRequest identity_req = 4;</code>
+     */
+    @java.lang.Override
+    public boolean hasIdentityReq() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>.com.solanasuper.core.IdentityRequest identity_req = 4;</code>
+     */
+    @java.lang.Override
+    public com.solanasuper.core.EnclaveProto.IdentityRequest getIdentityReq() {
+      return identityReq_ == null ? com.solanasuper.core.EnclaveProto.IdentityRequest.getDefaultInstance() : identityReq_;
+    }
+    /**
+     * <code>.com.solanasuper.core.IdentityRequest identity_req = 4;</code>
+     */
+    private void setIdentityReq(com.solanasuper.core.EnclaveProto.IdentityRequest value) {
+      value.getClass();
+  identityReq_ = value;
+      bitField0_ |= 0x00000001;
+      }
+    /**
+     * <code>.com.solanasuper.core.IdentityRequest identity_req = 4;</code>
+     */
+    @java.lang.SuppressWarnings({"ReferenceEquality"})
+    private void mergeIdentityReq(com.solanasuper.core.EnclaveProto.IdentityRequest value) {
+      value.getClass();
+  if (identityReq_ != null &&
+          identityReq_ != com.solanasuper.core.EnclaveProto.IdentityRequest.getDefaultInstance()) {
+        identityReq_ =
+          com.solanasuper.core.EnclaveProto.IdentityRequest.newBuilder(identityReq_).mergeFrom(value).buildPartial();
+      } else {
+        identityReq_ = value;
+      }
+      bitField0_ |= 0x00000001;
+    }
+    /**
+     * <code>.com.solanasuper.core.IdentityRequest identity_req = 4;</code>
+     */
+    private void clearIdentityReq() {  identityReq_ = null;
+      bitField0_ = (bitField0_ & ~0x00000001);
     }
 
     public static com.solanasuper.core.EnclaveProto.EnclaveRequest parseFrom(
@@ -476,6 +892,53 @@ public final class EnclaveProto {
         return this;
       }
 
+      /**
+       * <code>.com.solanasuper.core.IdentityRequest identity_req = 4;</code>
+       */
+      @java.lang.Override
+      public boolean hasIdentityReq() {
+        return instance.hasIdentityReq();
+      }
+      /**
+       * <code>.com.solanasuper.core.IdentityRequest identity_req = 4;</code>
+       */
+      @java.lang.Override
+      public com.solanasuper.core.EnclaveProto.IdentityRequest getIdentityReq() {
+        return instance.getIdentityReq();
+      }
+      /**
+       * <code>.com.solanasuper.core.IdentityRequest identity_req = 4;</code>
+       */
+      public Builder setIdentityReq(com.solanasuper.core.EnclaveProto.IdentityRequest value) {
+        copyOnWrite();
+        instance.setIdentityReq(value);
+        return this;
+        }
+      /**
+       * <code>.com.solanasuper.core.IdentityRequest identity_req = 4;</code>
+       */
+      public Builder setIdentityReq(
+          com.solanasuper.core.EnclaveProto.IdentityRequest.Builder builderForValue) {
+        copyOnWrite();
+        instance.setIdentityReq(builderForValue.build());
+        return this;
+      }
+      /**
+       * <code>.com.solanasuper.core.IdentityRequest identity_req = 4;</code>
+       */
+      public Builder mergeIdentityReq(com.solanasuper.core.EnclaveProto.IdentityRequest value) {
+        copyOnWrite();
+        instance.mergeIdentityReq(value);
+        return this;
+      }
+      /**
+       * <code>.com.solanasuper.core.IdentityRequest identity_req = 4;</code>
+       */
+      public Builder clearIdentityReq() {  copyOnWrite();
+        instance.clearIdentityReq();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:com.solanasuper.core.EnclaveRequest)
     }
     @java.lang.Override
@@ -492,13 +955,15 @@ public final class EnclaveProto {
         }
         case BUILD_MESSAGE_INFO: {
             java.lang.Object[] objects = new java.lang.Object[] {
+              "bitField0_",
               "requestId_",
               "actionType_",
               "payload_",
+              "identityReq_",
             };
             java.lang.String info =
-                "\u0000\u0003\u0000\u0000\u0001\u0003\u0003\u0000\u0000\u0000\u0001\u0208\u0002\u0208" +
-                "\u0003\n";
+                "\u0000\u0004\u0000\u0001\u0001\u0004\u0004\u0000\u0000\u0000\u0001\u0208\u0002\u0208" +
+                "\u0003\n\u0004\u1009\u0000";
             return newMessageInfo(DEFAULT_INSTANCE, info, objects);
         }
         // fall through

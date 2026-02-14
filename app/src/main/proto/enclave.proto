@@ -1,0 +1,47 @@
+
+syntax = "proto3";
+package enclave;
+
+option java_package = "com.solanasuper.core.proto";
+option java_outer_classname = "EnclaveProto";
+
+// The single entry point for the Rust JNI bridge
+message EnclaveRequest {
+  oneof payload {
+    IdentityRequest identity_req = 1;
+    GovernanceRequest governance_req = 2;
+    IncomeRequest income_req = 3;
+    HealthRequest health_req = 4;
+  }
+}
+
+// 1. Identity attestation
+message IdentityRequest {
+  string attribute_id = 1;
+  bytes encrypted_identity_seed = 2;
+}
+
+// 2. Governance voting
+message GovernanceRequest {
+  int32 vote_choice = 1;
+  string election_id = 2;
+}
+
+// 3. Offline Income/Payments
+message IncomeRequest {
+  int64 amount_lamports = 1;
+  string receiver_pubkey = 2;
+}
+
+// 4. Health data proofs
+message HealthRequest {
+  string record_id = 1;
+  string condition_to_prove = 2;
+}
+
+// The unified response from Rust back to Kotlin
+message EnclaveResponse {
+  bool success = 1;
+  bytes zk_proof = 2;
+  string error_message = 3;
+}

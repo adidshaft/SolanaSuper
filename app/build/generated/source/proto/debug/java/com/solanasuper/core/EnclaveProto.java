@@ -367,6 +367,550 @@ public final class EnclaveProto {
     }
   }
 
+  public interface GovernanceRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.solanasuper.core.GovernanceRequest)
+      com.google.protobuf.MessageLiteOrBuilder {
+
+    /**
+     * <code>string proposal_id = 1;</code>
+     * @return The proposalId.
+     */
+    java.lang.String getProposalId();
+    /**
+     * <code>string proposal_id = 1;</code>
+     * @return The bytes for proposalId.
+     */
+    com.google.protobuf.ByteString
+        getProposalIdBytes();
+
+    /**
+     * <pre>
+     * "YES", "NO"
+     * </pre>
+     *
+     * <code>string vote_choice = 2;</code>
+     * @return The voteChoice.
+     */
+    java.lang.String getVoteChoice();
+    /**
+     * <pre>
+     * "YES", "NO"
+     * </pre>
+     *
+     * <code>string vote_choice = 2;</code>
+     * @return The bytes for voteChoice.
+     */
+    com.google.protobuf.ByteString
+        getVoteChoiceBytes();
+
+    /**
+     * <pre>
+     * Signed by hardware key
+     * </pre>
+     *
+     * <code>bytes identity_signature = 3;</code>
+     * @return The identitySignature.
+     */
+    com.google.protobuf.ByteString getIdentitySignature();
+  }
+  /**
+   * Protobuf type {@code com.solanasuper.core.GovernanceRequest}
+   */
+  public  static final class GovernanceRequest extends
+      com.google.protobuf.GeneratedMessageLite<
+          GovernanceRequest, GovernanceRequest.Builder> implements
+      // @@protoc_insertion_point(message_implements:com.solanasuper.core.GovernanceRequest)
+      GovernanceRequestOrBuilder {
+    private GovernanceRequest() {
+      proposalId_ = "";
+      voteChoice_ = "";
+      identitySignature_ = com.google.protobuf.ByteString.EMPTY;
+    }
+    public static final int PROPOSAL_ID_FIELD_NUMBER = 1;
+    private java.lang.String proposalId_;
+    /**
+     * <code>string proposal_id = 1;</code>
+     * @return The proposalId.
+     */
+    @java.lang.Override
+    public java.lang.String getProposalId() {
+      return proposalId_;
+    }
+    /**
+     * <code>string proposal_id = 1;</code>
+     * @return The bytes for proposalId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getProposalIdBytes() {
+      return com.google.protobuf.ByteString.copyFromUtf8(proposalId_);
+    }
+    /**
+     * <code>string proposal_id = 1;</code>
+     * @param value The proposalId to set.
+     */
+    private void setProposalId(
+        java.lang.String value) {
+      java.lang.Class<?> valueClass = value.getClass();
+  
+      proposalId_ = value;
+    }
+    /**
+     * <code>string proposal_id = 1;</code>
+     */
+    private void clearProposalId() {
+
+      proposalId_ = getDefaultInstance().getProposalId();
+    }
+    /**
+     * <code>string proposal_id = 1;</code>
+     * @param value The bytes for proposalId to set.
+     */
+    private void setProposalIdBytes(
+        com.google.protobuf.ByteString value) {
+      checkByteStringIsUtf8(value);
+      proposalId_ = value.toStringUtf8();
+
+    }
+
+    public static final int VOTE_CHOICE_FIELD_NUMBER = 2;
+    private java.lang.String voteChoice_;
+    /**
+     * <pre>
+     * "YES", "NO"
+     * </pre>
+     *
+     * <code>string vote_choice = 2;</code>
+     * @return The voteChoice.
+     */
+    @java.lang.Override
+    public java.lang.String getVoteChoice() {
+      return voteChoice_;
+    }
+    /**
+     * <pre>
+     * "YES", "NO"
+     * </pre>
+     *
+     * <code>string vote_choice = 2;</code>
+     * @return The bytes for voteChoice.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getVoteChoiceBytes() {
+      return com.google.protobuf.ByteString.copyFromUtf8(voteChoice_);
+    }
+    /**
+     * <pre>
+     * "YES", "NO"
+     * </pre>
+     *
+     * <code>string vote_choice = 2;</code>
+     * @param value The voteChoice to set.
+     */
+    private void setVoteChoice(
+        java.lang.String value) {
+      java.lang.Class<?> valueClass = value.getClass();
+  
+      voteChoice_ = value;
+    }
+    /**
+     * <pre>
+     * "YES", "NO"
+     * </pre>
+     *
+     * <code>string vote_choice = 2;</code>
+     */
+    private void clearVoteChoice() {
+
+      voteChoice_ = getDefaultInstance().getVoteChoice();
+    }
+    /**
+     * <pre>
+     * "YES", "NO"
+     * </pre>
+     *
+     * <code>string vote_choice = 2;</code>
+     * @param value The bytes for voteChoice to set.
+     */
+    private void setVoteChoiceBytes(
+        com.google.protobuf.ByteString value) {
+      checkByteStringIsUtf8(value);
+      voteChoice_ = value.toStringUtf8();
+
+    }
+
+    public static final int IDENTITY_SIGNATURE_FIELD_NUMBER = 3;
+    private com.google.protobuf.ByteString identitySignature_;
+    /**
+     * <pre>
+     * Signed by hardware key
+     * </pre>
+     *
+     * <code>bytes identity_signature = 3;</code>
+     * @return The identitySignature.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getIdentitySignature() {
+      return identitySignature_;
+    }
+    /**
+     * <pre>
+     * Signed by hardware key
+     * </pre>
+     *
+     * <code>bytes identity_signature = 3;</code>
+     * @param value The identitySignature to set.
+     */
+    private void setIdentitySignature(com.google.protobuf.ByteString value) {
+      java.lang.Class<?> valueClass = value.getClass();
+  
+      identitySignature_ = value;
+    }
+    /**
+     * <pre>
+     * Signed by hardware key
+     * </pre>
+     *
+     * <code>bytes identity_signature = 3;</code>
+     */
+    private void clearIdentitySignature() {
+
+      identitySignature_ = getDefaultInstance().getIdentitySignature();
+    }
+
+    public static com.solanasuper.core.EnclaveProto.GovernanceRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.solanasuper.core.EnclaveProto.GovernanceRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.solanasuper.core.EnclaveProto.GovernanceRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.solanasuper.core.EnclaveProto.GovernanceRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.solanasuper.core.EnclaveProto.GovernanceRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.solanasuper.core.EnclaveProto.GovernanceRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.solanasuper.core.EnclaveProto.GovernanceRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, input);
+    }
+    public static com.solanasuper.core.EnclaveProto.GovernanceRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, input, extensionRegistry);
+    }
+
+    public static com.solanasuper.core.EnclaveProto.GovernanceRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+    }
+
+    public static com.solanasuper.core.EnclaveProto.GovernanceRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+    }
+    public static com.solanasuper.core.EnclaveProto.GovernanceRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, input);
+    }
+    public static com.solanasuper.core.EnclaveProto.GovernanceRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() {
+      return (Builder) DEFAULT_INSTANCE.createBuilder();
+    }
+    public static Builder newBuilder(com.solanasuper.core.EnclaveProto.GovernanceRequest prototype) {
+      return DEFAULT_INSTANCE.createBuilder(prototype);
+    }
+
+    /**
+     * Protobuf type {@code com.solanasuper.core.GovernanceRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          com.solanasuper.core.EnclaveProto.GovernanceRequest, Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.solanasuper.core.GovernanceRequest)
+        com.solanasuper.core.EnclaveProto.GovernanceRequestOrBuilder {
+      // Construct using com.solanasuper.core.EnclaveProto.GovernanceRequest.newBuilder()
+      private Builder() {
+        super(DEFAULT_INSTANCE);
+      }
+
+
+      /**
+       * <code>string proposal_id = 1;</code>
+       * @return The proposalId.
+       */
+      @java.lang.Override
+      public java.lang.String getProposalId() {
+        return instance.getProposalId();
+      }
+      /**
+       * <code>string proposal_id = 1;</code>
+       * @return The bytes for proposalId.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getProposalIdBytes() {
+        return instance.getProposalIdBytes();
+      }
+      /**
+       * <code>string proposal_id = 1;</code>
+       * @param value The proposalId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProposalId(
+          java.lang.String value) {
+        copyOnWrite();
+        instance.setProposalId(value);
+        return this;
+      }
+      /**
+       * <code>string proposal_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearProposalId() {
+        copyOnWrite();
+        instance.clearProposalId();
+        return this;
+      }
+      /**
+       * <code>string proposal_id = 1;</code>
+       * @param value The bytes for proposalId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProposalIdBytes(
+          com.google.protobuf.ByteString value) {
+        copyOnWrite();
+        instance.setProposalIdBytes(value);
+        return this;
+      }
+
+      /**
+       * <pre>
+       * "YES", "NO"
+       * </pre>
+       *
+       * <code>string vote_choice = 2;</code>
+       * @return The voteChoice.
+       */
+      @java.lang.Override
+      public java.lang.String getVoteChoice() {
+        return instance.getVoteChoice();
+      }
+      /**
+       * <pre>
+       * "YES", "NO"
+       * </pre>
+       *
+       * <code>string vote_choice = 2;</code>
+       * @return The bytes for voteChoice.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getVoteChoiceBytes() {
+        return instance.getVoteChoiceBytes();
+      }
+      /**
+       * <pre>
+       * "YES", "NO"
+       * </pre>
+       *
+       * <code>string vote_choice = 2;</code>
+       * @param value The voteChoice to set.
+       * @return This builder for chaining.
+       */
+      public Builder setVoteChoice(
+          java.lang.String value) {
+        copyOnWrite();
+        instance.setVoteChoice(value);
+        return this;
+      }
+      /**
+       * <pre>
+       * "YES", "NO"
+       * </pre>
+       *
+       * <code>string vote_choice = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearVoteChoice() {
+        copyOnWrite();
+        instance.clearVoteChoice();
+        return this;
+      }
+      /**
+       * <pre>
+       * "YES", "NO"
+       * </pre>
+       *
+       * <code>string vote_choice = 2;</code>
+       * @param value The bytes for voteChoice to set.
+       * @return This builder for chaining.
+       */
+      public Builder setVoteChoiceBytes(
+          com.google.protobuf.ByteString value) {
+        copyOnWrite();
+        instance.setVoteChoiceBytes(value);
+        return this;
+      }
+
+      /**
+       * <pre>
+       * Signed by hardware key
+       * </pre>
+       *
+       * <code>bytes identity_signature = 3;</code>
+       * @return The identitySignature.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getIdentitySignature() {
+        return instance.getIdentitySignature();
+      }
+      /**
+       * <pre>
+       * Signed by hardware key
+       * </pre>
+       *
+       * <code>bytes identity_signature = 3;</code>
+       * @param value The identitySignature to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdentitySignature(com.google.protobuf.ByteString value) {
+        copyOnWrite();
+        instance.setIdentitySignature(value);
+        return this;
+      }
+      /**
+       * <pre>
+       * Signed by hardware key
+       * </pre>
+       *
+       * <code>bytes identity_signature = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIdentitySignature() {
+        copyOnWrite();
+        instance.clearIdentitySignature();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:com.solanasuper.core.GovernanceRequest)
+    }
+    @java.lang.Override
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
+        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
+        java.lang.Object arg0, java.lang.Object arg1) {
+      switch (method) {
+        case NEW_MUTABLE_INSTANCE: {
+          return new com.solanasuper.core.EnclaveProto.GovernanceRequest();
+        }
+        case NEW_BUILDER: {
+          return new Builder();
+        }
+        case BUILD_MESSAGE_INFO: {
+            java.lang.Object[] objects = new java.lang.Object[] {
+              "proposalId_",
+              "voteChoice_",
+              "identitySignature_",
+            };
+            java.lang.String info =
+                "\u0000\u0003\u0000\u0000\u0001\u0003\u0003\u0000\u0000\u0000\u0001\u0208\u0002\u0208" +
+                "\u0003\n";
+            return newMessageInfo(DEFAULT_INSTANCE, info, objects);
+        }
+        // fall through
+        case GET_DEFAULT_INSTANCE: {
+          return DEFAULT_INSTANCE;
+        }
+        case GET_PARSER: {
+          com.google.protobuf.Parser<com.solanasuper.core.EnclaveProto.GovernanceRequest> parser = PARSER;
+          if (parser == null) {
+            synchronized (com.solanasuper.core.EnclaveProto.GovernanceRequest.class) {
+              parser = PARSER;
+              if (parser == null) {
+                parser =
+                    new DefaultInstanceBasedParser<com.solanasuper.core.EnclaveProto.GovernanceRequest>(
+                        DEFAULT_INSTANCE);
+                PARSER = parser;
+              }
+            }
+          }
+          return parser;
+      }
+      case GET_MEMOIZED_IS_INITIALIZED: {
+        return (byte) 1;
+      }
+      case SET_MEMOIZED_IS_INITIALIZED: {
+        return null;
+      }
+      }
+      throw new UnsupportedOperationException();
+    }
+
+
+    // @@protoc_insertion_point(class_scope:com.solanasuper.core.GovernanceRequest)
+    private static final com.solanasuper.core.EnclaveProto.GovernanceRequest DEFAULT_INSTANCE;
+    static {
+      GovernanceRequest defaultInstance = new GovernanceRequest();
+      // New instances are implicitly immutable so no need to make
+      // immutable.
+      DEFAULT_INSTANCE = defaultInstance;
+      com.google.protobuf.GeneratedMessageLite.registerDefaultInstance(
+        GovernanceRequest.class, defaultInstance);
+    }
+
+    public static com.solanasuper.core.EnclaveProto.GovernanceRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static volatile com.google.protobuf.Parser<GovernanceRequest> PARSER;
+
+    public static com.google.protobuf.Parser<GovernanceRequest> parser() {
+      return DEFAULT_INSTANCE.getParserForType();
+    }
+  }
+
   public interface EnclaveRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:com.solanasuper.core.EnclaveRequest)
       com.google.protobuf.MessageLiteOrBuilder {
@@ -423,6 +967,17 @@ public final class EnclaveProto {
      * @return The identityReq.
      */
     com.solanasuper.core.EnclaveProto.IdentityRequest getIdentityReq();
+
+    /**
+     * <code>.com.solanasuper.core.GovernanceRequest governance_req = 5;</code>
+     * @return Whether the governanceReq field is set.
+     */
+    boolean hasGovernanceReq();
+    /**
+     * <code>.com.solanasuper.core.GovernanceRequest governance_req = 5;</code>
+     * @return The governanceReq.
+     */
+    com.solanasuper.core.EnclaveProto.GovernanceRequest getGovernanceReq();
   }
   /**
    * Protobuf type {@code com.solanasuper.core.EnclaveRequest}
@@ -635,6 +1190,52 @@ public final class EnclaveProto {
      */
     private void clearIdentityReq() {  identityReq_ = null;
       bitField0_ = (bitField0_ & ~0x00000001);
+    }
+
+    public static final int GOVERNANCE_REQ_FIELD_NUMBER = 5;
+    private com.solanasuper.core.EnclaveProto.GovernanceRequest governanceReq_;
+    /**
+     * <code>.com.solanasuper.core.GovernanceRequest governance_req = 5;</code>
+     */
+    @java.lang.Override
+    public boolean hasGovernanceReq() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>.com.solanasuper.core.GovernanceRequest governance_req = 5;</code>
+     */
+    @java.lang.Override
+    public com.solanasuper.core.EnclaveProto.GovernanceRequest getGovernanceReq() {
+      return governanceReq_ == null ? com.solanasuper.core.EnclaveProto.GovernanceRequest.getDefaultInstance() : governanceReq_;
+    }
+    /**
+     * <code>.com.solanasuper.core.GovernanceRequest governance_req = 5;</code>
+     */
+    private void setGovernanceReq(com.solanasuper.core.EnclaveProto.GovernanceRequest value) {
+      value.getClass();
+  governanceReq_ = value;
+      bitField0_ |= 0x00000002;
+      }
+    /**
+     * <code>.com.solanasuper.core.GovernanceRequest governance_req = 5;</code>
+     */
+    @java.lang.SuppressWarnings({"ReferenceEquality"})
+    private void mergeGovernanceReq(com.solanasuper.core.EnclaveProto.GovernanceRequest value) {
+      value.getClass();
+  if (governanceReq_ != null &&
+          governanceReq_ != com.solanasuper.core.EnclaveProto.GovernanceRequest.getDefaultInstance()) {
+        governanceReq_ =
+          com.solanasuper.core.EnclaveProto.GovernanceRequest.newBuilder(governanceReq_).mergeFrom(value).buildPartial();
+      } else {
+        governanceReq_ = value;
+      }
+      bitField0_ |= 0x00000002;
+    }
+    /**
+     * <code>.com.solanasuper.core.GovernanceRequest governance_req = 5;</code>
+     */
+    private void clearGovernanceReq() {  governanceReq_ = null;
+      bitField0_ = (bitField0_ & ~0x00000002);
     }
 
     public static com.solanasuper.core.EnclaveProto.EnclaveRequest parseFrom(
@@ -939,6 +1540,53 @@ public final class EnclaveProto {
         return this;
       }
 
+      /**
+       * <code>.com.solanasuper.core.GovernanceRequest governance_req = 5;</code>
+       */
+      @java.lang.Override
+      public boolean hasGovernanceReq() {
+        return instance.hasGovernanceReq();
+      }
+      /**
+       * <code>.com.solanasuper.core.GovernanceRequest governance_req = 5;</code>
+       */
+      @java.lang.Override
+      public com.solanasuper.core.EnclaveProto.GovernanceRequest getGovernanceReq() {
+        return instance.getGovernanceReq();
+      }
+      /**
+       * <code>.com.solanasuper.core.GovernanceRequest governance_req = 5;</code>
+       */
+      public Builder setGovernanceReq(com.solanasuper.core.EnclaveProto.GovernanceRequest value) {
+        copyOnWrite();
+        instance.setGovernanceReq(value);
+        return this;
+        }
+      /**
+       * <code>.com.solanasuper.core.GovernanceRequest governance_req = 5;</code>
+       */
+      public Builder setGovernanceReq(
+          com.solanasuper.core.EnclaveProto.GovernanceRequest.Builder builderForValue) {
+        copyOnWrite();
+        instance.setGovernanceReq(builderForValue.build());
+        return this;
+      }
+      /**
+       * <code>.com.solanasuper.core.GovernanceRequest governance_req = 5;</code>
+       */
+      public Builder mergeGovernanceReq(com.solanasuper.core.EnclaveProto.GovernanceRequest value) {
+        copyOnWrite();
+        instance.mergeGovernanceReq(value);
+        return this;
+      }
+      /**
+       * <code>.com.solanasuper.core.GovernanceRequest governance_req = 5;</code>
+       */
+      public Builder clearGovernanceReq() {  copyOnWrite();
+        instance.clearGovernanceReq();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:com.solanasuper.core.EnclaveRequest)
     }
     @java.lang.Override
@@ -960,10 +1608,11 @@ public final class EnclaveProto {
               "actionType_",
               "payload_",
               "identityReq_",
+              "governanceReq_",
             };
             java.lang.String info =
-                "\u0000\u0004\u0000\u0001\u0001\u0004\u0004\u0000\u0000\u0000\u0001\u0208\u0002\u0208" +
-                "\u0003\n\u0004\u1009\u0000";
+                "\u0000\u0005\u0000\u0001\u0001\u0005\u0005\u0000\u0000\u0000\u0001\u0208\u0002\u0208" +
+                "\u0003\n\u0004\u1009\u0000\u0005\u1009\u0001";
             return newMessageInfo(DEFAULT_INSTANCE, info, objects);
         }
         // fall through

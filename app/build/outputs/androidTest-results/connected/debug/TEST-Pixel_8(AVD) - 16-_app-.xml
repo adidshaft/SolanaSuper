@@ -1,10 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<testsuite name="com.solanasuper.core.ZKProverTest" tests="2" failures="0" errors="0" skipped="0" time="0.522" timestamp="2026-02-14T18:09:33" hostname="localhost">
+<testsuite name="com.solanasuper.core.GovernanceTest" tests="1" failures="1" errors="0" skipped="0" time="0.488" timestamp="2026-02-14T18:21:57" hostname="localhost">
   <properties>
     <property name="device" value="Pixel_8(AVD) - 16" />
     <property name="flavor" value="" />
     <property name="project" value=":app" />
   </properties>
-  <testcase name="testIdentityRequest" classname="com.solanasuper.core.ZKProverTest" time="0.008" />
-  <testcase name="testProcessEnclaveRequest" classname="com.solanasuper.core.ZKProverTest" time="0.002" />
+  <testcase name="testSecureVoteGeneration" classname="com.solanasuper.core.GovernanceTest" time="0.001">
+    <failure>org.junit.ComparisonFailure: expected:&lt;m[pc_vote_share_for_proposal_ubi_001]&gt; but was:&lt;m[ock_zk_proof_data]&gt;
+at org.junit.Assert.assertEquals(Assert.java:117)
+at org.junit.Assert.assertEquals(Assert.java:146)
+at com.solanasuper.core.GovernanceTest.testSecureVoteGeneration(GovernanceTest.kt:38)
+</failure>
+  </testcase>
 </testsuite>

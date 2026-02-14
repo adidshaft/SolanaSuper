@@ -1,14 +1,14 @@
 ninja: Entering directory `/Users/amanpandey/Desktop/SolanaSuper/app/.cxx/Debug/6e3r3f2a/arm64-v8a'
 [1/2] Building Rust library for aarch64-linux-android
    Compiling solanasuper_core v0.1.0 (/Users/amanpandey/Desktop/SolanaSuper/app/src/main/cpp/rust)
-warning: unused import: `IdentityRequest`
-  --> src/lib.rs:41:48
+warning: unused imports: `GovernanceRequest`, `IdentityRequest`
+  --> src/lib.rs:53:48
    |
-41 | use enclave::{EnclaveRequest, EnclaveResponse, IdentityRequest};
-   |                                                ^^^^^^^^^^^^^^^
+53 | use enclave::{EnclaveRequest, EnclaveResponse, IdentityRequest, GovernanceRequest};
+   |                                                ^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^
    |
    = note: `#[warn(unused_imports)]` on by default
 
 warning: `solanasuper_core` (lib) generated 1 warning (run `cargo fix --lib -p solanasuper_core` to apply 1 suggestion)
-    Finished `release` profile [optimized] target(s) in 0.85s
+    Finished `release` profile [optimized] target(s) in 0.93s
 [2/2] Linking CXX shared library /Users/amanpandey/Desktop/SolanaSuper/app/build/intermediates/cxx/Debug/6e3r3f2a/obj/arm64-v8a/libjni_wrapper.so

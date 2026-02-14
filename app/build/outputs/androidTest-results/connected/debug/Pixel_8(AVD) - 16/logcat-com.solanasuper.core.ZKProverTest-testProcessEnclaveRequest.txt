@@ -1,2 +1,0 @@
-02-14 23:39:32.725 10358 10372 I TestRunner: started: testProcessEnclaveRequest(com.solanasuper.core.ZKProverTest)
-02-14 23:39:32.726 10358 10372 I TestRunner: finished: testProcessEnclaveRequest(com.solanasuper.core.ZKProverTest)

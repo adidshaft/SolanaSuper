@@ -10,11 +10,18 @@ message IdentityRequest {
   bytes encrypted_identity_seed = 2;
 }
 
+message GovernanceRequest {
+  string proposal_id = 1;
+  string vote_choice = 2; // "YES", "NO"
+  bytes identity_signature = 3; // Signed by hardware key
+}
+
 message EnclaveRequest {
   string request_id = 1;
   string action_type = 2; // e.g., "GENERATE_PROOF", "VERIFY_PROOF"
   bytes payload = 3;      // The actual data to process (health record, transaction, etc.)
-  IdentityRequest identity_req = 4; 
+  IdentityRequest identity_req = 4;
+  GovernanceRequest governance_req = 5;
 }
 
 message EnclaveResponse {

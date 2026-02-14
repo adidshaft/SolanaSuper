@@ -1,10 +1,14 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<testsuite name="com.solanasuper.ui.income.IncomeScreenTest" tests="2" failures="0" errors="0" skipped="0" time="2.364" timestamp="2026-02-14T18:59:34" hostname="localhost">
+<testsuite name="com.solanasuper.ui.health.HealthScreenTest" tests="1" failures="1" errors="0" skipped="0" time="1.543" timestamp="2026-02-14T19:03:30" hostname="localhost">
   <properties>
     <property name="device" value="Pixel_8(AVD) - 16" />
     <property name="flavor" value="" />
     <property name="project" value=":app" />
   </properties>
-  <testcase name="incomeScreen_showsP2PDialog_whenScanning" classname="com.solanasuper.ui.income.IncomeScreenTest" time="1.134" />
-  <testcase name="incomeScreen_displaysBalance_andActions" classname="com.solanasuper.ui.income.IncomeScreenTest" time="0.72" />
+  <testcase name="healthScreen_startsLocked_andHidesRecords" classname="com.solanasuper.ui.health.HealthScreenTest" time="1.131">
+    <failure>java.lang.AssertionError: Assert failed: The component is not displayed!
+at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+at com.solanasuper.ui.health.HealthScreenTest.healthScreen_startsLocked_andHidesRecords(HealthScreenTest.kt:27)
+</failure>
+  </testcase>
 </testsuite>

@@ -12,7 +12,7 @@ INFO: Configuring Android Instrumentation driver: android_instrumentation_runtim
     }
     args_map {
       key: "class"
-      value: "com.solanasuper.ui.income.IncomeScreenTest"
+      value: "com.solanasuper.ui.health.HealthScreenTest"
     }
   }
 }
@@ -41,5 +41,11 @@ INFO: Copying files from device to host: /sdcard/Android/media/com.solanasuper/a
 INFO: Stop logcat streaming.
 INFO: Uninstalling com.solanasuper for device emulator-5554.
 INFO: Uninstalling com.solanasuper.test for device emulator-5554.
-INFO: Execute com.solanasuper.ui.income.IncomeScreenTest.incomeScreen_showsP2PDialog_whenScanning: PASSED
-INFO: Execute com.solanasuper.ui.income.IncomeScreenTest.incomeScreen_displaysBalance_andActions: PASSED
+SEVERE: Execute com.solanasuper.ui.health.HealthScreenTest.healthScreen_startsLocked_andHidesRecords: FAILED
+java.lang.AssertionError: java.lang.AssertionError: Assert failed: The component is not displayed!
+at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+at com.solanasuper.ui.health.HealthScreenTest.healthScreen_startsLocked_andHidesRecords(HealthScreenTest.kt:27)
+
+java.lang.AssertionError: Assert failed: The component is not displayed!
+at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+at com.solanasuper.ui.health.HealthScreenTest.healthScreen_startsLocked_andHidesRecords(HealthScreenTest.kt:27)

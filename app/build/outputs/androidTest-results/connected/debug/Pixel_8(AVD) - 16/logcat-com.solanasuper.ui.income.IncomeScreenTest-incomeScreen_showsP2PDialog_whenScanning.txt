@@ -1,0 +1,233 @@
+02-15 00:26:58.096 13948 13964 I TestRunner: started: incomeScreen_showsP2PDialog_whenScanning(com.solanasuper.ui.income.IncomeScreenTest)
+02-15 00:26:58.125 13948 13964 W FileTestStorage: Output properties is not supported.
+02-15 00:26:58.125 13948 13964 I Tracing : Tracer added: class androidx.test.platform.tracing.AndroidXTracer
+02-15 00:26:58.129 13948 13948 D EventInjectionStrategy: Creating injection strategy with input manager.
+02-15 00:26:58.130 13948 13948 I com.solanasuper: hiddenapi: Accessing hidden method Landroid/hardware/input/InputManager;->getInstance()Landroid/hardware/input/InputManager; (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/InputManagerEventInjectionStrategy; (domain=app) using reflection: allowed
+02-15 00:26:58.132 13948 13948 I com.solanasuper: hiddenapi: Accessing hidden method Landroid/hardware/input/InputManager;->injectInputEvent(Landroid/view/InputEvent;I)Z (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/InputManagerEventInjectionStrategy; (domain=app) using reflection: allowed
+02-15 00:26:58.132 13948 13948 I com.solanasuper: hiddenapi: Accessing hidden field Landroid/hardware/input/InputManager;->INJECT_INPUT_EVENT_MODE_WAIT_FOR_FINISH:I (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/InputManagerEventInjectionStrategy; (domain=app) using reflection: allowed
+02-15 00:26:58.136 13948 13948 I com.solanasuper: hiddenapi: Accessing hidden method Landroid/os/MessageQueue;->next()Landroid/os/Message; (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/Interrogator; (domain=app) using reflection: allowed
+02-15 00:26:58.136 13948 13948 I com.solanasuper: hiddenapi: Accessing hidden field Landroid/os/MessageQueue;->mMessages:Landroid/os/Message; (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/Interrogator; (domain=app) using reflection: allowed
+02-15 00:26:58.136 13948 13948 I com.solanasuper: hiddenapi: Accessing hidden method Landroid/os/Message;->recycleUnchecked()V (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/Interrogator; (domain=app) using reflection: allowed
+02-15 00:26:58.137 13948 13964 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.junit4.EspressoLink@c9ad170]
+02-15 00:26:58.147 13948 13964 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+02-15 00:26:58.160   670  2165 I system_server: AssetManager2(0xb4000072c4b4bbb8) locale list changing from [] to [en-US]
+02-15 00:26:58.164   670  2165 V GrammaticalInflectionUtils: AttributionSource: android.content.AttributionSource@611098d0 does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+02-15 00:26:58.178   520   722 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+02-15 00:26:58.208  1075  1213 I ndroid.systemui: AssetManager2(0xb4000072c4b61cd8) locale list changing from [] to [en-US]
+02-15 00:26:58.218  1356  1356 W SplitSelectStateCtor: Missing session instanceIds
+02-15 00:26:58.218  1356  1356 D StatsLog: LAUNCHER_SPLIT_SELECTION_EXIT_INTERRUPTED
+02-15 00:26:58.232   520   520 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+02-15 00:26:58.250 13948 13948 I com.solanasuper: AssetManager2(0xb4000072c4b11b98) locale list changing from [] to [en-US]
+02-15 00:26:58.263 13948 13948 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@8507259 in: PRE_ON_CREATE
+02-15 00:26:58.264 13948 13948 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+02-15 00:26:58.278 13948 13948 D DesktopModeFlags: Toggle override initialized to: OVERRIDE_UNSET
+02-15 00:26:58.281 13948 13967 I EGL_emulation: Opening libGLESv1_CM_emulation.so
+02-15 00:26:58.282 13948 13967 I EGL_emulation: Opening libGLESv2_emulation.so
+02-15 00:26:58.293 13948 13948 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@8507259 in: CREATED
+02-15 00:26:58.294 13948 13948 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=androidx.activity.ComponentActivity@8507259
+02-15 00:26:58.295 13948 13948 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@8507259 in: STARTED
+02-15 00:26:58.295 13948 13967 W HWUI    : Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+02-15 00:26:58.295 13948 13967 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+02-15 00:26:58.296 13948 13948 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=androidx.activity.ComponentActivity@8507259
+02-15 00:26:58.303 13948 13948 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@8507259 in: RESUMED
+02-15 00:26:58.303 13948 13948 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=androidx.activity.ComponentActivity@8507259
+02-15 00:26:58.320 13948 13948 W HWUI    : Unknown dataspace 0
+02-15 00:26:58.397   670   690 I ActivityTaskManager: Displayed com.solanasuper/androidx.activity.ComponentActivity for user 0: +241ms
+02-15 00:26:58.419   670   794 I ImeTracker: com.solanasuper:e8916fc9: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+02-15 00:26:58.422 13948 13948 D InsetsController: hide(ime(), fromIme=false)
+02-15 00:26:58.422 13948 13948 I ImeTracker: com.solanasuper:e8916fc9: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+02-15 00:26:58.426   670  2264 I ImeTracker: system_server:118d46d1: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+02-15 00:26:58.427  6938  6938 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+02-15 00:26:58.427   670   693 I ImeTracker: system_server:118d46d1: onCancelled at PHASE_SERVER_SHOULD_HIDE
+02-15 00:26:58.431  6938  6938 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+02-15 00:26:58.432  6938  6938 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.solanasuper, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+02-15 00:26:58.434  6938  6938 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+02-15 00:26:58.451 13948 13952 I com.solanasuper: Compiler allocated 5111KB to compile void android.view.ViewRootImpl.performTraversals()
+02-15 00:26:58.602  1356  1356 D VRI[NexusLauncherActivity]: visibilityChanged oldVisibility=true newVisibility=false
+02-15 00:26:58.614  1356  1356 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=7}
+02-15 00:26:58.618  1356  1356 D BaseDepthController: setSurface:
+02-15 00:26:58.618  1356  1356 D BaseDepthController: 	mWaitingOnSurfaceValidity: false
+02-15 00:26:58.618  1356  1356 D BaseDepthController: 	mBaseSurface: null
+02-15 00:26:58.618  1356  1356 D BaseDepthController: mSurface is null and mCurrentBlur is: 0
+02-15 00:26:58.621  1356  1356 D StateManager: goToState - fromState: Normal, toState: Normal, partial trace:
+02-15 00:26:58.621  1356  1356 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme 72a59688580715d19f0e415c69e80376c2f062d1648c80db6730905005a27c20:4)
+02-15 00:26:58.621  1356  1356 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme 72a59688580715d19f0e415c69e80376c2f062d1648c80db6730905005a27c20:1)
+02-15 00:26:58.621  1356  1356 D StateManager: 	at com.android.launcher3.statemanager.StatefulActivity.onStop(go/retraceme 72a59688580715d19f0e415c69e80376c2f062d1648c80db6730905005a27c20:34)
+02-15 00:26:58.621  1356  1356 D StatsLog: LAUNCHER_ONSTOP
+02-15 00:26:58.621  1356  2951 D GmsPlayProvider: Forcefully shut down the binder channel
+02-15 00:26:58.622  1356  2094 D OneSearchSuggestProvider: Forcefully shut down the binder channel
+02-15 00:26:58.623  1356  1356 D StatsLog: LAUNCHER_GOOGLE_SEARCH_RESTORE_LIST_SIZE_AFTER_ACTIVITY_RESTART
+02-15 00:26:58.625  1356  1380 I s.nexuslauncher: Waiting for a blocking GC ProfileSaver
+02-15 00:26:58.638  1356  1380 I s.nexuslauncher: WaitForGcToComplete blocked ProfileSaver on CollectorTransition for 13.471ms
+02-15 00:26:58.644  1356  1366 W System  : A resource failed to call release.
+02-15 00:26:58.644  1356  1366 W System  : A resource failed to call release.
+02-15 00:26:58.644  1356  1366 W System  : A resource failed to call release.
+02-15 00:26:58.645  1356  1366 W System  : A resource failed to call release.
+02-15 00:26:58.645  1356  1366 W System  : A resource failed to call release.
+02-15 00:26:58.645  1356  1366 W System  : A resource failed to call release.
+02-15 00:26:58.667  1075  1213 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.view.ViewRootImpl$$ExternalSyntheticLambda13@b4ca987
+02-15 00:26:58.820  6405  6561 I FontLog : (REDACTED) Received query %s, URI %s
+02-15 00:26:58.823  6405  6561 I FontLog : (REDACTED) Query [%s] resolved to %s
+02-15 00:26:58.831  6405  6561 I FontLog : (REDACTED) Fetch %s end status %s
+02-15 00:26:58.839  6405  6561 I FontLog : (REDACTED) Pulling font file for id = %d, cache size = %d
+02-15 00:26:58.849  6405  6561 I FontLog : (REDACTED) Pulling font file for id = %d, cache size = %d
+02-15 00:26:58.979   670   749 I system_server: AssetManager2(0xb4000072c4bdd3d8) locale list changing from [] to [en-US]
+02-15 00:26:58.979   670   749 V GrammaticalInflectionUtils: AttributionSource: android.content.AttributionSource@62c5716f does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+02-15 00:26:58.984  1075  1213 I ndroid.systemui: AssetManager2(0xb4000072c4b48058) locale list changing from [] to [en-US]
+02-15 00:26:58.985 13948 13948 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@8507259 in: PAUSED
+02-15 00:26:58.985 13948 13948 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=androidx.activity.ComponentActivity@8507259
+02-15 00:26:58.985   670   693 V GrammaticalInflectionUtils: AttributionSource: android.content.AttributionSource@62c5716f does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+02-15 00:26:58.992   457   457 D Zygote  : Forked child process 13976
+02-15 00:26:58.996   520   520 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+02-15 00:26:59.000   520   552 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+02-15 00:26:59.018 13976 13976 I olanasuper.test: Late-enabling -Xcheck:jni
+02-15 00:26:59.022  1075  1159 I ndroid.systemui: AssetManager2(0xb4000072c4b635d8) locale list changing from [] to [en-US]
+02-15 00:26:59.023  1075  1159 I ndroid.systemui: AssetManager2(0xb4000072c4b61378) locale list changing from [] to [en-US]
+02-15 00:26:59.030   478   528 I RanchuHwc: logCompositionFallbackIfChanged: layer 142 CompositionType fallback from 3 to 1
+02-15 00:26:59.033 13976 13976 I olanasuper.test: Using CollectorTypeCMC GC.
+02-15 00:26:59.036  1331  1339 I adbd    : jdwp connection from 13976
+02-15 00:26:59.038 13976 13976 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+02-15 00:26:59.055 13976 13976 D CompatChangeReporter: Compat change id reported: 242716250; UID 10237; state: ENABLED
+02-15 00:26:59.062 13976 13976 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/android.test.base.jar
+02-15 00:26:59.063  1252  1536 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled
+02-15 00:26:59.064 13976 13976 D nativeloader: Configuring clns-9 for other apk /system/framework/android.test.mock.jar. target_sdk_version=34, uses_libraries=ALL, library_path=/data/app/~~hWj6oIktGbA_U-rtsiE-mw==/com.solanasuper.test-1psv4h1Xz-9psUd18cnFjQ==/lib/arm64, permitted_path=/data:/mnt/expand:/data/user/0/com.solanasuper.test
+02-15 00:26:59.064 13976 13976 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/android.test.base.jar
+02-15 00:26:59.068 13976 13976 D nativeloader: Configuring clns-10 for other apk /system/framework/android.test.runner.jar. target_sdk_version=34, uses_libraries=ALL, library_path=/data/app/~~hWj6oIktGbA_U-rtsiE-mw==/com.solanasuper.test-1psv4h1Xz-9psUd18cnFjQ==/lib/arm64, permitted_path=/data:/mnt/expand:/data/user/0/com.solanasuper.test
+02-15 00:26:59.131 13976 13976 D nativeloader: Configuring clns-11 for other apk /data/app/~~hWj6oIktGbA_U-rtsiE-mw==/com.solanasuper.test-1psv4h1Xz-9psUd18cnFjQ==/base.apk. target_sdk_version=34, uses_libraries=, library_path=/data/app/~~hWj6oIktGbA_U-rtsiE-mw==/com.solanasuper.test-1psv4h1Xz-9psUd18cnFjQ==/lib/arm64, permitted_path=/data:/mnt/expand:/data/user/0/com.solanasuper.test
+02-15 00:26:59.135 13976 13976 I olanasuper.test: AssetManager2(0xb4000072c4b0e038) locale list changing from [] to [en-US]
+02-15 00:26:59.138 13976 13976 V GraphicsEnvironment: Currently set values for:
+02-15 00:26:59.138 13976 13976 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+02-15 00:26:59.139 13976 13976 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+02-15 00:26:59.139 13976 13976 V GraphicsEnvironment: com.solanasuper.test is not listed in per-application setting
+02-15 00:26:59.139 13976 13976 V GraphicsEnvironment: ANGLE allowlist from config: com.dreamgames.royalmatch com.dts.freefiremax com.dxx.firenow com.gramgames.mergedragons com.ludo.king com.mojang.minecraftpe com.my.defense com.nintendo.zaka com.os.airforce com.playrix.fishdomdd.gplay io.teslatech.callbreak jp.konami.prospia net.peakgames.toonblast
+02-15 00:26:59.139 13976 13976 V GraphicsEnvironment: com.solanasuper.test is not listed in ANGLE allowlist or settings, returning default
+02-15 00:26:59.140 13976 13976 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+02-15 00:26:59.156 13976 13976 I olanasuper.test: AssetManager2(0xb4000072c4b1d718) locale list changing from [] to [en-US]
+02-15 00:26:59.161 13976 13976 E ashmem  : Pinning is deprecated since Android Q. Please use trim or other methods.
+02-15 00:26:59.171 13976 13976 D DesktopModeFlags: Toggle override initialized to: OVERRIDE_UNSET
+02-15 00:26:59.187 13976 13976 W HWUI    : Unknown dataspace 0
+02-15 00:26:59.194 13976 13991 I EGL_emulation: Opening libGLESv1_CM_emulation.so
+02-15 00:26:59.195 13976 13991 I EGL_emulation: Opening libGLESv2_emulation.so
+02-15 00:26:59.201 13976 13991 W HWUI    : Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+02-15 00:26:59.201 13976 13991 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+02-15 00:26:59.211   520   552 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+02-15 00:26:59.216   520   553 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10237 pid=0
+02-15 00:26:59.216   520   553 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10237 => denied (204 us)
+02-15 00:26:59.217   520   553 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10237 pid=0
+02-15 00:26:59.217   520   553 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10237 => denied (294 us)
+02-15 00:26:59.217   520   784 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10237 pid=13976
+02-15 00:26:59.217   520   784 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10237 => denied (159 us)
+02-15 00:26:59.217   520   553 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10237 pid=0
+02-15 00:26:59.217   520   553 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10237 => denied (96 us)
+02-15 00:26:59.217   520   784 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10237 pid=13976
+02-15 00:26:59.217   520   784 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10237 => denied (157 us)
+02-15 00:26:59.232   670  2264 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10237 pid=0
+02-15 00:26:59.232   670  2264 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10237 => denied (38 us)
+02-15 00:26:59.232   670  2264 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10237 pid=0
+02-15 00:26:59.232   670  2264 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10237 => denied (8 us)
+02-15 00:26:59.232   670  2264 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10237 pid=0
+02-15 00:26:59.232   670  2264 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10237 => denied (4 us)
+02-15 00:26:59.235  1356  1356 D ViewRootImpl: Skipping stats log for color mode
+02-15 00:26:59.238  1356  1356 D StatsLog: LAUNCHER_ONRESUME
+02-15 00:26:59.245  1356  1420 D QuickstepModelDelegate: notifyAppTargetEvent action=1 launchLocation=workspace/0/[-1,-1]/[1,1]
+02-15 00:26:59.247  1356  1356 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=6}
+02-15 00:26:59.250  1673  1808 I AiAiEcho: Predicting[0]:  [CONTEXT sampling_count=5 ]
+02-15 00:26:59.250  1673  1808 I AiAiEcho: EchoTargets:
+02-15 00:26:59.250  1673  1808 I AiAiEcho: Filtered by AiAi flag check:
+02-15 00:26:59.250  1673  1808 I AiAiEcho: [CONTEXT ratelimit_period="10 SECONDS" ]
+02-15 00:26:59.251  1673  1808 I AiAiEcho: #remoteViewsTwiddler: feature disabled.
+02-15 00:26:59.252  1356  1356 D BaseDepthController: setSurface:
+02-15 00:26:59.252  1356  1356 D BaseDepthController: 	mWaitingOnSurfaceValidity: false
+02-15 00:26:59.252  1356  1356 D BaseDepthController: 	mBaseSurface: Surface(name=com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity)/@0x6d5d919
+02-15 00:26:59.253  1673  1808 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+02-15 00:26:59.264 13948 13948 D VRI[ComponentActivity]: visibilityChanged oldVisibility=true newVisibility=false
+02-15 00:26:59.265  1356  1356 D SsBaseTemplateCard: No text view can be set up
+02-15 00:26:59.265  1356  1356 D SsBaseTemplateCard: Passed-in item info is null
+02-15 00:26:59.265  1356  1356 D SsBaseTemplateCard: Passed-in item info is null
+02-15 00:26:59.265  1356  1356 D SsBaseTemplateCard: Passed-in item info is null
+02-15 00:26:59.265  1356  1356 I SsBaseTemplateCard: Secondary card pane is null
+02-15 00:26:59.268  1356  1356 D StateManager: createAtomicAnimation - fromState: Background, toState: Normal, partial trace:
+02-15 00:26:59.268  1356  1356 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.prepareToAnimate(go/retraceme 72a59688580715d19f0e415c69e80376c2f062d1648c80db6730905005a27c20:22)
+02-15 00:26:59.268  1356  1356 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.<init>(go/retraceme 72a59688580715d19f0e415c69e80376c2f062d1648c80db6730905005a27c20:11)
+02-15 00:26:59.268  1356  1356 D StateManager: 	at com.android.launcher3.QuickstepTransitionManager.createWallpaperOpenAnimations(go/retraceme 72a59688580715d19f0e415c69e80376c2f062d1648c80db6730905005a27c20:339)
+02-15 00:26:59.268  1356  1356 D b/311077782: LauncherAnimationRunner.setAnimation
+02-15 00:26:59.285 13948 13948 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@8507259 in: STOPPED
+02-15 00:26:59.286 13948 13948 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=androidx.activity.ComponentActivity@8507259
+02-15 00:26:59.292 13948 13948 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@8507259 in: DESTROYED
+02-15 00:26:59.292 13948 13948 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+02-15 00:26:59.294 13948 13948 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.view.ViewRootImpl$$ExternalSyntheticLambda13@6750394
+02-15 00:26:59.296 13948 13948 D ViewRootImpl: Skipping stats log for color mode
+02-15 00:26:59.297   478   528 I RanchuHwc: logCompositionFallbackIfChanged: layer 146 CompositionType fallback from 2 to 1
+02-15 00:26:59.297   478   528 I RanchuHwc: logCompositionFallbackIfChanged: layer 145 CompositionType fallback from 2 to 1
+02-15 00:26:59.300   670  1198 I ImeTracker: system_server:b3a4caab: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+02-15 00:26:59.306   670   794 I ImeTracker: com.google.android.apps.nexuslauncher:b2111ccd: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+02-15 00:26:59.309   670   693 I ImeTracker: system_server:b3a4caab: onCancelled at PHASE_SERVER_SHOULD_HIDE
+02-15 00:26:59.310  1356  1356 D InsetsController: hide(ime(), fromIme=false)
+02-15 00:26:59.310  1356  1356 I ImeTracker: com.google.android.apps.nexuslauncher:b2111ccd: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+02-15 00:26:59.310  6938  6938 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+02-15 00:26:59.311   670  2165 I ImeTracker: system_server:e1713c37: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+02-15 00:26:59.311  6938  6938 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+02-15 00:26:59.312 13948 13964 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.junit4.EspressoLink@c9ad170]
+02-15 00:26:59.312  6938  6938 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.google.android.apps.nexuslauncher, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+02-15 00:26:59.312 13948 13964 E TestRunner: failed: incomeScreen_showsP2PDialog_whenScanning(com.solanasuper.ui.income.IncomeScreenTest)
+02-15 00:26:59.312 13948 13964 E TestRunner: ----- begin exception -----
+02-15 00:26:59.312  6938  6938 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+02-15 00:26:59.312 13948 13964 E TestRunner: java.lang.AssertionError: Assert failed: The component is not displayed!
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at com.solanasuper.ui.income.IncomeScreenTest.incomeScreen_showsP2PDialog_whenScanning(IncomeScreenTest.kt:53)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at java.lang.reflect.Method.invoke(Native Method)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:54)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:272)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:271)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.withDisposableContent(ComposeUiTest.android.kt:495)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1$1.invoke(ComposeUiTest.android.kt:327)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withComposeIdlingResource(ComposeUiTest.android.kt:379)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withComposeIdlingResource(ComposeUiTest.android.kt:230)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(ComposeUiTest.android.kt:326)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withWindowRecomposer(ComposeUiTest.android.kt:353)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withWindowRecomposer(ComposeUiTest.android.kt:230)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1.invoke(ComposeUiTest.android.kt:325)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withTestCoroutines(ComposeUiTest.android.kt:366)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withTestCoroutines(ComposeUiTest.android.kt:230)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1.invoke(ComposeUiTest.android.kt:324)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.junit4.EspressoLink.withStrategy(EspressoLink.android.kt:66)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(ComposeUiTest.android.kt:323)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.junit4.IdlingResourceRegistry.withRegistry(IdlingResourceRegistry.jvm.kt:157)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1.invoke(ComposeUiTest.android.kt:322)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.junit4.ComposeRootRegistry.withRegistry(ComposeRootRegistry.android.kt:146)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:321)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:271)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:128)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:27)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:67)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:58)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:446)
+02-15 00:26:59.312 13948 13964 E TestRunner: 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2597)
+02-15 00:26:59.312 13948 13964 E TestRunner: ----- end exception -----
+02-15 00:26:59.316 13948 13964 I TestRunner: finished: incomeScreen_showsP2PDialog_whenScanning(com.solanasuper.ui.income.IncomeScreenTest)

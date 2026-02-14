@@ -90,8 +90,11 @@ fn process_request_logic(request: EnclaveRequest) -> EnclaveResponse {
     // Dispatch based on action_type or presence of fields
     let proof_data = if let Some(identity_req) = request.identity_req {
         // Mock Identity Proof Generation
-        // In real ZK, we'd verify the signature in encrypted_identity_seed matches the claim
         format!("identity_proof_for_{}", identity_req.attribute_id).into_bytes()
+    } else if let Some(governance_req) = request.governance_req {
+        // Mock MPC Vote Share Generation
+        // In real MPC, we'd split the vote into shares encrypted for Arcium nodes
+        format!("mpc_vote_share_for_{}", governance_req.proposal_id).into_bytes()
     } else {
         b"mock_zk_proof_data".to_vec()
     };

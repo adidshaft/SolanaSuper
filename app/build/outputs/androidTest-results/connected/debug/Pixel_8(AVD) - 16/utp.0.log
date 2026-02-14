@@ -41,13 +41,4 @@ INFO: Copying files from device to host: /sdcard/Android/media/com.solanasuper/a
 INFO: Stop logcat streaming.
 INFO: Uninstalling com.solanasuper for device emulator-5554.
 INFO: Uninstalling com.solanasuper.test for device emulator-5554.
-SEVERE: Execute com.solanasuper.core.GovernanceTest.testSecureVoteGeneration: FAILED
-org.junit.ComparisonFailure: org.junit.ComparisonFailure: expected:<m[pc_vote_share_for_proposal_ubi_001]> but was:<m[ock_zk_proof_data]>
-at org.junit.Assert.assertEquals(Assert.java:117)
-at org.junit.Assert.assertEquals(Assert.java:146)
-at com.solanasuper.core.GovernanceTest.testSecureVoteGeneration(GovernanceTest.kt:38)
-
-org.junit.ComparisonFailure: expected:<m[pc_vote_share_for_proposal_ubi_001]> but was:<m[ock_zk_proof_data]>
-at org.junit.Assert.assertEquals(Assert.java:117)
-at org.junit.Assert.assertEquals(Assert.java:146)
-at com.solanasuper.core.GovernanceTest.testSecureVoteGeneration(GovernanceTest.kt:38)
+INFO: Execute com.solanasuper.core.GovernanceTest.testSecureVoteGeneration: PASSED

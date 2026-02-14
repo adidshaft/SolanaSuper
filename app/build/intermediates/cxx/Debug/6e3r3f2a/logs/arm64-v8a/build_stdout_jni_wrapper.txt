@@ -10,5 +10,5 @@ warning: unused imports: `GovernanceRequest`, `IdentityRequest`
    = note: `#[warn(unused_imports)]` on by default
 
 warning: `solanasuper_core` (lib) generated 1 warning (run `cargo fix --lib -p solanasuper_core` to apply 1 suggestion)
-    Finished `release` profile [optimized] target(s) in 0.93s
+    Finished `release` profile [optimized] target(s) in 0.81s
 [2/2] Linking CXX shared library /Users/amanpandey/Desktop/SolanaSuper/app/build/intermediates/cxx/Debug/6e3r3f2a/obj/arm64-v8a/libjni_wrapper.so

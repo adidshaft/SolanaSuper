@@ -21,13 +21,13 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        
-        // Define NDK/External Native Build
-        externalNativeBuild {
-            cmake {
-                path = file("src/main/cpp/CMakeLists.txt")
-                version = "3.22.1"
-            }
+    }
+
+    // Define NDK/External Native Build (Moved out of defaultConfig)
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+            version = "3.22.1"
         }
     }
 
@@ -61,7 +61,7 @@ android {
 tasks.register<Exec>("cargoBuild") {
     // In a real scenario, this would loop over ABIs.
     // simplified: just build valid target if possible or skip if no cargo
-    commandLine("echo", "Skipping actual cargo build in this simulation environment. Assuming lib exists or mocked.")
+    commandLine("echo", "Skipping actual cargo build in simulated environment.")
     // Real command: commandLine "cargo", "build", "--target", "aarch64-linux-android", "--release"
 }
 
@@ -84,8 +84,8 @@ dependencies {
     // Security
     implementation(libs.androidx.security.crypto)
 
-    // Nearby
-    implementation(libs.play-services-nearby)
+    // Nearby - Fixed accessor
+    implementation(libs.play.services.nearby)
 
     // Protobuf
     implementation(libs.protobuf.java)

@@ -1,7 +1,7 @@
 EXECUTING: /Users/amanpandey/Library/Android/sdk/build-tools/35.0.0/aapt dump badging /Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/apk/debug/app-debug.apk
 CURRENT_WORKING_DIRECTORY: /Users/amanpandey/Desktop/SolanaSuper
-START_TIME: 2026-02-14 23:29:16.628
-START_TIME-NANOS: 2026-02-14 23:29:16.628943000
+START_TIME: 2026-02-14 23:35:29.590
+START_TIME-NANOS: 2026-02-14 23:35:29.590023000
 ENVIRONMENT:
 
 *****************************************
@@ -19,6 +19,7 @@ uses-permission: name='android.permission.ACCESS_FINE_LOCATION'
 uses-permission: name='android.permission.NEARBY_WIFI_DEVICES'
 uses-permission: name='android.permission.INTERNET'
 uses-permission: name='android.permission.USE_BIOMETRIC'
+uses-permission: name='android.permission.USE_FINGERPRINT'
 uses-permission: name='android.permission.ACCESS_NETWORK_STATE'
 uses-permission: name='com.solanasuper.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'
 application-label:'Solana Super'
@@ -136,7 +137,7 @@ locales: '--_--' 'af' 'am' 'ar' 'as' 'az' 'be' 'bg' 'bn' 'bs' 'ca' 'cs' 'da' 'de
 densities: '120' '160' '240' '320' '480' '640' '65534'
 native-code: 'arm64-v8a' 'armeabi-v7a' 'x86' 'x86_64'
 ===================
-END_TIME: 2026-02-14 23:29:16.667
-END_TIME-NANOS: 2026-02-14 23:29:16.667944000
-DURATION: 39ms
+END_TIME: 2026-02-14 23:35:29.614
+END_TIME-NANOS: 2026-02-14 23:35:29.614516000
+DURATION: 24ms
 EXIT CODE: 0

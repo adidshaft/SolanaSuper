@@ -12,7 +12,7 @@ INFO: Configuring Android Instrumentation driver: android_instrumentation_runtim
     }
     args_map {
       key: "class"
-      value: "com.solanasuper.data.HealthDatabaseTest"
+      value: "com.solanasuper.security.IdentityKeyManagerTest"
     }
   }
 }
@@ -41,4 +41,11 @@ INFO: Copying files from device to host: /sdcard/Android/media/com.solanasuper/a
 INFO: Stop logcat streaming.
 INFO: Uninstalling com.solanasuper for device emulator-5554.
 INFO: Uninstalling com.solanasuper.test for device emulator-5554.
-INFO: Execute com.solanasuper.data.HealthDatabaseTest.insertAndRetrieveEncryptedHealthRecord: PASSED
+SEVERE: Execute com.solanasuper.security.IdentityKeyManagerTest.generateKey_shouldRequireUserAuthentication: FAILED
+java.lang.AssertionError: java.lang.AssertionError: Key usage should require user authentication, but it succeeded without it.
+at org.junit.Assert.fail(Assert.java:89)
+at com.solanasuper.security.IdentityKeyManagerTest.generateKey_shouldRequireUserAuthentication(IdentityKeyManagerTest.kt:24)
+
+java.lang.AssertionError: Key usage should require user authentication, but it succeeded without it.
+at org.junit.Assert.fail(Assert.java:89)
+at com.solanasuper.security.IdentityKeyManagerTest.generateKey_shouldRequireUserAuthentication(IdentityKeyManagerTest.kt:24)

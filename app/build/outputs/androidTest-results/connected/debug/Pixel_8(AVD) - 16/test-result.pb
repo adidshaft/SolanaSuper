@@ -1,12 +1,19 @@
 
 
-emulator-5554primaryÃ
-ˆ
-HealthDatabaseTestcom.solanasuper.data&insertAndRetrieveEncryptedHealthRecord2ôïÂÌÀ²Öµ:ôïÂÌ€×ÕÔB
-emulator-5554primary"à
+emulator-5554primary–
+•
+IdentityKeyManagerTestcom.solanasuper.security+generateKey_shouldRequireUserAuthentication2éòÂÌÀî±:éòÂÌÀŒ›¿B
+emulator-5554primary¶
+‹java.lang.AssertionError: Key usage should require user authentication, but it succeeded without it.
+at org.junit.Assert.fail(Assert.java:89)
+at com.solanasuper.security.IdentityKeyManagerTest.generateKey_shouldRequireUserAuthentication(IdentityKeyManagerTest.kt:24)
+java.lang.AssertionError‹java.lang.AssertionError: Key usage should require user authentication, but it succeeded without it.
+at org.junit.Assert.fail(Assert.java:89)
+at com.solanasuper.security.IdentityKeyManagerTest.generateKey_shouldRequireUserAuthentication(IdentityKeyManagerTest.kt:24)
+"í
 
-logcatandroidÊ
-Ç/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/logcat-com.solanasuper.data.HealthDatabaseTest-insertAndRetrieveEncryptedHealthRecord.txt"˜
+logcatandroid×
+Ô/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/logcat-com.solanasuper.security.IdentityKeyManagerTest-generateKey_shouldRequireUserAuthentication.txt"˜
 
 device-infoandroid~
 |/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/device-info.pb"™

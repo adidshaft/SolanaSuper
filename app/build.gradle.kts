@@ -92,6 +92,7 @@ dependencies {
     
     // Security
     implementation(libs.androidx.security.crypto)
+    implementation(libs.androidx.biometric)
 
     // Nearby - Fixed accessor
     implementation(libs.play.services.nearby)

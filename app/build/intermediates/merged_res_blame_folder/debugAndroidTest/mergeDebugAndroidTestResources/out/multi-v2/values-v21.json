@@ -4,7 +4,7 @@
             "outputFile": "com.solanasuper.test.app-mergeDebugAndroidTestResources-32:/values-v21/values-v21.xml",
             "map": [
                 {
-                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/d11618f1861c794299d83de32f1735c8/transformed/jetified-core-1.5.0/res/values-v21/values.xml",
+                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3e74eb4e9cc8f443a0b5070e3d363695/transformed/jetified-core-1.5.0/res/values-v21/values.xml",
                     "from": {
                         "startLines": "4,13",
                         "startColumns": "0,0",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/816b30eb88ccae43f00f5f687e0588f5/transformed/core-1.12.0/res/values-v21/values-v21.xml",
+                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/431b50b91300f15a7f602d1a899a4ea6/transformed/core-1.12.0/res/values-v21/values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",

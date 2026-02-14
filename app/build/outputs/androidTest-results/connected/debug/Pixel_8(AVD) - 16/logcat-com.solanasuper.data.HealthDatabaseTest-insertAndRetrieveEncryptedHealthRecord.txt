@@ -1,3 +1,0 @@
-02-14 23:29:16.124  9129  9143 I TestRunner: started: insertAndRetrieveEncryptedHealthRecord(com.solanasuper.data.HealthDatabaseTest)
-02-14 23:29:16.132  9129  9143 D nativeloader: Load /data/app/~~aH7toPnnxBtsRRJ_gZHSyg==/com.solanasuper-nNJL--583pOcJcDsCu6QKw==/base.apk!/lib/arm64-v8a/libsqlcipher.so using class loader ns clns-9 (caller=/data/app/~~aH7toPnnxBtsRRJ_gZHSyg==/com.solanasuper-nNJL--583pOcJcDsCu6QKw==/base.apk!classes7.dex): ok
-02-14 23:29:16.198  9129  9143 I TestRunner: finished: insertAndRetrieveEncryptedHealthRecord(com.solanasuper.data.HealthDatabaseTest)

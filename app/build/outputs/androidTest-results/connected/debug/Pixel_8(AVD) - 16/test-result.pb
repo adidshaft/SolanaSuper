@@ -1,27 +1,20 @@
 
-
-emulator-5554primaryÃ
-å
-IncomeScreenTestcom.solanasuper.ui.income(incomeScreen_showsP2PDialog_whenScanning2ìå√ÃÄæÃ∏:ïå√ÃÄ©ºB
-emulator-5554primary"Â
+
+emulator-5554primary˛
+
+é
+HealthScreenTestcom.solanasuper.ui.health)healthScreen_startsLocked_andHidesRecords2Äé√ÃÄ≈·“:Åé√ÃÄﬂ™ôB
+emulator-5554primary¨
+Üjava.lang.AssertionError: Assert failed: The component is not displayed!
+at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+at com.solanasuper.ui.health.HealthScreenTest.healthScreen_startsLocked_andHidesRecords(HealthScreenTest.kt:27)
+java.lang.AssertionErrorÜjava.lang.AssertionError: Assert failed: The component is not displayed!
+at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+at com.solanasuper.ui.health.HealthScreenTest.healthScreen_startsLocked_andHidesRecords(HealthScreenTest.kt:27)
+"Ê
 
-logcatandroidœ
-Ã/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/logcat-com.solanasuper.ui.income.IncomeScreenTest-incomeScreen_showsP2PDialog_whenScanning.txt"ò
-
-device-infoandroid~
-|/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/device-info.pb"ô
-
-device-info.meminfoandroidw
-u/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/meminfo"ô
-
-device-info.cpuinfoandroidw
-u/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/cpuinfo 
-ã
-IncomeScreenTestcom.solanasuper.ui.income'incomeScreen_displaysBalance_andActions2ïå√ÃÄËí&:ïå√Ã¿ê˙B
-emulator-5554primary"‰
-
-logcatandroidŒ
-À/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/logcat-com.solanasuper.ui.income.IncomeScreenTest-incomeScreen_displaysBalance_andActions.txt"ò
+logcatandroid–
+Õ/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/logcat-com.solanasuper.ui.health.HealthScreenTest-healthScreen_startsLocked_andHidesRecords.txt"ò
 
 device-infoandroid~
 |/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/device-info.pb"ô

@@ -911,6 +911,362 @@ public final class EnclaveProto {
     }
   }
 
+  public interface IncomeRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.solanasuper.core.IncomeRequest)
+      com.google.protobuf.MessageLiteOrBuilder {
+
+    /**
+     * <code>int64 amount = 1;</code>
+     * @return The amount.
+     */
+    long getAmount();
+
+    /**
+     * <code>string receiver_pubkey = 2;</code>
+     * @return The receiverPubkey.
+     */
+    java.lang.String getReceiverPubkey();
+    /**
+     * <code>string receiver_pubkey = 2;</code>
+     * @return The bytes for receiverPubkey.
+     */
+    com.google.protobuf.ByteString
+        getReceiverPubkeyBytes();
+  }
+  /**
+   * Protobuf type {@code com.solanasuper.core.IncomeRequest}
+   */
+  public  static final class IncomeRequest extends
+      com.google.protobuf.GeneratedMessageLite<
+          IncomeRequest, IncomeRequest.Builder> implements
+      // @@protoc_insertion_point(message_implements:com.solanasuper.core.IncomeRequest)
+      IncomeRequestOrBuilder {
+    private IncomeRequest() {
+      receiverPubkey_ = "";
+    }
+    public static final int AMOUNT_FIELD_NUMBER = 1;
+    private long amount_;
+    /**
+     * <code>int64 amount = 1;</code>
+     * @return The amount.
+     */
+    @java.lang.Override
+    public long getAmount() {
+      return amount_;
+    }
+    /**
+     * <code>int64 amount = 1;</code>
+     * @param value The amount to set.
+     */
+    private void setAmount(long value) {
+      
+      amount_ = value;
+    }
+    /**
+     * <code>int64 amount = 1;</code>
+     */
+    private void clearAmount() {
+
+      amount_ = 0L;
+    }
+
+    public static final int RECEIVER_PUBKEY_FIELD_NUMBER = 2;
+    private java.lang.String receiverPubkey_;
+    /**
+     * <code>string receiver_pubkey = 2;</code>
+     * @return The receiverPubkey.
+     */
+    @java.lang.Override
+    public java.lang.String getReceiverPubkey() {
+      return receiverPubkey_;
+    }
+    /**
+     * <code>string receiver_pubkey = 2;</code>
+     * @return The bytes for receiverPubkey.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getReceiverPubkeyBytes() {
+      return com.google.protobuf.ByteString.copyFromUtf8(receiverPubkey_);
+    }
+    /**
+     * <code>string receiver_pubkey = 2;</code>
+     * @param value The receiverPubkey to set.
+     */
+    private void setReceiverPubkey(
+        java.lang.String value) {
+      java.lang.Class<?> valueClass = value.getClass();
+  
+      receiverPubkey_ = value;
+    }
+    /**
+     * <code>string receiver_pubkey = 2;</code>
+     */
+    private void clearReceiverPubkey() {
+
+      receiverPubkey_ = getDefaultInstance().getReceiverPubkey();
+    }
+    /**
+     * <code>string receiver_pubkey = 2;</code>
+     * @param value The bytes for receiverPubkey to set.
+     */
+    private void setReceiverPubkeyBytes(
+        com.google.protobuf.ByteString value) {
+      checkByteStringIsUtf8(value);
+      receiverPubkey_ = value.toStringUtf8();
+
+    }
+
+    public static com.solanasuper.core.EnclaveProto.IncomeRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.solanasuper.core.EnclaveProto.IncomeRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.solanasuper.core.EnclaveProto.IncomeRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.solanasuper.core.EnclaveProto.IncomeRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.solanasuper.core.EnclaveProto.IncomeRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.solanasuper.core.EnclaveProto.IncomeRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.solanasuper.core.EnclaveProto.IncomeRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, input);
+    }
+    public static com.solanasuper.core.EnclaveProto.IncomeRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, input, extensionRegistry);
+    }
+
+    public static com.solanasuper.core.EnclaveProto.IncomeRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+    }
+
+    public static com.solanasuper.core.EnclaveProto.IncomeRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+    }
+    public static com.solanasuper.core.EnclaveProto.IncomeRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, input);
+    }
+    public static com.solanasuper.core.EnclaveProto.IncomeRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() {
+      return (Builder) DEFAULT_INSTANCE.createBuilder();
+    }
+    public static Builder newBuilder(com.solanasuper.core.EnclaveProto.IncomeRequest prototype) {
+      return DEFAULT_INSTANCE.createBuilder(prototype);
+    }
+
+    /**
+     * Protobuf type {@code com.solanasuper.core.IncomeRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          com.solanasuper.core.EnclaveProto.IncomeRequest, Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.solanasuper.core.IncomeRequest)
+        com.solanasuper.core.EnclaveProto.IncomeRequestOrBuilder {
+      // Construct using com.solanasuper.core.EnclaveProto.IncomeRequest.newBuilder()
+      private Builder() {
+        super(DEFAULT_INSTANCE);
+      }
+
+
+      /**
+       * <code>int64 amount = 1;</code>
+       * @return The amount.
+       */
+      @java.lang.Override
+      public long getAmount() {
+        return instance.getAmount();
+      }
+      /**
+       * <code>int64 amount = 1;</code>
+       * @param value The amount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAmount(long value) {
+        copyOnWrite();
+        instance.setAmount(value);
+        return this;
+      }
+      /**
+       * <code>int64 amount = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAmount() {
+        copyOnWrite();
+        instance.clearAmount();
+        return this;
+      }
+
+      /**
+       * <code>string receiver_pubkey = 2;</code>
+       * @return The receiverPubkey.
+       */
+      @java.lang.Override
+      public java.lang.String getReceiverPubkey() {
+        return instance.getReceiverPubkey();
+      }
+      /**
+       * <code>string receiver_pubkey = 2;</code>
+       * @return The bytes for receiverPubkey.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getReceiverPubkeyBytes() {
+        return instance.getReceiverPubkeyBytes();
+      }
+      /**
+       * <code>string receiver_pubkey = 2;</code>
+       * @param value The receiverPubkey to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReceiverPubkey(
+          java.lang.String value) {
+        copyOnWrite();
+        instance.setReceiverPubkey(value);
+        return this;
+      }
+      /**
+       * <code>string receiver_pubkey = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReceiverPubkey() {
+        copyOnWrite();
+        instance.clearReceiverPubkey();
+        return this;
+      }
+      /**
+       * <code>string receiver_pubkey = 2;</code>
+       * @param value The bytes for receiverPubkey to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReceiverPubkeyBytes(
+          com.google.protobuf.ByteString value) {
+        copyOnWrite();
+        instance.setReceiverPubkeyBytes(value);
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:com.solanasuper.core.IncomeRequest)
+    }
+    @java.lang.Override
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
+        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
+        java.lang.Object arg0, java.lang.Object arg1) {
+      switch (method) {
+        case NEW_MUTABLE_INSTANCE: {
+          return new com.solanasuper.core.EnclaveProto.IncomeRequest();
+        }
+        case NEW_BUILDER: {
+          return new Builder();
+        }
+        case BUILD_MESSAGE_INFO: {
+            java.lang.Object[] objects = new java.lang.Object[] {
+              "amount_",
+              "receiverPubkey_",
+            };
+            java.lang.String info =
+                "\u0000\u0002\u0000\u0000\u0001\u0002\u0002\u0000\u0000\u0000\u0001\u0002\u0002\u0208" +
+                "";
+            return newMessageInfo(DEFAULT_INSTANCE, info, objects);
+        }
+        // fall through
+        case GET_DEFAULT_INSTANCE: {
+          return DEFAULT_INSTANCE;
+        }
+        case GET_PARSER: {
+          com.google.protobuf.Parser<com.solanasuper.core.EnclaveProto.IncomeRequest> parser = PARSER;
+          if (parser == null) {
+            synchronized (com.solanasuper.core.EnclaveProto.IncomeRequest.class) {
+              parser = PARSER;
+              if (parser == null) {
+                parser =
+                    new DefaultInstanceBasedParser<com.solanasuper.core.EnclaveProto.IncomeRequest>(
+                        DEFAULT_INSTANCE);
+                PARSER = parser;
+              }
+            }
+          }
+          return parser;
+      }
+      case GET_MEMOIZED_IS_INITIALIZED: {
+        return (byte) 1;
+      }
+      case SET_MEMOIZED_IS_INITIALIZED: {
+        return null;
+      }
+      }
+      throw new UnsupportedOperationException();
+    }
+
+
+    // @@protoc_insertion_point(class_scope:com.solanasuper.core.IncomeRequest)
+    private static final com.solanasuper.core.EnclaveProto.IncomeRequest DEFAULT_INSTANCE;
+    static {
+      IncomeRequest defaultInstance = new IncomeRequest();
+      // New instances are implicitly immutable so no need to make
+      // immutable.
+      DEFAULT_INSTANCE = defaultInstance;
+      com.google.protobuf.GeneratedMessageLite.registerDefaultInstance(
+        IncomeRequest.class, defaultInstance);
+    }
+
+    public static com.solanasuper.core.EnclaveProto.IncomeRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static volatile com.google.protobuf.Parser<IncomeRequest> PARSER;
+
+    public static com.google.protobuf.Parser<IncomeRequest> parser() {
+      return DEFAULT_INSTANCE.getParserForType();
+    }
+  }
+
   public interface EnclaveRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:com.solanasuper.core.EnclaveRequest)
       com.google.protobuf.MessageLiteOrBuilder {
@@ -978,6 +1334,17 @@ public final class EnclaveProto {
      * @return The governanceReq.
      */
     com.solanasuper.core.EnclaveProto.GovernanceRequest getGovernanceReq();
+
+    /**
+     * <code>.com.solanasuper.core.IncomeRequest income_req = 6;</code>
+     * @return Whether the incomeReq field is set.
+     */
+    boolean hasIncomeReq();
+    /**
+     * <code>.com.solanasuper.core.IncomeRequest income_req = 6;</code>
+     * @return The incomeReq.
+     */
+    com.solanasuper.core.EnclaveProto.IncomeRequest getIncomeReq();
   }
   /**
    * Protobuf type {@code com.solanasuper.core.EnclaveRequest}
@@ -1236,6 +1603,52 @@ public final class EnclaveProto {
      */
     private void clearGovernanceReq() {  governanceReq_ = null;
       bitField0_ = (bitField0_ & ~0x00000002);
+    }
+
+    public static final int INCOME_REQ_FIELD_NUMBER = 6;
+    private com.solanasuper.core.EnclaveProto.IncomeRequest incomeReq_;
+    /**
+     * <code>.com.solanasuper.core.IncomeRequest income_req = 6;</code>
+     */
+    @java.lang.Override
+    public boolean hasIncomeReq() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <code>.com.solanasuper.core.IncomeRequest income_req = 6;</code>
+     */
+    @java.lang.Override
+    public com.solanasuper.core.EnclaveProto.IncomeRequest getIncomeReq() {
+      return incomeReq_ == null ? com.solanasuper.core.EnclaveProto.IncomeRequest.getDefaultInstance() : incomeReq_;
+    }
+    /**
+     * <code>.com.solanasuper.core.IncomeRequest income_req = 6;</code>
+     */
+    private void setIncomeReq(com.solanasuper.core.EnclaveProto.IncomeRequest value) {
+      value.getClass();
+  incomeReq_ = value;
+      bitField0_ |= 0x00000004;
+      }
+    /**
+     * <code>.com.solanasuper.core.IncomeRequest income_req = 6;</code>
+     */
+    @java.lang.SuppressWarnings({"ReferenceEquality"})
+    private void mergeIncomeReq(com.solanasuper.core.EnclaveProto.IncomeRequest value) {
+      value.getClass();
+  if (incomeReq_ != null &&
+          incomeReq_ != com.solanasuper.core.EnclaveProto.IncomeRequest.getDefaultInstance()) {
+        incomeReq_ =
+          com.solanasuper.core.EnclaveProto.IncomeRequest.newBuilder(incomeReq_).mergeFrom(value).buildPartial();
+      } else {
+        incomeReq_ = value;
+      }
+      bitField0_ |= 0x00000004;
+    }
+    /**
+     * <code>.com.solanasuper.core.IncomeRequest income_req = 6;</code>
+     */
+    private void clearIncomeReq() {  incomeReq_ = null;
+      bitField0_ = (bitField0_ & ~0x00000004);
     }
 
     public static com.solanasuper.core.EnclaveProto.EnclaveRequest parseFrom(
@@ -1587,6 +2000,53 @@ public final class EnclaveProto {
         return this;
       }
 
+      /**
+       * <code>.com.solanasuper.core.IncomeRequest income_req = 6;</code>
+       */
+      @java.lang.Override
+      public boolean hasIncomeReq() {
+        return instance.hasIncomeReq();
+      }
+      /**
+       * <code>.com.solanasuper.core.IncomeRequest income_req = 6;</code>
+       */
+      @java.lang.Override
+      public com.solanasuper.core.EnclaveProto.IncomeRequest getIncomeReq() {
+        return instance.getIncomeReq();
+      }
+      /**
+       * <code>.com.solanasuper.core.IncomeRequest income_req = 6;</code>
+       */
+      public Builder setIncomeReq(com.solanasuper.core.EnclaveProto.IncomeRequest value) {
+        copyOnWrite();
+        instance.setIncomeReq(value);
+        return this;
+        }
+      /**
+       * <code>.com.solanasuper.core.IncomeRequest income_req = 6;</code>
+       */
+      public Builder setIncomeReq(
+          com.solanasuper.core.EnclaveProto.IncomeRequest.Builder builderForValue) {
+        copyOnWrite();
+        instance.setIncomeReq(builderForValue.build());
+        return this;
+      }
+      /**
+       * <code>.com.solanasuper.core.IncomeRequest income_req = 6;</code>
+       */
+      public Builder mergeIncomeReq(com.solanasuper.core.EnclaveProto.IncomeRequest value) {
+        copyOnWrite();
+        instance.mergeIncomeReq(value);
+        return this;
+      }
+      /**
+       * <code>.com.solanasuper.core.IncomeRequest income_req = 6;</code>
+       */
+      public Builder clearIncomeReq() {  copyOnWrite();
+        instance.clearIncomeReq();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:com.solanasuper.core.EnclaveRequest)
     }
     @java.lang.Override
@@ -1609,10 +2069,11 @@ public final class EnclaveProto {
               "payload_",
               "identityReq_",
               "governanceReq_",
+              "incomeReq_",
             };
             java.lang.String info =
-                "\u0000\u0005\u0000\u0001\u0001\u0005\u0005\u0000\u0000\u0000\u0001\u0208\u0002\u0208" +
-                "\u0003\n\u0004\u1009\u0000\u0005\u1009\u0001";
+                "\u0000\u0006\u0000\u0001\u0001\u0006\u0006\u0000\u0000\u0000\u0001\u0208\u0002\u0208" +
+                "\u0003\n\u0004\u1009\u0000\u0005\u1009\u0001\u0006\u1009\u0002";
             return newMessageInfo(DEFAULT_INSTANCE, info, objects);
         }
         // fall through

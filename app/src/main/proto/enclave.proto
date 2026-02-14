@@ -16,12 +16,18 @@ message GovernanceRequest {
   bytes identity_signature = 3; // Signed by hardware key
 }
 
+message IncomeRequest {
+  int64 amount = 1;
+  string receiver_pubkey = 2;
+}
+
 message EnclaveRequest {
   string request_id = 1;
   string action_type = 2; // e.g., "GENERATE_PROOF", "VERIFY_PROOF"
   bytes payload = 3;      // The actual data to process (health record, transaction, etc.)
   IdentityRequest identity_req = 4;
   GovernanceRequest governance_req = 5;
+  IncomeRequest income_req = 6;
 }
 
 message EnclaveResponse {

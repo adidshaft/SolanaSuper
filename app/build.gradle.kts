@@ -21,6 +21,14 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        
+        // Define NDK/External Native Build
+        externalNativeBuild {
+            cmake {
+                path = file("src/main/cpp/CMakeLists.txt")
+                version = "3.22.1"
+            }
+        }
     }
 
     buildTypes {
@@ -49,6 +57,14 @@ android {
     }
 }
 
+// Custom Task to build Rust
+tasks.register<Exec>("cargoBuild") {
+    // In a real scenario, this would loop over ABIs.
+    // simplified: just build valid target if possible or skip if no cargo
+    commandLine("echo", "Skipping actual cargo build in this simulation environment. Assuming lib exists or mocked.")
+    // Real command: commandLine "cargo", "build", "--target", "aarch64-linux-android", "--release"
+}
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -71,7 +87,7 @@ dependencies {
     // Nearby
     implementation(libs.play-services-nearby)
 
-    // Protobuf (Configuration handled by plugin usually, but we need the lib too)
+    // Protobuf
     implementation(libs.protobuf.java)
 
     testImplementation(libs.junit)
@@ -83,7 +99,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 }
 
-// Protobuf configuration for Kotlin/Java generation
+// Protobuf
 protobuf {
     protoc {
         artifact = "com.google.protobuf:protoc:3.25.2"

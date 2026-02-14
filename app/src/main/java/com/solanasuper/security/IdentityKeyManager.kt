@@ -35,7 +35,9 @@ class IdentityKeyManager {
             .build()
 
         keyPairGenerator.initialize(spec)
-        return keyPairGenerator.generateKeyPair()
+        val kp = keyPairGenerator.generateKeyPair()
+        android.util.Log.d("SovereignLifeOS", "Identity Hardware Key Accessed/Generated Successfully. Public Key: ${android.util.Base64.encodeToString(kp.public.encoded, android.util.Base64.DEFAULT)}")
+        return kp
     }
 
     fun signData(data: ByteArray): ByteArray {

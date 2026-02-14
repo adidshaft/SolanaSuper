@@ -181,7 +181,7 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/amanpandey/.gradle/c
 	android:allowBackup
 		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:17:9-35
 	android:theme
-		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:24:9-72
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:24:9-68
 	android:dataExtractionRules
 		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:18:9-65
 activity#com.solanasuper.MainActivity
@@ -189,7 +189,7 @@ ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xm
 	android:exported
 		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:28:13-36
 	android:theme
-		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:29:13-76
+		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:29:13-72
 	android:name
 		ADDED from /Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:27:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER

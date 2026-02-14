@@ -88,16 +88,16 @@
 46-->/Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:22:9-54
 47        android:supportsRtl="true"
 47-->/Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:23:9-35
-48        android:theme="@android:style/Theme.Material.Light.NoActionBar" >
-48-->/Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:24:9-72
+48        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" >
+48-->/Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:24:9-68
 49        <activity
 49-->/Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:26:9-35:20
 50            android:name="com.solanasuper.MainActivity"
 50-->/Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:27:13-41
 51            android:exported="true"
 51-->/Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:28:13-36
-52            android:theme="@android:style/Theme.Material.Light.NoActionBar" >
-52-->/Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:29:13-76
+52            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" >
+52-->/Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:29:13-72
 53            <intent-filter>
 53-->/Users/amanpandey/Desktop/SolanaSuper/app/src/main/AndroidManifest.xml:30:13-34:29
 54                <action android:name="android.intent.action.MAIN" />

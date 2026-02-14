@@ -58,7 +58,43 @@ class IncomeViewModel(
     }
 
     fun startP2P() {
-        // Trigger P2P flow (handled by UI event usually)
+        if (_state.value.p2pStatus != P2PStatus.IDLE) return
+
+        viewModelScope.launch {
+            _state.update { it.copy(p2pStatus = P2PStatus.SCANNING, error = null) }
+            
+            // Simulate scanning delay
+            delay(2000)
+            
+            // Mock finding a peer
+            _state.update { it.copy(p2pStatus = P2PStatus.FOUND_PEER, p2pPeerName = "Unknown Peer") }
+            delay(1500)
+            
+            // Lock funds and start transfer
+            val transferAmount = 10L // Hardcoded for demo
+            val success = transactionManager.lockFunds(transferAmount)
+            
+            if (success) {
+                _state.update { it.copy(p2pStatus = P2PStatus.TRANSFERRING) }
+                delay(2000) // Sim ZK Proof gen
+                
+                _state.update { it.copy(p2pStatus = P2PStatus.SUCCESS) }
+                delay(1500)
+                
+                // Refresh data and reset
+                loadData()
+                _state.update { it.copy(p2pStatus = P2PStatus.IDLE) }
+            } else {
+                _state.update { 
+                    it.copy(
+                        p2pStatus = P2PStatus.ERROR, 
+                        error = "Insufficient funds for transfer"
+                    ) 
+                }
+                delay(2000)
+                _state.update { it.copy(p2pStatus = P2PStatus.IDLE) }
+            }
+        }
     }
 
     @Suppress("UNCHECKED_CAST")

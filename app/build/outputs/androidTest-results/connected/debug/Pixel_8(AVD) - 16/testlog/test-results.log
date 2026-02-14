@@ -10,18 +10,9 @@ INSTRUMENTATION_STATUS: class=com.solanasuper.ui.income.IncomeScreenTest
 INSTRUMENTATION_STATUS: current=1
 INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
 INSTRUMENTATION_STATUS: numtests=2
-INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component is not displayed!
-at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
-at com.solanasuper.ui.income.IncomeScreenTest.incomeScreen_showsP2PDialog_whenScanning(IncomeScreenTest.kt:53)
-
-INSTRUMENTATION_STATUS: stream=
-Error in incomeScreen_showsP2PDialog_whenScanning(com.solanasuper.ui.income.IncomeScreenTest):
-java.lang.AssertionError: Assert failed: The component is not displayed!
-at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
-at com.solanasuper.ui.income.IncomeScreenTest.incomeScreen_showsP2PDialog_whenScanning(IncomeScreenTest.kt:53)
-
+INSTRUMENTATION_STATUS: stream=.
 INSTRUMENTATION_STATUS: test=incomeScreen_showsP2PDialog_whenScanning
-INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS_CODE: 0
 INSTRUMENTATION_STATUS: class=com.solanasuper.ui.income.IncomeScreenTest
 INSTRUMENTATION_STATUS: current=2
 INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
@@ -38,15 +29,9 @@ INSTRUMENTATION_STATUS: test=incomeScreen_displaysBalance_andActions
 INSTRUMENTATION_STATUS_CODE: 0
 INSTRUMENTATION_RESULT: stream=
 
-Time: 1.949
-There was 1 failure:
-1) incomeScreen_showsP2PDialog_whenScanning(com.solanasuper.ui.income.IncomeScreenTest)
-java.lang.AssertionError: Assert failed: The component is not displayed!
-at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
-at com.solanasuper.ui.income.IncomeScreenTest.incomeScreen_showsP2PDialog_whenScanning(IncomeScreenTest.kt:53)
+Time: 1.861
 
-FAILURES!!!
-Tests run: 2,  Failures: 1
+OK (2 tests)
 
 
 INSTRUMENTATION_CODE: -1

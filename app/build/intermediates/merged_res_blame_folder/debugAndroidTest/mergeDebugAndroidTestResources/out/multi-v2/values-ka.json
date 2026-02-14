@@ -4,7 +4,7 @@
             "outputFile": "com.solanasuper.test.app-mergeDebugAndroidTestResources-32:/values-ka/values-ka.xml",
             "map": [
                 {
-                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/71c3811172b3ca292e3a0d934b50ffd6/transformed/core-1.12.0/res/values-ka/values-ka.xml",
+                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/eb52fdbe5d705c85904516a3feac2591/transformed/core-1.12.0/res/values-ka/values-ka.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/01f7c084cc4e183d361d29b34d774ae4/transformed/jetified-ui-release/res/values-ka/values-ka.xml",
+                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7ecc68824ecc03d09af3c917565deb48/transformed/jetified-ui-release/res/values-ka/values-ka.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

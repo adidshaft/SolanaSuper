@@ -1,5 +1,5 @@
 # proto-message: google.testing.platform.proto.api.core.TestSuiteResult
-# 2026-02-14T18:22:46.844742Z:
+# 2026-02-14T18:48:02.777371Z:
 test_suite_meta_data {
   scheduled_test_case_count: 1
   device {
@@ -10,16 +10,16 @@ test_suite_meta_data {
 test_status: PASSED
 test_result {
   test_case {
-    test_class: "GovernanceTest"
-    test_package: "com.solanasuper.core"
-    test_method: "testSecureVoteGeneration"
+    test_class: "IncomeScreenTest"
+    test_package: "com.solanasuper.ui.income"
+    test_method: "incomeScreen_displaysBalance_andActions"
     start_time {
-      seconds: 1771093366
-      nanos: 360000000
+      seconds: 1771094880
+      nanos: 758000000
     }
     end_time {
-      seconds: 1771093366
-      nanos: 383000000
+      seconds: 1771094882
+      nanos: 126000000
     }
     device {
       id: "emulator-5554"
@@ -33,7 +33,7 @@ test_result {
       namespace: "android"
     }
     source_path {
-      path: "/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/logcat-com.solanasuper.core.GovernanceTest-testSecureVoteGeneration.txt"
+      path: "/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/logcat-com.solanasuper.ui.income.IncomeScreenTest-incomeScreen_displaysBalance_andActions.txt"
     }
   }
   output_artifact {

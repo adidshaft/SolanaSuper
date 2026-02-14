@@ -1,0 +1,273 @@
+02-15 00:18:00.496 13108 13124 I TestRunner: started: incomeScreen_displaysBalance_andActions(com.solanasuper.ui.income.IncomeScreenTest)
+02-15 00:18:00.514 13108 13124 W FileTestStorage: Output properties is not supported.
+02-15 00:18:00.515 13108 13124 I Tracing : Tracer added: class androidx.test.platform.tracing.AndroidXTracer
+02-15 00:18:00.518 13108 13108 D EventInjectionStrategy: Creating injection strategy with input manager.
+02-15 00:18:00.518 13108 13108 I com.solanasuper: hiddenapi: Accessing hidden method Landroid/hardware/input/InputManager;->getInstance()Landroid/hardware/input/InputManager; (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/InputManagerEventInjectionStrategy; (domain=app) using reflection: allowed
+02-15 00:18:00.519 13108 13108 I com.solanasuper: hiddenapi: Accessing hidden method Landroid/hardware/input/InputManager;->injectInputEvent(Landroid/view/InputEvent;I)Z (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/InputManagerEventInjectionStrategy; (domain=app) using reflection: allowed
+02-15 00:18:00.519 13108 13108 I com.solanasuper: hiddenapi: Accessing hidden field Landroid/hardware/input/InputManager;->INJECT_INPUT_EVENT_MODE_WAIT_FOR_FINISH:I (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/InputManagerEventInjectionStrategy; (domain=app) using reflection: allowed
+02-15 00:18:00.522 13108 13108 I com.solanasuper: hiddenapi: Accessing hidden method Landroid/os/MessageQueue;->next()Landroid/os/Message; (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/Interrogator; (domain=app) using reflection: allowed
+02-15 00:18:00.522 13108 13108 I com.solanasuper: hiddenapi: Accessing hidden field Landroid/os/MessageQueue;->mMessages:Landroid/os/Message; (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/Interrogator; (domain=app) using reflection: allowed
+02-15 00:18:00.522 13108 13108 I com.solanasuper: hiddenapi: Accessing hidden method Landroid/os/Message;->recycleUnchecked()V (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/Interrogator; (domain=app) using reflection: allowed
+02-15 00:18:00.523 13108 13124 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.junit4.EspressoLink@65b7ce9]
+02-15 00:18:00.533 13108 13124 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+02-15 00:18:00.546   670  1233 I system_server: AssetManager2(0xb4000072c4bc5698) locale list changing from [] to [en-US]
+02-15 00:18:00.549   670  1233 V GrammaticalInflectionUtils: AttributionSource: android.content.AttributionSource@5da6e792 does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+02-15 00:18:00.559   520   552 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+02-15 00:18:00.565  1075  1213 I ndroid.systemui: AssetManager2(0xb4000072c4b59998) locale list changing from [] to [en-US]
+02-15 00:18:00.580   520   520 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+02-15 00:18:00.652  1075  1159 I ndroid.systemui: AssetManager2(0xb4000072c4b589f8) locale list changing from [] to [en-US]
+02-15 00:18:00.654  1075  1159 I ndroid.systemui: AssetManager2(0xb4000072c4b42bf8) locale list changing from [] to [en-US]
+02-15 00:18:00.657 13108 13108 I com.solanasuper: AssetManager2(0xb4000072c4b153d8) locale list changing from [] to [en-US]
+02-15 00:18:00.663   478   528 I RanchuHwc: logCompositionFallbackIfChanged: layer 112 CompositionType fallback from 3 to 1
+02-15 00:18:00.675 13108 13128 I EGL_emulation: Opening libGLESv1_CM_emulation.so
+02-15 00:18:00.675 13108 13128 I EGL_emulation: Opening libGLESv2_emulation.so
+02-15 00:18:00.682 13108 13128 W HWUI    : Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+02-15 00:18:00.682 13108 13128 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+02-15 00:18:00.695 13108 13108 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@6edfe1e in: PRE_ON_CREATE
+02-15 00:18:00.696 13108 13108 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+02-15 00:18:00.707 13108 13108 D DesktopModeFlags: Toggle override initialized to: OVERRIDE_UNSET
+02-15 00:18:00.712 13108 13108 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@6edfe1e in: CREATED
+02-15 00:18:00.713 13108 13108 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=androidx.activity.ComponentActivity@6edfe1e
+02-15 00:18:00.720 13108 13108 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@6edfe1e in: STARTED
+02-15 00:18:00.720 13108 13108 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=androidx.activity.ComponentActivity@6edfe1e
+02-15 00:18:00.724 13108 13108 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@6edfe1e in: RESUMED
+02-15 00:18:00.724 13108 13108 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=androidx.activity.ComponentActivity@6edfe1e
+02-15 00:18:00.734 13108 13108 W HWUI    : Unknown dataspace 0
+02-15 00:18:00.755   520   553 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10234 pid=0
+02-15 00:18:00.755   520   553 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10234 => denied (142 us)
+02-15 00:18:00.755   520   553 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10234 pid=0
+02-15 00:18:00.755   520   553 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10234 => denied (83 us)
+02-15 00:18:00.755   520   553 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10234 pid=0
+02-15 00:18:00.755   520   553 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10234 => denied (115 us)
+02-15 00:18:00.819   670  1209 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10234 pid=0
+02-15 00:18:00.819   670  1209 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10234 => denied (88 us)
+02-15 00:18:00.819   670  1209 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10234 pid=0
+02-15 00:18:00.819   670  1209 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10234 => denied (14 us)
+02-15 00:18:00.819   670  1209 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10234 pid=0
+02-15 00:18:00.819   670  1209 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10234 => denied (10 us)
+02-15 00:18:00.827   670   690 I ActivityTaskManager: Displayed com.solanasuper/androidx.activity.ComponentActivity for user 0: +284ms
+02-15 00:18:00.828 13108 13112 I com.solanasuper: Compiler allocated 5111KB to compile void android.view.ViewRootImpl.performTraversals()
+02-15 00:18:00.853   670   794 I ImeTracker: com.solanasuper:2bca22f2: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+02-15 00:18:00.854 13108 13108 D InsetsController: hide(ime(), fromIme=false)
+02-15 00:18:00.855 13108 13108 I ImeTracker: com.solanasuper:2bca22f2: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+02-15 00:18:00.861   670  1233 I ImeTracker: system_server:a11e55fb: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+02-15 00:18:00.861   670   693 I ImeTracker: system_server:a11e55fb: onCancelled at PHASE_SERVER_SHOULD_HIDE
+02-15 00:18:00.869  6938  6938 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+02-15 00:18:00.877  6938  6938 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+02-15 00:18:00.883  6938  6938 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.solanasuper, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+02-15 00:18:00.887  6938  6938 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+02-15 00:18:01.104  1075  1213 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.view.ViewRootImpl$$ExternalSyntheticLambda13@4860062
+02-15 00:18:01.167  3798  3798 D VRI[Settings]: visibilityChanged oldVisibility=true newVisibility=false
+02-15 00:18:01.193  3798  3798 D DashboardFragment: unregister observer: @430d118, uri: content://com.google.android.gms.settings.persistent/getGoogleSettingsTitle
+02-15 00:18:01.193  3798  3798 D DashboardFragment: unregister observer: @90e8771, uri: content://com.google.android.gms.settings.persistent/getGoogleSettingsSummary
+02-15 00:18:01.193  3798  3798 D DashboardFragment: unregister observer: @e032cfb, uri: content://com.google.android.apps.wellbeing.api/digitalWellbeingSummary
+02-15 00:18:01.267  6405  6421 I FontLog : (REDACTED) Received query %s, URI %s
+02-15 00:18:01.275  6405  6421 I FontLog : (REDACTED) Query [%s] resolved to %s
+02-15 00:18:01.295  6405  6421 I FontLog : (REDACTED) Fetch %s end status %s
+02-15 00:18:01.309  6405  6541 I FontLog : (REDACTED) Pulling font file for id = %d, cache size = %d
+02-15 00:18:01.319  6405  6541 I FontLog : (REDACTED) Pulling font file for id = %d, cache size = %d
+02-15 00:18:01.421   670   686 I system_server: AssetManager2(0xb4000072c4bd1858) locale list changing from [] to [en-US]
+02-15 00:18:01.422   670   686 V GrammaticalInflectionUtils: AttributionSource: android.content.AttributionSource@5f5bc031 does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+02-15 00:18:01.425  1075  1213 I ndroid.systemui: AssetManager2(0xb4000072c4b57418) locale list changing from [] to [en-US]
+02-15 00:18:01.426   670   693 V GrammaticalInflectionUtils: AttributionSource: android.content.AttributionSource@5f5bc031 does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+02-15 00:18:01.426 13108 13108 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@6edfe1e in: PAUSED
+02-15 00:18:01.427 13108 13108 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=androidx.activity.ComponentActivity@6edfe1e
+02-15 00:18:01.430   520   520 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+02-15 00:18:01.431   520   553 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+02-15 00:18:01.435   457   457 D Zygote  : Forked child process 13138
+02-15 00:18:01.447   478   528 I RanchuHwc: logCompositionFallbackIfChanged: layer 115 CompositionType fallback from 3 to 1
+02-15 00:18:01.452 13138 13138 I olanasuper.test: Late-enabling -Xcheck:jni
+02-15 00:18:01.467 13138 13138 I olanasuper.test: Using CollectorTypeCMC GC.
+02-15 00:18:01.472  1252  1252 D CarrierSvcBindHelper: onPackageModified: com.solanasuper
+02-15 00:18:01.472  1331  1339 I adbd    : jdwp connection from 13138
+02-15 00:18:01.474  1252  1536 I SatelliteAppTracker: onPackageModified : com.solanasuper
+02-15 00:18:01.480   670   778 I RoleService: Granting default roles...
+02-15 00:18:01.483 13138 13138 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+02-15 00:18:01.485  1082  7625 I PermissionControllerServiceImpl: Updating user sensitive for uid 10234
+02-15 00:18:01.487  1075  1075 D ControlsListingControllerImpl: ServiceConfig reloaded, count: 0
+02-15 00:18:01.494  1252  1252 D CarrierSvcBindHelper: No carrier app for: 0
+02-15 00:18:01.502  1252  1252 E SmsApplication: com.google.android.apps.messaging lost android:read_cell_broadcasts:  (fixing)
+02-15 00:18:01.504   670   693 I system_server: AssetManager2(0xb4000072c4bcbdb8) locale list changing from [] to [en-US]
+02-15 00:18:01.505 13138 13138 D CompatChangeReporter: Compat change id reported: 242716250; UID 10235; state: ENABLED
+02-15 00:18:01.507   670   798 I system_server: AssetManager2(0xb4000072c4bcaaf8) locale list changing from [] to [en-US]
+02-15 00:18:01.507   670   698 I system_server: AssetManager2(0xb4000072c4bc8578) locale list changing from [] to [en-US]
+02-15 00:18:01.509  1252  1252 D SatelliteController: packageStateChanged: package:com.solanasuper DefaultSmsPackageName:com.google.android.apps.messaging
+02-15 00:18:01.509  1252  1252 V SatelliteController: Neither SMS or SatelliteGateway package
+02-15 00:18:01.511  1252  1252 E SmsApplication: com.google.android.apps.messaging lost android:read_cell_broadcasts:  (fixing)
+02-15 00:18:01.511  1252  1252 D SatelliteAccessController: Current default SMS app:ComponentInfo{com.google.android.apps.messaging/com.google.android.apps.messaging.shared.receiver.SmsDeliverReceiver}
+02-15 00:18:01.511  1252  1252 D SatelliteController: getSelectedSatelliteSubId: subId=-1
+02-15 00:18:01.511  1252  1533 D ImsResolver: maybeAddedImsService, packageName: com.solanasuper
+02-15 00:18:01.512  1252  1533 V ImsResolver: searchForImsServices: package=com.solanasuper, users=[UserHandle{0}]
+02-15 00:18:01.512  1252  1533 V ImsResolver: searchForImsServices: package=com.solanasuper, users=[UserHandle{0}]
+02-15 00:18:01.513   670  1208 W SignedPackage: Package doesn't have required signing certificate: com.google.android.retaildemo
+02-15 00:18:01.513   670  1208 E RoleControllerServiceImpl: Default/fallback role holder package doesn't qualify for the role, package: com.google.android.gms.supervision, role: android.app.role.SYSTEM_SUPERVISION
+02-15 00:18:01.516  1252  1252 D SatelliteAccessController: supportedMsgApps:com.google.android.apps.messaging
+02-15 00:18:01.516   670  1208 W SignedPackage: Package doesn't have required signing certificate: com.google.android.apps.work.clouddpc
+02-15 00:18:01.521   670  1208 I Role    : com.google.android.gms not qualified for android.app.role.SYSTEM_DEPENDENCY_INSTALLER due to missing RequiredComponent{mIntentFilterData=IntentFilterData{mAction='android.content.pm.action.INSTALL_DEPENDENCY', mCategories='[]', mDataScheme='null', mDataType='null'}, mMinTargetSdkVersion=1, mFlags='0', mPermission='android.permission.BIND_DEPENDENCY_INSTALLER', mQueryFlags=0, mMetaData=[]}
+02-15 00:18:01.523   670  1208 E RoleControllerServiceImpl: Default/fallback role holder package doesn't qualify for the role, package: com.google.android.gms, role: android.app.role.SYSTEM_DEPENDENCY_INSTALLER
+02-15 00:18:01.529 13138 13138 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/android.test.base.jar
+02-15 00:18:01.538   670   798 I system_server: AssetManager2(0xb4000072c4bcb138) locale list changing from [] to [en-US]
+02-15 00:18:01.540 13138 13138 D nativeloader: Configuring clns-9 for other apk /system/framework/android.test.mock.jar. target_sdk_version=34, uses_libraries=ALL, library_path=/data/app/~~OpDEAT7FJeu3PybSg1wOqg==/com.solanasuper.test-HwvFuJKOdcsimqsxopUukw==/lib/arm64, permitted_path=/data:/mnt/expand:/data/user/0/com.solanasuper.test
+02-15 00:18:01.540   670  1208 E RoleControllerServiceImpl: Default/fallback role holder package doesn't qualify for the role, package: com.google.android.gms, role: android.app.role.WALLET
+02-15 00:18:01.541 13138 13138 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/android.test.base.jar
+02-15 00:18:01.542   670   798 I system_server: AssetManager2(0xb4000072c4bc72b8) locale list changing from [] to [en-US]
+02-15 00:18:01.544   670  1208 W SignedPackage: Cannot get ApplicationInfo for package: com.google.android.devicelockcontroller
+02-15 00:18:01.548 13138 13138 D nativeloader: Configuring clns-10 for other apk /system/framework/android.test.runner.jar. target_sdk_version=34, uses_libraries=ALL, library_path=/data/app/~~OpDEAT7FJeu3PybSg1wOqg==/com.solanasuper.test-HwvFuJKOdcsimqsxopUukw==/lib/arm64, permitted_path=/data:/mnt/expand:/data/user/0/com.solanasuper.test
+02-15 00:18:01.563   670   798 I system_server: AssetManager2(0xb4000072c4bc5378) locale list changing from [] to [en-US]
+02-15 00:18:01.578   670   670 W IPCThreadState: Sending oneway calls to frozen process.
+02-15 00:18:01.579   670   670 W IPCThreadState: Sending oneway calls to frozen process.
+02-15 00:18:01.580   670   670 W IPCThreadState: Sending oneway calls to frozen process.
+02-15 00:18:01.607   670   698 I system_server: AssetManager2(0xb4000072c4bc4d38) locale list changing from [] to [en-US]
+02-15 00:18:01.615 13138 13138 D nativeloader: Configuring clns-11 for other apk /data/app/~~OpDEAT7FJeu3PybSg1wOqg==/com.solanasuper.test-HwvFuJKOdcsimqsxopUukw==/base.apk. target_sdk_version=34, uses_libraries=, library_path=/data/app/~~OpDEAT7FJeu3PybSg1wOqg==/com.solanasuper.test-HwvFuJKOdcsimqsxopUukw==/lib/arm64, permitted_path=/data:/mnt/expand:/data/user/0/com.solanasuper.test
+02-15 00:18:01.617 13138 13138 I olanasuper.test: AssetManager2(0xb4000072c4b0e038) locale list changing from [] to [en-US]
+02-15 00:18:01.620   670   698 I system_server: AssetManager2(0xb4000072c4bcf5f8) locale list changing from [] to [en-US]
+02-15 00:18:01.620 13138 13138 V GraphicsEnvironment: Currently set values for:
+02-15 00:18:01.620 13138 13138 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+02-15 00:18:01.620 13138 13138 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+02-15 00:18:01.620 13138 13138 V GraphicsEnvironment: com.solanasuper.test is not listed in per-application setting
+02-15 00:18:01.621 13138 13138 V GraphicsEnvironment: ANGLE allowlist from config: com.dreamgames.royalmatch com.dts.freefiremax com.dxx.firenow com.gramgames.mergedragons com.ludo.king com.mojang.minecraftpe com.my.defense com.nintendo.zaka com.os.airforce com.playrix.fishdomdd.gplay io.teslatech.callbreak jp.konami.prospia net.peakgames.toonblast
+02-15 00:18:01.621 13138 13138 V GraphicsEnvironment: com.solanasuper.test is not listed in ANGLE allowlist or settings, returning default
+02-15 00:18:01.621 13138 13138 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+02-15 00:18:01.622   670   698 I system_server: AssetManager2(0xb4000072c4bc9b58) locale list changing from [] to [en-US]
+02-15 00:18:01.631  1356  1420 D PackageUpdatedTask: Package updated: mOp=UPDATE packages=[com.solanasuper], user=UserHandle{0}
+02-15 00:18:01.632 13138 13138 I olanasuper.test: AssetManager2(0xb4000072c4b1d718) locale list changing from [] to [en-US]
+02-15 00:18:01.634  1673 13007 I AiAiEcho: AppIndexer Package:[com.solanasuper] UserProfile:[0] Enabled:[true].
+02-15 00:18:01.634  1673 13007 I AiAiEcho: AppFetcherImplV2 updateApps package:[com.solanasuper], userId:[0], reason:[package is updated.].
+02-15 00:18:01.635 13138 13138 E ashmem  : Pinning is deprecated since Android Q. Please use trim or other methods.
+02-15 00:18:01.637  1356  1420 I s.nexuslauncher: AssetManager2(0xb4000072c4b77ad8) locale list changing from [] to [en-US]
+02-15 00:18:01.642 13138 13138 D DesktopModeFlags: Toggle override initialized to: OVERRIDE_UNSET
+02-15 00:18:01.651  1356  1420 W HWUI    : Image decoding logging dropped!
+02-15 00:18:01.654  1356  1420 D AlphabeticIndexCompat: computeSectionName: cs: Solana Super sectionName: S
+02-15 00:18:01.655  1356  1356 D AllAppsStore: setApps: apps.length=20
+02-15 00:18:01.655  1356  1356 D AllAppsStore: notifyUpdate: notifying listeners
+02-15 00:18:01.655  1356  1356 D ActivityAllAppsContainerView: onAppsUpdated; number of apps: 20
+02-15 00:18:01.655  1356  1356 D StatsLog: LAUNCHER_ALLAPPS_COUNT
+02-15 00:18:01.655  1356  1356 D AlphabeticalAppsList: Clearing FastScrollerSections.
+02-15 00:18:01.655 13138 13152 I EGL_emulation: Opening libGLESv1_CM_emulation.so
+02-15 00:18:01.656  1356  1356 D AlphabeticalAppsList: Adding apps with sections. HasPrivateApps: false
+02-15 00:18:01.656  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: C with appInfoTitle: Calendar
+02-15 00:18:01.656  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: D with appInfoTitle: Drive
+02-15 00:18:01.656  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: F with appInfoTitle: Files
+02-15 00:18:01.656  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: G with appInfoTitle: Gmail
+02-15 00:18:01.656  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: M with appInfoTitle: Maps
+02-15 00:18:01.656  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: P with appInfoTitle: Phone
+02-15 00:18:01.656  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: S with appInfoTitle: Safety
+02-15 00:18:01.656  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TMoble
+02-15 00:18:01.656  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: Y with appInfoTitle: YouTube
+02-15 00:18:01.656  1356  1356 D AlphabeticalAppsList: Adding FastScrollSection duplicate to scroll to the bottom.
+02-15 00:18:01.657 13138 13152 I EGL_emulation: Opening libGLESv2_emulation.so
+02-15 00:18:01.662  1356  1356 D AlphabeticalAppsList: Clearing FastScrollerSections.
+02-15 00:18:01.662  1356  1356 D AlphabeticalAppsList: Adding apps with sections. HasPrivateApps: false
+02-15 00:18:01.662  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: C with appInfoTitle: Calendar
+02-15 00:18:01.662  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: D with appInfoTitle: Drive
+02-15 00:18:01.662  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: F with appInfoTitle: Files
+02-15 00:18:01.662  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: G with appInfoTitle: Gmail
+02-15 00:18:01.662  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: M with appInfoTitle: Maps
+02-15 00:18:01.662  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: P with appInfoTitle: Phone
+02-15 00:18:01.662  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: S with appInfoTitle: Safety
+02-15 00:18:01.662  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TMoble
+02-15 00:18:01.662  1356  1356 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: Y with appInfoTitle: YouTube
+02-15 00:18:01.662  1356  1356 D AlphabeticalAppsList: Adding FastScrollSection duplicate to scroll to the bottom.
+02-15 00:18:01.662  1356  1356 D DeviceSearchAlg: starting search for queryLength=7 at time 11435205
+02-15 00:18:01.664 13138 13138 W HWUI    : Unknown dataspace 0
+02-15 00:18:01.664  1356  2094 D OneSearchSuggestProvider: Established or reuse existing binder channel authority=com.google.android.googlequicksearchbox
+02-15 00:18:01.667  1356  1356 D b/387844520: getOutlineOffsetX: measured width = 0, mNormalizedIconSize = 159, last updated width = 0
+02-15 00:18:01.673 13138 13152 W HWUI    : Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+02-15 00:18:01.673 13138 13152 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+02-15 00:18:01.678  1356  1356 D SearchTargetUtil: queryLength=7 size=3
+02-15 00:18:01.678  1356  1356 D SearchTargetUtil: layoutType=icon resultType=1 packageName=com.android.settings
+02-15 00:18:01.678  1356  1356 D SearchTargetUtil: layoutType=empty_divider resultType=262144 packageName=
+02-15 00:18:01.678  1356  1356 D SearchTargetUtil: layoutType=placeholder resultType=131072 packageName=com.google.android.googlequicksearchbox
+02-15 00:18:01.679  1356  1419 D LatencyLogHelper: LAUNCHER_LATENCY_ONDEVICE_SEARCH_DURATION took 16 ms.HOT queryLength=7(11435205)
+02-15 00:18:01.679  1356  1356 D LatencyLogHelper: LAUNCHER_LATENCY_IPC_DURATION took 0 ms.HOT queryLength=7(11435205)
+02-15 00:18:01.679  1356  1356 D ResultToken: Using Ranker#merge
+02-15 00:18:01.679  1356  1356 D AlphabeticalAppsList: Clearing FastScrollerSections.
+02-15 00:18:01.687   520   553 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+02-15 00:18:01.703   520   552 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10235 pid=13138
+02-15 00:18:01.703   520   553 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10235 pid=0
+02-15 00:18:01.703   520   552 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10235 => denied (43 us)
+02-15 00:18:01.703   520   553 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10235 => denied (335 us)
+02-15 00:18:01.703   520   553 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10235 pid=0
+02-15 00:18:01.703   520   553 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10235 => denied (41 us)
+02-15 00:18:01.703   520   552 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10235 pid=13138
+02-15 00:18:01.703   520   552 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10235 => denied (62 us)
+02-15 00:18:01.704   520   552 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10235 pid=13138
+02-15 00:18:01.704   520   552 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10235 => denied (123 us)
+02-15 00:18:01.705   520   553 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10235 pid=0
+02-15 00:18:01.705   520   553 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10235 => denied (1155 us)
+02-15 00:18:01.720   670  1209 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10235 pid=0
+02-15 00:18:01.720   670  1209 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10235 => denied (73 us)
+02-15 00:18:01.720   670  1209 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10235 pid=0
+02-15 00:18:01.720   670  1209 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10235 => denied (8 us)
+02-15 00:18:01.720   670  1209 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10235 pid=0
+02-15 00:18:01.720   670  1209 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10235 => denied (6 us)
+02-15 00:18:01.731  3798  3798 D BatteryBroadcastRcvr: updateBatteryStatus: action=android.intent.action.BATTERY_CHANGED
+02-15 00:18:01.733  3798  3798 D BatteryBroadcastRcvr: Battery changed: level: 100%| status: Charged| chargingStatus: 0| health: 2
+02-15 00:18:01.733  3798  3798 D TopLvBatteryPrefControl: onBatteryChanged: type=0
+02-15 00:18:01.738  3798  3798 D DashboardFragment: register observer: @430d118, uri: content://com.google.android.gms.settings.persistent/getGoogleSettingsTitle
+02-15 00:18:01.738  3798  3798 D DashboardFragment: register observer: @90e8771, uri: content://com.google.android.gms.settings.persistent/getGoogleSettingsSummary
+02-15 00:18:01.738  3798  3798 D DashboardFragment: register observer: @e032cfb, uri: content://com.google.android.apps.wellbeing.api/digitalWellbeingSummary
+02-15 00:18:01.758  3798  3798 D TopLvBatteryPrefControl: getDashboardLabel: null batteryStatusUpdate=true
+02-15 00:18:01.762   670   686 D FileUtils: Rounded bytes from 6742843392 to 8000000000
+02-15 00:18:01.781  3798  3798 D BatteryBroadcastRcvr: updateBatteryStatus: action=android.intent.action.BATTERY_CHANGED
+02-15 00:18:01.781  3798  3798 D BatteryBroadcastRcvr: Battery changed: level: 100%| status: Charged| chargingStatus: 0| health: 2
+02-15 00:18:01.781  3798  4046 D ContextualSuggestFrag: Start loading suggestions
+02-15 00:18:01.785  4869  4914 D MeasurementManager: AdServicesInfo.version=17
+02-15 00:18:01.795  3798 13159 W TileUtils: Found com.google.intelligence.sense.ambientmusic.DefaultMusicPlayerSettingActivity for intent Intent { act=com.android.settings.action.IA_SETTINGS } missing metadata
+02-15 00:18:01.795  3798 13159 W TileUtils: Found com.google.android.gms.auth.proximity.multidevice.SettingsMaterialNextActivity for intent Intent { act=com.android.settings.action.IA_SETTINGS } missing metadata
+02-15 00:18:01.802  4999 10904 W MetricsFeatureProvider: Invalid suggestion ids!!! ids is null or empty. Please check.
+02-15 00:18:01.802  3798  4046 D ContextualSuggestFrag: Loaded suggests: 0
+02-15 00:18:01.802  3798  3798 D ContextualSuggestFrag: Remove suggestion
+02-15 00:18:01.802  3798  3798 D ContextualSuggestFrag: Total loading time: 21 ms
+02-15 00:18:01.803  3798  3798 I SettingsHomepageActivity: showHomepageWithSuggestion: false
+02-15 00:18:01.804   670   686 D TelephonyManager: requestModemActivityInfo: Sending result to app: ModemActivityInfo{ mTimestamp=11435339 mSleepTimeMs=1470 mIdleTimeMs=490 mActivityStatsTechSpecificInfo=[{mRat=UNKNOWN,mFrequencyRange=UNKNOWN,mTxTimeMs[]=[35, 105, 210, 280, 315],mRxTimeMs=315}]}
+02-15 00:18:01.806  1356  1356 D SearchTargetUtil: queryLength=7 size=10
+02-15 00:18:01.806  1356  1356 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox
+02-15 00:18:01.806  1356  1356 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox
+02-15 00:18:01.806  1356  1356 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox
+02-15 00:18:01.806  1356  1356 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox
+02-15 00:18:01.806  1356  1356 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox
+02-15 00:18:01.806  1356  1356 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox
+02-15 00:18:01.806  1356  1356 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox
+02-15 00:18:01.806  1356  1356 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox
+02-15 00:18:01.806  1356  1356 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox
+02-15 00:18:01.806  1356  1356 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox
+02-15 00:18:01.806  1356  1356 D ResultToken: Using Ranker#merge
+02-15 00:18:01.806  1356  1356 D AlphabeticalAppsList: Clearing FastScrollerSections.
+02-15 00:18:01.806  3798  3798 D ActivityEmbeddingUtils: isSettingsSplitSupported = false
+02-15 00:18:01.807  3798  3798 D ActivityEmbeddingUtils: isSettingsSplitSupported = false
+02-15 00:18:01.807  3798  3798 D TopLevelSettings: Start waiting observers
+02-15 00:18:01.813 13108 13108 D VRI[ComponentActivity]: visibilityChanged oldVisibility=true newVisibility=false
+02-15 00:18:01.822 13108 13108 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@6edfe1e in: STOPPED
+02-15 00:18:01.822 13108 13108 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=androidx.activity.ComponentActivity@6edfe1e
+02-15 00:18:01.823  1075  1084 W ndroid.systemui: Missing inline cache for void com.android.wm.shell.transition.Transitions.processReadyQueue(com.android.wm.shell.transition.Transitions$Track)
+02-15 00:18:01.823  1075  1084 W ndroid.systemui: Missing inline cache for void com.android.wm.shell.transition.Transitions.processReadyQueue(com.android.wm.shell.transition.Transitions$Track)
+02-15 00:18:01.827 13108 13108 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@6edfe1e in: DESTROYED
+02-15 00:18:01.828 13108 13108 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+02-15 00:18:01.829   670  1164 W ParceledListSlice: Element #67 is 146460 bytes.
+02-15 00:18:01.829   670  1164 W ParceledListSlice: Overly large reply size: 192232
+02-15 00:18:01.830   478   528 I RanchuHwc: logCompositionFallbackIfChanged: layer 118 CompositionType fallback from 3 to 1
+02-15 00:18:01.835   670  1228 W ParceledListSlice: Element #139 is 70048 bytes.
+02-15 00:18:01.835   670  1228 W ParceledListSlice: Overly large reply size: 108536
+02-15 00:18:01.838 13108 13108 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.view.ViewRootImpl$$ExternalSyntheticLambda13@f61ce3d
+02-15 00:18:01.843 13108 13108 D ViewRootImpl: Skipping stats log for color mode
+02-15 00:18:01.844   670  1228 W ParceledListSlice: Element #191 is 24688 bytes.
+02-15 00:18:01.844   670  1228 W ParceledListSlice: Overly large reply size: 87756
+02-15 00:18:01.849   670  1164 I ImeTracker: system_server:d3db7a20: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+02-15 00:18:01.849   670   693 I ImeTracker: system_server:d3db7a20: onCancelled at PHASE_SERVER_SHOULD_HIDE
+02-15 00:18:01.850   670   686 W ParceledListSlice: Element #220 is 31164 bytes.
+02-15 00:18:01.850   670   686 W ParceledListSlice: Element #230 is 16956 bytes.
+02-15 00:18:01.857  3798  3798 D TopLevelSettings: Stop waiting observers
+02-15 00:18:01.858  1356  1356 D RecentsView: onTaskRemoved: 14, not handling task stack changes
+02-15 00:18:01.858  1356  1356 D RecentsView: onTaskRemoved: 14, not handling task stack changes
+02-15 00:18:01.858   670   794 I ImeTracker: com.android.settings:6ee34849: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+02-15 00:18:01.859  3798  3798 D InsetsController: hide(ime(), fromIme=false)
+02-15 00:18:01.859  3798  3798 I ImeTracker: com.android.settings:6ee34849: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+02-15 00:18:01.860  6938  6938 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+02-15 00:18:01.860  6938  6938 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+02-15 00:18:01.860  6938  6938 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.android.settings, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+02-15 00:18:01.861  6938  6938 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+02-15 00:18:01.866 13108 13124 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.junit4.EspressoLink@65b7ce9]
+02-15 00:18:01.867   670  1164 I ImeTracker: system_server:5547fc36: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+02-15 00:18:01.869   670   693 I ImeTracker: system_server:5547fc36: onCancelled at PHASE_SERVER_SHOULD_HIDE
+02-15 00:18:01.871 13108 13124 I TestRunner: finished: incomeScreen_displaysBalance_andActions(com.solanasuper.ui.income.IncomeScreenTest)

@@ -1,28 +1,31 @@
 package com.solanasuper.ui
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.solanasuper.data.TransactionDao
 import com.solanasuper.network.MockArciumClient
+import com.solanasuper.p2p.TransactionManager
 import com.solanasuper.security.BiometricPromptManager
 import com.solanasuper.security.IdentityKeyManager
 import com.solanasuper.ui.governance.GovernanceScreen
 import com.solanasuper.ui.health.HealthScreen
 import com.solanasuper.ui.identity.IdentityHubScreen
 import com.solanasuper.ui.income.IncomeScreen
+import com.solanasuper.ui.income.IncomeViewModel
 
 // Define generic icon resource or use vector assets if available.
 // For now, we reuse standard icons or placeholder IDs if resources aren't checked.
@@ -43,7 +46,9 @@ sealed class Screen(val route: String, val label: String) {
 fun MainNavigation(
     promptManager: BiometricPromptManager,
     identityKeyManager: IdentityKeyManager,
-    arciumClient: MockArciumClient
+    arciumClient: MockArciumClient,
+    transactionManager: TransactionManager,
+    transactionDao: TransactionDao
 ) {
     val navController = rememberNavController()
 
@@ -91,7 +96,16 @@ fun MainNavigation(
             }
             composable(Screen.Income.route) {
                 // Income (Pillar 4)
-                IncomeScreen()
+                val viewModel: IncomeViewModel = viewModel(
+                    factory = IncomeViewModel.Factory(transactionManager, transactionDao)
+                )
+                val state by viewModel.state.collectAsState()
+                
+                IncomeScreen(
+                    state = state,
+                    onClaimUbi = { viewModel.claimUbi() },
+                    onOfflinePay = { viewModel.startP2P() }
+                )
             }
             composable(Screen.Health.route) {
                 // Health (Pillar 5)

@@ -9,7 +9,7 @@ import java.util.UUID
 class TransactionManager(private val transactionDao: TransactionDao) {
 
     suspend fun lockFunds(amount: Long) {
-        val currentBalance = transactionDao.getBalance()
+        val currentBalance = transactionDao.getAvailableBalance() ?: 0L
         
         if (currentBalance < amount) {
             throw IllegalStateException("Insufficient funds")

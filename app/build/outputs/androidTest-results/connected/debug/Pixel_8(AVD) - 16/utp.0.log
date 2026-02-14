@@ -12,7 +12,7 @@ INFO: Configuring Android Instrumentation driver: android_instrumentation_runtim
     }
     args_map {
       key: "class"
-      value: "com.solanasuper.core.GovernanceTest"
+      value: "com.solanasuper.ui.income.IncomeScreenTest"
     }
   }
 }
@@ -41,4 +41,4 @@ INFO: Copying files from device to host: /sdcard/Android/media/com.solanasuper/a
 INFO: Stop logcat streaming.
 INFO: Uninstalling com.solanasuper for device emulator-5554.
 INFO: Uninstalling com.solanasuper.test for device emulator-5554.
-INFO: Execute com.solanasuper.core.GovernanceTest.testSecureVoteGeneration: PASSED
+INFO: Execute com.solanasuper.ui.income.IncomeScreenTest.incomeScreen_displaysBalance_andActions: PASSED

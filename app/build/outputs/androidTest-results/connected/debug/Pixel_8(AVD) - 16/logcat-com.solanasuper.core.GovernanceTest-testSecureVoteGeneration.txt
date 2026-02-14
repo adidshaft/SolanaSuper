@@ -1,3 +1,0 @@
-02-14 23:52:46.113 12317 12331 I TestRunner: started: testSecureVoteGeneration(com.solanasuper.core.GovernanceTest)
-02-14 23:52:46.122 12317 12331 D nativeloader: Load /data/app/~~Lf_fKDVt9JCdIiydTJJK3g==/com.solanasuper-l1t29hn_-3fNBnY-MlmrNw==/base.apk!/lib/arm64-v8a/libsolanasuper_core.so using class loader ns clns-9 (caller=/data/app/~~Lf_fKDVt9JCdIiydTJJK3g==/com.solanasuper-l1t29hn_-3fNBnY-MlmrNw==/base.apk!classes3.dex): ok
-02-14 23:52:46.124 12317 12331 I TestRunner: finished: testSecureVoteGeneration(com.solanasuper.core.GovernanceTest)

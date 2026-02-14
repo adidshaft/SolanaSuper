@@ -83,6 +83,7 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
@@ -113,7 +114,9 @@ dependencies {
     
     // Testing
     testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.kotlin)
+    androidTestImplementation(libs.mockito.android)
 }
 
 // Protobuf

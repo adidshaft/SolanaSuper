@@ -34,9 +34,9 @@ public final class HealthDatabase_Impl extends HealthDatabase {
     final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(1) {
       @Override
       public void createAllTables(@NonNull final SupportSQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS `health_records` (`id` TEXT NOT NULL, `type` TEXT NOT NULL, `data` TEXT NOT NULL, PRIMARY KEY(`id`))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `health_records` (`id` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `data_type` TEXT NOT NULL, `encrypted_payload` TEXT NOT NULL, PRIMARY KEY(`id`))");
         db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b0e83824669ee700db7f510705acb21c')");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1d29724860a1d288511a6fe05197f171')");
       }
 
       @Override
@@ -85,22 +85,23 @@ public final class HealthDatabase_Impl extends HealthDatabase {
       @NonNull
       public RoomOpenHelper.ValidationResult onValidateSchema(
           @NonNull final SupportSQLiteDatabase db) {
-        final HashMap<String, TableInfo.Column> _columnsHealthRecords = new HashMap<String, TableInfo.Column>(3);
+        final HashMap<String, TableInfo.Column> _columnsHealthRecords = new HashMap<String, TableInfo.Column>(4);
         _columnsHealthRecords.put("id", new TableInfo.Column("id", "TEXT", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsHealthRecords.put("type", new TableInfo.Column("type", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsHealthRecords.put("data", new TableInfo.Column("data", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsHealthRecords.put("timestamp", new TableInfo.Column("timestamp", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsHealthRecords.put("data_type", new TableInfo.Column("data_type", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsHealthRecords.put("encrypted_payload", new TableInfo.Column("encrypted_payload", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         final HashSet<TableInfo.ForeignKey> _foreignKeysHealthRecords = new HashSet<TableInfo.ForeignKey>(0);
         final HashSet<TableInfo.Index> _indicesHealthRecords = new HashSet<TableInfo.Index>(0);
         final TableInfo _infoHealthRecords = new TableInfo("health_records", _columnsHealthRecords, _foreignKeysHealthRecords, _indicesHealthRecords);
         final TableInfo _existingHealthRecords = TableInfo.read(db, "health_records");
         if (!_infoHealthRecords.equals(_existingHealthRecords)) {
-          return new RoomOpenHelper.ValidationResult(false, "health_records(com.solanasuper.data.HealthRecord).\n"
+          return new RoomOpenHelper.ValidationResult(false, "health_records(com.solanasuper.data.HealthEntity).\n"
                   + " Expected:\n" + _infoHealthRecords + "\n"
                   + " Found:\n" + _existingHealthRecords);
         }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "b0e83824669ee700db7f510705acb21c", "32833565901ac6f89bfb159d4608d754");
+    }, "1d29724860a1d288511a6fe05197f171", "0443283f0e4e95aee97f88fcec3dfccc");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
     final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;

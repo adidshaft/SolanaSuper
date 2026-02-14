@@ -1,19 +1,2 @@
 ninja: Entering directory `/Users/amanpandey/Desktop/SolanaSuper/app/.cxx/Debug/6e3r3f2a/armeabi-v7a'
-[1/3] Building Rust library for armv7-linux-androideabi
-   Compiling bytes v1.11.1
-   Compiling cfg-if v1.0.4
-   Compiling memchr v2.8.0
-   Compiling cesu8 v1.1.0
-   Compiling log v0.4.29
-   Compiling jni-sys v0.3.0
-   Compiling libc v0.2.182
-   Compiling thiserror v1.0.69
-   Compiling combine v4.6.7
-   Compiling prost v0.9.0
-   Compiling getrandom v0.2.17
-   Compiling prost-types v0.9.0
-   Compiling jni v0.21.1
-   Compiling solanasuper_core v0.1.0 (/Users/amanpandey/Desktop/SolanaSuper/app/src/main/cpp/rust)
-    Finished `release` profile [optimized] target(s) in 4.39s
-[2/3] Building CXX object CMakeFiles/jni_wrapper.dir/stub.cpp.o
-[3/3] Linking CXX shared library /Users/amanpandey/Desktop/SolanaSuper/app/build/intermediates/cxx/Debug/6e3r3f2a/obj/armeabi-v7a/libjni_wrapper.so
+ninja: no work to do.

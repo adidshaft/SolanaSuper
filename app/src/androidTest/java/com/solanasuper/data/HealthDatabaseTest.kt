@@ -26,6 +26,9 @@ class HealthDatabaseTest {
     fun setup() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         
+        // 0. Initialize SQLCipher libraries
+        net.sqlcipher.database.SQLiteDatabase.loadLibs(context)
+        
         // 1. Initialize KeyManager to get the passphrase
         keyManager = KeyManager(context)
         val passphrase = keyManager.getOrGeneratePassphrase()

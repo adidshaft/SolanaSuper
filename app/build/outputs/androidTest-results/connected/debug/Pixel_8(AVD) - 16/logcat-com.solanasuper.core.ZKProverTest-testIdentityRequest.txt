@@ -1,3 +1,0 @@
-02-14 23:39:32.711 10358 10372 I TestRunner: started: testIdentityRequest(com.solanasuper.core.ZKProverTest)
-02-14 23:39:32.721 10358 10372 D nativeloader: Load /data/app/~~zhC49I6a1iCo0-n_l-ngPQ==/com.solanasuper-kvgb-KkYuRPRIU6Phx8f5Q==/base.apk!/lib/arm64-v8a/libsolanasuper_core.so using class loader ns clns-9 (caller=/data/app/~~zhC49I6a1iCo0-n_l-ngPQ==/com.solanasuper-kvgb-KkYuRPRIU6Phx8f5Q==/base.apk!classes3.dex): ok
-02-14 23:39:32.723 10358 10372 I TestRunner: finished: testIdentityRequest(com.solanasuper.core.ZKProverTest)

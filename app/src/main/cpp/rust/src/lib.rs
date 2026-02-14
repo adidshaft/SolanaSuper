@@ -14,6 +14,16 @@ pub mod enclave {
     }
 
     #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct GovernanceRequest {
+        #[prost(string, tag="1")]
+        pub proposal_id: ::prost::alloc::string::String,
+        #[prost(string, tag="2")]
+        pub vote_choice: ::prost::alloc::string::String,
+        #[prost(bytes="vec", tag="3")]
+        pub identity_signature: ::prost::alloc::vec::Vec<u8>,
+    }
+
+    #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct EnclaveRequest {
         #[prost(string, tag="1")]
         pub request_id: ::prost::alloc::string::String,
@@ -23,6 +33,8 @@ pub mod enclave {
         pub payload: ::prost::alloc::vec::Vec<u8>,
         #[prost(message, optional, tag="4")]
         pub identity_req: ::core::option::Option<IdentityRequest>,
+        #[prost(message, optional, tag="5")]
+        pub governance_req: ::core::option::Option<GovernanceRequest>,
     }
 
     #[derive(Clone, PartialEq, ::prost::Message)]
@@ -38,7 +50,7 @@ pub mod enclave {
     }
 }
 
-use enclave::{EnclaveRequest, EnclaveResponse, IdentityRequest};
+use enclave::{EnclaveRequest, EnclaveResponse, IdentityRequest, GovernanceRequest};
 
 #[no_mangle]
 pub extern "system" fn Java_com_solanasuper_core_ZKProver_processEnclaveRequest(

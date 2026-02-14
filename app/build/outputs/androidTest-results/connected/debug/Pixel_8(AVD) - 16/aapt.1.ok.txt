@@ -1,7 +1,7 @@
 EXECUTING: /Users/amanpandey/Library/Android/sdk/build-tools/35.0.0/aapt dump badging /Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/apk/debug/app-debug.apk
 CURRENT_WORKING_DIRECTORY: /Users/amanpandey/Desktop/SolanaSuper
-START_TIME: 2026-02-14 23:39:33.154
-START_TIME-NANOS: 2026-02-14 23:39:33.154618000
+START_TIME: 2026-02-14 23:51:57.060
+START_TIME-NANOS: 2026-02-14 23:51:57.060066000
 ENVIRONMENT:
 
 *****************************************
@@ -137,7 +137,7 @@ locales: '--_--' 'af' 'am' 'ar' 'as' 'az' 'be' 'bg' 'bn' 'bs' 'ca' 'cs' 'da' 'de
 densities: '120' '160' '240' '320' '480' '640' '65534'
 native-code: 'arm64-v8a' 'armeabi-v7a' 'x86' 'x86_64'
 ===================
-END_TIME: 2026-02-14 23:39:33.176
-END_TIME-NANOS: 2026-02-14 23:39:33.176863000
-DURATION: 22ms
+END_TIME: 2026-02-14 23:51:57.120
+END_TIME-NANOS: 2026-02-14 23:51:57.120136000
+DURATION: 60ms
 EXIT CODE: 0

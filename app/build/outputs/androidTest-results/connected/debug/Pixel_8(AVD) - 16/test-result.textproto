@@ -1,95 +1,44 @@
 # proto-message: google.testing.platform.proto.api.core.TestSuiteResult
-# 2026-02-14T18:09:33.520182Z:
+# 2026-02-14T18:21:57.388765Z:
 test_suite_meta_data {
-  scheduled_test_case_count: 2
+  scheduled_test_case_count: 1
   device {
     id: "emulator-5554"
     friendly_name: "primary"
   }
 }
-test_status: PASSED
+test_status: FAILED
 test_result {
   test_case {
-    test_class: "ZKProverTest"
+    test_class: "GovernanceTest"
     test_package: "com.solanasuper.core"
-    test_method: "testIdentityRequest"
+    test_method: "testSecureVoteGeneration"
     start_time {
-      seconds: 1771092572
-      nanos: 950000000
+      seconds: 1771093316
+      nanos: 850000000
     }
     end_time {
-      seconds: 1771092572
-      nanos: 975000000
+      seconds: 1771093316
+      nanos: 877000000
     }
     device {
       id: "emulator-5554"
       friendly_name: "primary"
     }
   }
-  test_status: PASSED
+  test_status: FAILED
+  error {
+    error_message: "org.junit.ComparisonFailure: expected:<m[pc_vote_share_for_proposal_ubi_001]> but was:<m[ock_zk_proof_data]>\nat org.junit.Assert.assertEquals(Assert.java:117)\nat org.junit.Assert.assertEquals(Assert.java:146)\nat com.solanasuper.core.GovernanceTest.testSecureVoteGeneration(GovernanceTest.kt:38)\n"
+    error_type: "org.junit.ComparisonFailure"
+    stack_trace: "org.junit.ComparisonFailure: expected:<m[pc_vote_share_for_proposal_ubi_001]> but was:<m[ock_zk_proof_data]>\nat org.junit.Assert.assertEquals(Assert.java:117)\nat org.junit.Assert.assertEquals(Assert.java:146)\nat com.solanasuper.core.GovernanceTest.testSecureVoteGeneration(GovernanceTest.kt:38)\n"
+  }
   output_artifact {
     label {
       label: "logcat"
       namespace: "android"
     }
     source_path {
-      path: "/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/logcat-com.solanasuper.core.ZKProverTest-testIdentityRequest.txt"
-    }
-  }
-  output_artifact {
-    label {
-      label: "device-info"
-      namespace: "android"
-    }
-    source_path {
-      path: "/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/device-info.pb"
-    }
-  }
-  output_artifact {
-    label {
-      label: "device-info.meminfo"
-      namespace: "android"
-    }
-    source_path {
-      path: "/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/meminfo"
-    }
-  }
-  output_artifact {
-    label {
-      label: "device-info.cpuinfo"
-      namespace: "android"
-    }
-    source_path {
-      path: "/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/cpuinfo"
-    }
-  }
-}
-test_result {
-  test_case {
-    test_class: "ZKProverTest"
-    test_package: "com.solanasuper.core"
-    test_method: "testProcessEnclaveRequest"
-    start_time {
-      seconds: 1771092572
-      nanos: 986000000
-    }
-    end_time {
-      seconds: 1771092572
-      nanos: 986000000
-    }
-    device {
-      id: "emulator-5554"
-      friendly_name: "primary"
-    }
-  }
-  test_status: PASSED
-  output_artifact {
-    label {
-      label: "logcat"
-      namespace: "android"
-    }
-    source_path {
-      path: "/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/logcat-com.solanasuper.core.ZKProverTest-testProcessEnclaveRequest.txt"
+      path: "/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/logcat-com.solanasuper.core.GovernanceTest-testSecureVoteGeneration.txt"
     }
   }
   output_artifact {

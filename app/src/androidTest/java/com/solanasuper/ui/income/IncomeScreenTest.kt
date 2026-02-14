@@ -37,4 +37,19 @@ class IncomeScreenTest {
         // 3. Verify Transaction List Header
         composeTestRule.onNodeWithText("Recent Transactions").assertIsDisplayed()
     }
+
+    @Test
+    fun incomeScreen_showsP2PDialog_whenScanning() {
+        // Arrange: State with P2P Scanning
+        val scanningState = IncomeState(
+            p2pStatus = P2PStatus.SCANNING
+        )
+
+        composeTestRule.setContent {
+            IncomeScreen(state = scanningState)
+        }
+
+        // Assert: "Scanning for peers..." dialog/text is shown
+        composeTestRule.onNodeWithText("Scanning for peers...").assertIsDisplayed()
+    }
 }

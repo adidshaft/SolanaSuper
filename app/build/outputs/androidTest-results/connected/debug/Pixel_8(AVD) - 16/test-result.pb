@@ -1,17 +1,9 @@
 
 
-emulator-5554primaryú
-
-
-IncomeScreenTestcom.solanasuper.ui.income(incomeScreen_showsP2PDialog_whenScanning2úŠÃÌÀ²Öµ:ûŠÃÌ€Í¶—B
-emulator-5554primaryª
-…java.lang.AssertionError: Assert failed: The component is not displayed!
-at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
-at com.solanasuper.ui.income.IncomeScreenTest.incomeScreen_showsP2PDialog_whenScanning(IncomeScreenTest.kt:53)
-java.lang.AssertionError…java.lang.AssertionError: Assert failed: The component is not displayed!
-at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
-at com.solanasuper.ui.income.IncomeScreenTest.incomeScreen_showsP2PDialog_whenScanning(IncomeScreenTest.kt:53)
-"å
+emulator-5554primaryÌ
+Œ
+IncomeScreenTestcom.solanasuper.ui.income(incomeScreen_showsP2PDialog_whenScanning2“ŒÃÌ€¾Ì¸:•ŒÃÌ€©¼B
+emulator-5554primary"å
 
 logcatandroidÏ
 Ì/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/logcat-com.solanasuper.ui.income.IncomeScreenTest-incomeScreen_showsP2PDialog_whenScanning.txt"˜
@@ -23,9 +15,9 @@ at com.solanasuper.ui.income.IncomeScreenTest.incomeScreen_showsP2PDialog_whenSc
 u/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/meminfo"™
 
 device-info.cpuinfoandroidw
-u/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/cpuinfoË
-Œ
-IncomeScreenTestcom.solanasuper.ui.income'incomeScreen_displaysBalance_andActions2ûŠÃÌ€•‡Ÿ:üŠÃÌÀ›˜B
+u/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/cpuinfoÊ
+‹
+IncomeScreenTestcom.solanasuper.ui.income'incomeScreen_displaysBalance_andActions2•ŒÃÌ€è’&:•ŒÃÌÀğúB
 emulator-5554primary"ä
 
 logcatandroidÎ

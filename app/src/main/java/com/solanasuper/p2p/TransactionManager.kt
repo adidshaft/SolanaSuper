@@ -8,11 +8,11 @@ import java.util.UUID
 
 class TransactionManager(private val transactionDao: TransactionDao) {
 
-    suspend fun lockFunds(amount: Long) {
+    suspend fun lockFunds(amount: Long): Boolean {
         val currentBalance = transactionDao.getAvailableBalance() ?: 0L
         
         if (currentBalance < amount) {
-            throw IllegalStateException("Insufficient funds")
+            return false // Return false instead of throwing for cleaner UI handling
         }
 
         val newTransaction = OfflineTransaction(
@@ -24,5 +24,6 @@ class TransactionManager(private val transactionDao: TransactionDao) {
         )
 
         transactionDao.insert(newTransaction)
+        return true
     }
 }

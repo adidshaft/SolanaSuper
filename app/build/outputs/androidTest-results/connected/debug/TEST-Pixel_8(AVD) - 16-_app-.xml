@@ -1,15 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<testsuite name="com.solanasuper.ui.income.IncomeScreenTest" tests="2" failures="1" errors="0" skipped="0" time="2.411" timestamp="2026-02-14T18:57:00" hostname="localhost">
+<testsuite name="com.solanasuper.ui.income.IncomeScreenTest" tests="2" failures="0" errors="0" skipped="0" time="2.364" timestamp="2026-02-14T18:59:34" hostname="localhost">
   <properties>
     <property name="device" value="Pixel_8(AVD) - 16" />
     <property name="flavor" value="" />
     <property name="project" value=":app" />
   </properties>
-  <testcase name="incomeScreen_showsP2PDialog_whenScanning" classname="com.solanasuper.ui.income.IncomeScreenTest" time="1.188">
-    <failure>java.lang.AssertionError: Assert failed: The component is not displayed!
-at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
-at com.solanasuper.ui.income.IncomeScreenTest.incomeScreen_showsP2PDialog_whenScanning(IncomeScreenTest.kt:53)
-</failure>
-  </testcase>
-  <testcase name="incomeScreen_displaysBalance_andActions" classname="com.solanasuper.ui.income.IncomeScreenTest" time="0.717" />
+  <testcase name="incomeScreen_showsP2PDialog_whenScanning" classname="com.solanasuper.ui.income.IncomeScreenTest" time="1.134" />
+  <testcase name="incomeScreen_displaysBalance_andActions" classname="com.solanasuper.ui.income.IncomeScreenTest" time="0.72" />
 </testsuite>

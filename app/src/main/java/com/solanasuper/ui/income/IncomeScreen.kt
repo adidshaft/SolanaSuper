@@ -124,6 +124,61 @@ fun IncomeScreen(
             }
         }
     }
+
+    // P2P Bottom Sheet / Dialog Overlay
+    if (state.p2pStatus != P2PStatus.IDLE) {
+        P2POverlay(state.p2pStatus, state.p2pPeerName)
+    }
+}
+
+@Composable
+fun P2POverlay(status: P2PStatus, peerName: String?) {
+    // A simple full-screen or dialog overlay for P2P status
+    // Using Box with background blur would be nice, but simple semi-transparent background works too.
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black.copy(alpha = 0.8f))
+            .padding(24.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(24.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = Color(0xFF2D2D2D)
+            )
+        ) {
+            Column(
+                modifier = Modifier.padding(32.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                val (title, color) = when (status) {
+                    P2PStatus.SCANNING -> "Scanning for peers..." to Color.Yellow
+                    P2PStatus.FOUND_PEER -> "Found Peer: $peerName" to Color.Cyan
+                    P2PStatus.TRANSFERRING -> "Sending ZK Proof..." to Color.Blue
+                    P2PStatus.SUCCESS -> "Transfer Complete!" to Color.Green
+                    P2PStatus.ERROR -> "Transfer Failed" to Color.Red
+                    else -> "" to Color.White
+                }
+                
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = color,
+                    fontWeight = FontWeight.Bold
+                )
+                
+                Spacer(modifier = Modifier.height(16.dp))
+                
+                if (status == P2PStatus.SCANNING || status == P2PStatus.TRANSFERRING) {
+                    // Simple loading indicator text if we don't have CircularProgressIndicator handy
+                    Text("Please wait...", color = Color.Gray)
+                }
+            }
+        }
+    }
 }
 
 @Composable

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.solanasuper.security.KeyManagerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-02-14T16:29:44.344Z" hostname="Amans-MacBook-Pro.local" time="0.001">
-  <properties/>
-  <testcase name="test subsequent calls return same passphrase" classname="com.solanasuper.security.KeyManagerTest" time="0.001"/>
-  <testcase name="test key generation returns valid byte array" classname="com.solanasuper.security.KeyManagerTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

@@ -1,0 +1,1 @@
+/Users/amanpandey/Desktop/SolanaSuper/app/src/main/cpp/rust/target/armv7-linux-androideabi/release/libsolanasuper_core.so: /Users/amanpandey/Desktop/SolanaSuper/app/src/main/cpp/rust/src/lib.rs

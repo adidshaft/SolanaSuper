@@ -1,0 +1,11 @@
+/Users/amanpandey/Desktop/SolanaSuper/app/src/main/cpp/rust/target/i686-linux-android/release/deps/libprost-30c2fa53227cc948.rmeta: /Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/lib.rs /Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/error.rs /Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/message.rs /Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/types.rs /Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/encoding.rs
+
+/Users/amanpandey/Desktop/SolanaSuper/app/src/main/cpp/rust/target/i686-linux-android/release/deps/libprost-30c2fa53227cc948.rlib: /Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/lib.rs /Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/error.rs /Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/message.rs /Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/types.rs /Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/encoding.rs
+
+/Users/amanpandey/Desktop/SolanaSuper/app/src/main/cpp/rust/target/i686-linux-android/release/deps/prost-30c2fa53227cc948.d: /Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/lib.rs /Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/error.rs /Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/message.rs /Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/types.rs /Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/encoding.rs
+
+/Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/lib.rs:
+/Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/error.rs:
+/Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/message.rs:
+/Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/types.rs:
+/Users/amanpandey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prost-0.9.0/src/encoding.rs:

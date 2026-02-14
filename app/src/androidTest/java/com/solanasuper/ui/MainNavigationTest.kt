@@ -7,7 +7,8 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.solanasuper.network.MockArciumClient
-import com.solanasuper.network.P2PTransferManager
+import com.solanasuper.p2p.TransactionManager
+import com.solanasuper.data.TransactionDao
 import com.solanasuper.security.BiometricPromptManager
 import com.solanasuper.security.IdentityKeyManager
 import org.junit.Rule
@@ -24,20 +25,26 @@ class MainNavigationTest {
     @Test
     fun mainNavigation_verifiesBottomBarClick_andScreenSwitching() {
         // Mock dependencies
-        val mockPromptManager = Mockito.mock(BiometricPromptManager::class.java)
-        val mockKeyManager = Mockito.mock(IdentityKeyManager::class.java)
-        val mockArcium = Mockito.mock(MockArciumClient::class.java)
+        val promptManager = Mockito.mock(BiometricPromptManager::class.java)
+        val identityKeyManager = Mockito.mock(IdentityKeyManager::class.java)
+        val arciumClient = Mockito.mock(MockArciumClient::class.java)
         // P2PTransferManager needs context, might be harder to mock if it's a concrete class in signature
         // We might need to pass a mock or null if allowed. 
         // For strict TDD, we assume the MainNavigation composable accepts these as params.
+        
+        // Mock new dependencies
+        val transactionDao = Mockito.mock(TransactionDao::class.java)
+        val transactionManager = Mockito.mock(TransactionManager::class.java)
         
         composeTestRule.setContent {
             // MainNavigation doesn't exist yet, or hasn't been updated.
             // This references a Composable we EXPECT to implement.
              MainNavigation(
-                 promptManager = mockPromptManager,
-                 identityKeyManager = mockKeyManager,
-                 arciumClient = mockArcium
+                 promptManager = promptManager,
+                 identityKeyManager = identityKeyManager,
+                 arciumClient = arciumClient,
+                 transactionManager = transactionManager,
+                 transactionDao = transactionDao
              )
         }
 

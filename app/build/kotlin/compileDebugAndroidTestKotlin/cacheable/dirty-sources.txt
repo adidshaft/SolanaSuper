@@ -1,7 +1,0 @@
-/Users/amanpandey/Desktop/SolanaSuper/app/src/androidTest/java/com/solanasuper/ui/MainNavigationTest.kt
-/Users/amanpandey/Desktop/SolanaSuper/app/src/androidTest/java/com/solanasuper/security/IdentityKeyManagerTest.kt
-/Users/amanpandey/Desktop/SolanaSuper/app/src/androidTest/java/com/solanasuper/ui/income/IncomeScreenTest.kt
-/Users/amanpandey/Desktop/SolanaSuper/app/src/androidTest/java/com/solanasuper/data/WalletDatabaseTest.kt
-/Users/amanpandey/Desktop/SolanaSuper/app/src/androidTest/java/com/solanasuper/data/HealthDatabaseTest.kt
-/Users/amanpandey/Desktop/SolanaSuper/app/src/androidTest/java/com/solanasuper/core/ZKProverTest.kt
-/Users/amanpandey/Desktop/SolanaSuper/app/src/androidTest/java/com/solanasuper/core/GovernanceTest.kt

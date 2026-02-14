@@ -28,6 +28,8 @@ import javax.annotation.processing.Generated;
 public final class WalletDatabase_Impl extends WalletDatabase {
   private volatile WalletDao _walletDao;
 
+  private volatile TransactionDao _transactionDao;
+
   @Override
   @NonNull
   protected SupportSQLiteOpenHelper createOpenHelper(@NonNull final DatabaseConfiguration config) {
@@ -154,6 +156,7 @@ public final class WalletDatabase_Impl extends WalletDatabase {
   protected Map<Class<?>, List<Class<?>>> getRequiredTypeConverters() {
     final HashMap<Class<?>, List<Class<?>>> _typeConvertersMap = new HashMap<Class<?>, List<Class<?>>>();
     _typeConvertersMap.put(WalletDao.class, WalletDao_Impl.getRequiredConverters());
+    _typeConvertersMap.put(TransactionDao.class, TransactionDao_Impl.getRequiredConverters());
     return _typeConvertersMap;
   }
 
@@ -182,6 +185,20 @@ public final class WalletDatabase_Impl extends WalletDatabase {
           _walletDao = new WalletDao_Impl(this);
         }
         return _walletDao;
+      }
+    }
+  }
+
+  @Override
+  public TransactionDao transactionDao() {
+    if (_transactionDao != null) {
+      return _transactionDao;
+    } else {
+      synchronized(this) {
+        if(_transactionDao == null) {
+          _transactionDao = new TransactionDao_Impl(this);
+        }
+        return _transactionDao;
       }
     }
   }

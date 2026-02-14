@@ -12,6 +12,7 @@ import com.solanasuper.network.MockArciumClient
 import com.solanasuper.security.BiometricPromptManager
 import com.solanasuper.security.IdentityKeyManager
 import com.solanasuper.ui.MainNavigation
+import com.solanasuper.data.WalletDatabase
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +21,10 @@ class MainActivity : AppCompatActivity() {
         val promptManager = BiometricPromptManager(this)
         val identityKeyManager = IdentityKeyManager()
         val arciumClient = MockArciumClient()
+        
+        val database = WalletDatabase.getDatabase(this)
+        val transactionDao = database.transactionDao()
+        val transactionManager = com.solanasuper.p2p.TransactionManager(transactionDao)
 
         setContent {
             MaterialTheme {
@@ -30,7 +35,9 @@ class MainActivity : AppCompatActivity() {
                     MainNavigation(
                         promptManager = promptManager,
                         identityKeyManager = identityKeyManager,
-                        arciumClient = arciumClient
+                        arciumClient = arciumClient,
+                        transactionManager = transactionManager,
+                        transactionDao = transactionDao
                     )
                 }
             }

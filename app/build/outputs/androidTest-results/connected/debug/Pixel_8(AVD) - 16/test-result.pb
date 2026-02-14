@@ -1,12 +1,12 @@
 
 
-emulator-5554primary
-v
-GovernanceTestcom.solanasuper.coretestSecureVoteGeneration2öúÂÌ€ÔÔ«:öúÂÌÀ»Ğ¶B
-emulator-5554primary"Î
+emulator-5554primaryÊ
+‹
+IncomeScreenTestcom.solanasuper.ui.income'incomeScreen_displaysBalance_andActions2à†ÃÌ€Ó¸é:â†ÃÌ€·Š<B
+emulator-5554primary"ä
 
-logcatandroid¸
-µ/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/logcat-com.solanasuper.core.GovernanceTest-testSecureVoteGeneration.txt"˜
+logcatandroidÎ
+Ë/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/logcat-com.solanasuper.ui.income.IncomeScreenTest-incomeScreen_displaysBalance_andActions.txt"˜
 
 device-infoandroid~
 |/Users/amanpandey/Desktop/SolanaSuper/app/build/outputs/androidTest-results/connected/debug/Pixel_8(AVD) - 16/device-info.pb"™

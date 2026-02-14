@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         
         val promptManager = BiometricPromptManager(this)
-        val identityKeyManager = IdentityKeyManager(this)
+        val identityKeyManager = IdentityKeyManager()
         val arciumClient = MockArciumClient()
 
         setContent {

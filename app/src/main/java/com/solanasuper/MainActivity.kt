@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         val transactionManager = com.solanasuper.p2p.TransactionManager(transactionDao)
         val p2pTransferManager = com.solanasuper.network.P2PTransferManager(this)
 
+        androidx.activity.enableEdgeToEdge()
         setContent {
             MaterialTheme {
                 Surface(

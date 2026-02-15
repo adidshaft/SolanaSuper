@@ -8,5 +8,8 @@ data class IncomeState(
     val isLoading: Boolean = false,
     val error: String? = null,
     val p2pStatus: P2PStatus = P2PStatus.IDLE,
-    val p2pPeerName: String? = null
+    val p2pPeerName: String? = null,
+    val p2pAuthToken: String? = null,
+    val p2pEndpointId: String? = null,
+    val isClaiming: Boolean = false
 )

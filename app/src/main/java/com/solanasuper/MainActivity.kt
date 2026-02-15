@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         checkAndRequestPermissions()
 
         val promptManager = BiometricPromptManager(this)
-        val identityKeyManager = IdentityKeyManager()
+        val identityKeyManager = IdentityKeyManager(this)
         val arciumClient = MockArciumClient()
         
         val database = WalletDatabase.getDatabase(this)

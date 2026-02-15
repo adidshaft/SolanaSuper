@@ -24,18 +24,20 @@ class P2PTransferManager(private val context: Context) {
     // Simplified callback interface
     interface P2PCallback {
         fun onPeerFound(endpointId: String)
+        fun onConnectionInitiated(endpointId: String, info: ConnectionInfo)
         fun onDataReceived(endpointId: String, data: ByteArray)
         fun onConnected(endpointId: String)
         fun onError(message: String)
+        fun onDisconnected(endpointId: String)
     }
 
     var callback: P2PCallback? = null
 
     private val connectionLifecycleCallback = object : ConnectionLifecycleCallback() {
         override fun onConnectionInitiated(endpointId: String, info: ConnectionInfo) {
-            Log.d(TAG, "P2P: Connection initiated with $endpointId")
-            // Automatically accept for prototype
-            connectionsClient.acceptConnection(endpointId, payloadCallback)
+            Log.d(TAG, "P2P: Connection initiated with $endpointId. Token: ${info.authenticationToken}")
+            // Manual verification required
+            callback?.onConnectionInitiated(endpointId, info)
         }
 
         override fun onConnectionResult(endpointId: String, result: ConnectionResolution) {
@@ -50,6 +52,7 @@ class P2PTransferManager(private val context: Context) {
 
         override fun onDisconnected(endpointId: String) {
             Log.d(TAG, "P2P: Disconnected from $endpointId")
+            callback?.onDisconnected(endpointId)
         }
     }
 
@@ -65,7 +68,18 @@ class P2PTransferManager(private val context: Context) {
 
         override fun onPayloadTransferUpdate(endpointId: String, update: PayloadTransferUpdate) {
             // Track progress if needed
+            if (update.status == PayloadTransferUpdate.Status.SUCCESS) {
+                 Log.d(TAG, "P2P: Payload transfer success to $endpointId")
+            }
         }
+    }
+    
+    fun acceptConnection(endpointId: String) {
+        connectionsClient.acceptConnection(endpointId, payloadCallback)
+    }
+
+    fun rejectConnection(endpointId: String) {
+        connectionsClient.rejectConnection(endpointId)
     }
 
     fun startAdvertising() {

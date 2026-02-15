@@ -57,6 +57,9 @@ androidx-security-crypto = { group = "androidx.security", name = "security-crypt
 # Protobuf
 protobuf-java = { group = "com.google.protobuf", name = "protobuf-java", version.ref = "protobuf" }
 
+# Solana (Manual Implementation for Phase 1)
+eddsa = { group = "net.i2p.crypto", name = "eddsa", version = "0.3.0" }
+
 # Nearby
 play-services-nearby = { group = "com.google.android.gms", name = "play-services-nearby", version.ref = "nearby" }
 

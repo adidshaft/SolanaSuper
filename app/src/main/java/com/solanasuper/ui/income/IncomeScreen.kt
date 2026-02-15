@@ -37,19 +37,24 @@ import java.util.Locale
 fun IncomeScreen(
     state: IncomeState = IncomeState(), // Default for preview/testing
     onClaimUbi: () -> Unit = {},
-    onOfflinePay: () -> Unit = {}
+    onSendOffline: () -> Unit = {},
+    onReceiveOffline: () -> Unit = {}
 ) {
+    // Current Action Tracking to know which callback to invoke after permission grant
+    val currentAction = androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf<(() -> Unit)?>(null) }
+
     val permissionLauncher = androidx.activity.compose.rememberLauncherForActivityResult(
         contract = androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
         val allGranted = permissions.values.all { it }
         if (allGranted) {
-            onOfflinePay()
+            currentAction.value?.invoke()
         } else {
-            // Handle denial (show snackbar or dialog) - For now just log or ignore
+            // Handle denial
         }
     }
-
+    
+    // ... p2pPermissions list definition (unchanged) ...
     val p2pPermissions = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
         listOf(
             android.Manifest.permission.BLUETOOTH_SCAN,
@@ -57,7 +62,8 @@ fun IncomeScreen(
             android.Manifest.permission.BLUETOOTH_CONNECT,
             android.Manifest.permission.ACCESS_FINE_LOCATION,
             android.Manifest.permission.ACCESS_WIFI_STATE,
-            android.Manifest.permission.CHANGE_WIFI_STATE
+            android.Manifest.permission.CHANGE_WIFI_STATE,
+            "android.permission.NEARBY_WIFI_DEVICES" // Added for Android 13+
         )
     } else {
         listOf(
@@ -68,13 +74,14 @@ fun IncomeScreen(
             android.Manifest.permission.CHANGE_WIFI_STATE
         )
     }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Balance Card (Glassmorphic)
+        // Balance Card (unchanged)
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -112,27 +119,45 @@ fun IncomeScreen(
         // Actions
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp) // Tighter spacing
         ) {
-            Button(
-                onClick = onClaimUbi,
-                modifier = Modifier.weight(1f).height(56.dp),
-                shape = RoundedCornerShape(16.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6200EE))
-            ) {
-                Text("Claim UBI")
-            }
+            // Send Offline (Discoverer)
             Button(
                 onClick = {
-                    // Check and Request Permissions before starting P2P
+                    currentAction.value = onSendOffline
                     permissionLauncher.launch(p2pPermissions.toTypedArray())
                 },
                 modifier = Modifier.weight(1f).height(56.dp),
                 shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF03DAC5))
             ) {
-                Text("Offline Pay")
+                Text("Send Offline")
             }
+            
+            // Receive Offline (Advertiser)
+            Button(
+                onClick = {
+                    currentAction.value = onReceiveOffline
+                    permissionLauncher.launch(p2pPermissions.toTypedArray())
+                },
+                modifier = Modifier.weight(1f).height(56.dp),
+                shape = RoundedCornerShape(16.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFBB86FC))
+            ) {
+                Text("Receive Offline")
+            }
+        }
+        
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        // Claim UBI (Secondary)
+        Button(
+            onClick = onClaimUbi,
+            modifier = Modifier.fillMaxWidth().height(48.dp),
+             shape = RoundedCornerShape(16.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.White.copy(alpha=0.1f))
+        ) {
+            Text("Claim UBI Demo")
         }
 
         Spacer(modifier = Modifier.height(32.dp))

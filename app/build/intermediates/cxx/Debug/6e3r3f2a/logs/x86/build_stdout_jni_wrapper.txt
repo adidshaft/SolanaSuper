@@ -1,2 +1,0 @@
-ninja: Entering directory `/Users/amanpandey/Desktop/SolanaSuper/app/.cxx/Debug/6e3r3f2a/x86'
-ninja: no work to do.

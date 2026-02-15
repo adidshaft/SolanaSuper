@@ -48,7 +48,8 @@ fun MainNavigation(
     identityKeyManager: IdentityKeyManager,
     arciumClient: MockArciumClient,
     transactionManager: TransactionManager,
-    transactionDao: TransactionDao
+    transactionDao: TransactionDao,
+    p2pTransferManager: com.solanasuper.network.P2PTransferManager
 ) {
     val navController = rememberNavController()
 
@@ -97,14 +98,15 @@ fun MainNavigation(
             composable(Screen.Income.route) {
                 // Income (Pillar 4)
                 val viewModel: IncomeViewModel = viewModel(
-                    factory = IncomeViewModel.Factory(transactionManager, transactionDao)
+                    factory = IncomeViewModel.Factory(transactionManager, transactionDao, p2pTransferManager)
                 )
                 val state by viewModel.state.collectAsState()
                 
                 IncomeScreen(
                     state = state,
                     onClaimUbi = { viewModel.claimUbi() },
-                    onOfflinePay = { viewModel.startP2P() }
+                    onSendOffline = { viewModel.startSending() },
+                    onReceiveOffline = { viewModel.startReceiving() }
                 )
             }
             composable(Screen.Health.route) {

@@ -59,6 +59,9 @@ class MainActivity : AppCompatActivity() {
         val activityLogDao = database.activityLogDao()
         val activityRepository = com.solanasuper.data.ActivityRepository(activityLogDao)
         
+        // Ensure Identity is Generated on First Launch (Silent)
+        identityKeyManager.ensureSolanaKey()
+        
         val transactionManager = com.solanasuper.p2p.TransactionManager(transactionDao)
         val p2pTransferManager = com.solanasuper.network.P2PTransferManager(this)
 

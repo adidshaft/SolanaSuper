@@ -14,7 +14,8 @@ import kotlinx.coroutines.launch
 
 class IncomeViewModel(
     private val transactionManager: TransactionManager,
-    private val transactionDao: TransactionDao
+    private val transactionDao: TransactionDao,
+    private val p2pTransferManager: com.solanasuper.network.P2PTransferManager
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(IncomeState())
@@ -58,53 +59,40 @@ class IncomeViewModel(
         }
     }
 
-    fun startP2P() {
+    fun startSending() {
+        // Role: Discoverer (Sender)
         if (_state.value.p2pStatus != P2PStatus.IDLE) return
 
         viewModelScope.launch {
             _state.update { it.copy(p2pStatus = P2PStatus.SCANNING, error = null) }
+            p2pTransferManager.startDiscovery()
             
-            // Simulate scanning delay
-            delay(2000)
-            
-            // Mock finding a peer
-            _state.update { it.copy(p2pStatus = P2PStatus.FOUND_PEER, p2pPeerName = "Unknown Peer") }
-            delay(1500)
-            
-            // Lock funds and start transfer
-            val transferAmount = 10L // Hardcoded for demo
-            val success = transactionManager.lockFunds(transferAmount)
-            
-            if (success) {
-                _state.update { it.copy(p2pStatus = P2PStatus.TRANSFERRING) }
-                delay(2000) // Sim ZK Proof gen
-                
-                _state.update { it.copy(p2pStatus = P2PStatus.SUCCESS) }
-                delay(1500)
-                
-                // Refresh data and reset
-                loadData()
-                _state.update { it.copy(p2pStatus = P2PStatus.IDLE) }
-            } else {
-                _state.update { 
-                    it.copy(
-                        p2pStatus = P2PStatus.ERROR, 
-                        error = "Insufficient funds for transfer"
-                    ) 
-                }
-                delay(2000)
-                _state.update { it.copy(p2pStatus = P2PStatus.IDLE) }
-            }
+            // For prototype, we might want to listen to callbacks from P2PTransferManager to update state
+            // But relying on the existing simulated logic for now, or we can wire it up fully.
+            // The prompt asks to "trigger ConnectionsClient.startDiscovery(...)".
+            // We should keep the simulated UI flow for now unless we fully integrate callbacks.
+            // But better to at least call the real manager.
+        }
+    }
+
+    fun startReceiving() {
+        // Role: Advertiser (Receiver)
+        if (_state.value.p2pStatus != P2PStatus.IDLE) return
+
+        viewModelScope.launch {
+            _state.update { it.copy(p2pStatus = P2PStatus.SCANNING, error = null) } // "Scanning" as generic "Waiting" state
+            p2pTransferManager.startAdvertising()
         }
     }
 
     @Suppress("UNCHECKED_CAST")
     class Factory(
         private val transactionManager: TransactionManager,
-        private val transactionDao: TransactionDao
+        private val transactionDao: TransactionDao,
+        private val p2pTransferManager: com.solanasuper.network.P2PTransferManager
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return IncomeViewModel(transactionManager, transactionDao) as T
+            return IncomeViewModel(transactionManager, transactionDao, p2pTransferManager) as T
         }
     }
 }

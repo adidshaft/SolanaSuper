@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         val database = WalletDatabase.getDatabase(this)
         val transactionDao = database.transactionDao()
         val transactionManager = com.solanasuper.p2p.TransactionManager(transactionDao)
+        val p2pTransferManager = com.solanasuper.network.P2PTransferManager(this)
 
         setContent {
             MaterialTheme {
@@ -37,7 +38,8 @@ class MainActivity : AppCompatActivity() {
                         identityKeyManager = identityKeyManager,
                         arciumClient = arciumClient,
                         transactionManager = transactionManager,
-                        transactionDao = transactionDao
+                        transactionDao = transactionDao,
+                        p2pTransferManager = p2pTransferManager
                     )
                 }
             }

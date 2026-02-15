@@ -1,4 +1,0 @@
-/Users/amanpandey/Library/Android/sdk/cmake/3.22.1/bin/ninja \
-  -C \
-  /Users/amanpandey/Desktop/SolanaSuper/app/.cxx/Debug/6e3r3f2a/x86_64 \
-  jni_wrapper

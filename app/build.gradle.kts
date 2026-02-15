@@ -21,7 +21,15 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        externalNativeBuild {
+            cmake {
+                arguments("-DANDROID_LD=lld", "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-z,max-page-size=16384")
+            }
+        }
     }
+
+    ndkVersion = "28.0.12433566"
 
     // Define NDK/External Native Build (Moved out of defaultConfig)
     externalNativeBuild {

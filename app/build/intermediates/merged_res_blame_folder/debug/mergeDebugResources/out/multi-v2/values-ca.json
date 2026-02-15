@@ -4,41 +4,7 @@
             "outputFile": "com.solanasuper.app-mergeDebugResources-66:/values-ca/values-ca.xml",
             "map": [
                 {
-                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/3b72c770ee7641406c489bb386ac2d55/transformed/jetified-play-services-basement-18.0.0/res/values-ca/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "195",
-                        "endColumns": "130",
-                        "endOffsets": "325"
-                    },
-                    "to": {
-                        "startLines": "48",
-                        "startColumns": "4",
-                        "startOffsets": "5022",
-                        "endColumns": "134",
-                        "endOffsets": "5152"
-                    }
-                },
-                {
-                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/1486fe28ba78414cc77d29aabcff0348/transformed/jetified-play-services-nearby-19.0.0/res/values-ca/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "202",
-                        "endColumns": "57",
-                        "endOffsets": "259"
-                    },
-                    "to": {
-                        "startLines": "137",
-                        "startColumns": "4",
-                        "startOffsets": "15346",
-                        "endColumns": "61",
-                        "endOffsets": "15403"
-                    }
-                },
-                {
-                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/08ed644b13ca7ff6bd5e5da9f92181b1/transformed/appcompat-1.6.1/res/values-ca/values-ca.xml",
+                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/ba68efcc14567d0717300c4eb7e4c8a3/transformed/appcompat-1.6.1/res/values-ca/values-ca.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -55,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/8a115a2ee7181cc55c123032cb94fc5f/transformed/biometric-1.2.0-alpha05/res/values-ca/values-ca.xml",
+                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/23e1d70c9cf3116726bb1e421b8ebfb3/transformed/biometric-1.2.0-alpha05/res/values-ca/values-ca.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -72,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/eb52fdbe5d705c85904516a3feac2591/transformed/core-1.12.0/res/values-ca/values-ca.xml",
+                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/54d793137926c230bca9f57f945933d9/transformed/core-1.12.0/res/values-ca/values-ca.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -89,7 +55,24 @@
                     }
                 },
                 {
-                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7ecc68824ecc03d09af3c917565deb48/transformed/jetified-ui-release/res/values-ca/values-ca.xml",
+                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/5fa933d320d594c53b15072544de51db/transformed/jetified-play-services-nearby-19.0.0/res/values-ca/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "202",
+                        "endColumns": "57",
+                        "endOffsets": "259"
+                    },
+                    "to": {
+                        "startLines": "137",
+                        "startColumns": "4",
+                        "startOffsets": "15346",
+                        "endColumns": "61",
+                        "endOffsets": "15403"
+                    }
+                },
+                {
+                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/793c107b45f02b2ff604297ce7af035b/transformed/jetified-ui-release/res/values-ca/values-ca.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -106,7 +89,41 @@
                     }
                 },
                 {
-                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/8a4165ef15b16fbdaa748c7292000f64/transformed/jetified-foundation-release/res/values-ca/values-ca.xml",
+                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/a2cb686e1be28ca664372ebd9f66a830/transformed/jetified-material3-release/res/values-ca/values-ca.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,176,295,414,534,634,732,847,989,1104,1263,1347,1445,1543,1644,1761,1890,1993,2134,2274,2415,2581,2714,2831,2952,3081,3180,3277,3398,3543,3649,3762,3876,4015,4160,4269,4376,4462,4563,4664,4750,4836,4947,5027,5111,5212,5320,5419,5523,5610,5723,5823,5930,6049,6129,6246",
+                        "endColumns": "120,118,118,119,99,97,114,141,114,158,83,97,97,100,116,128,102,140,139,140,165,132,116,120,128,98,96,120,144,105,112,113,138,144,108,106,85,100,100,85,85,110,79,83,100,107,98,103,86,112,99,106,118,79,116,106",
+                        "endOffsets": "171,290,409,529,629,727,842,984,1099,1258,1342,1440,1538,1639,1756,1885,1988,2129,2269,2410,2576,2709,2826,2947,3076,3175,3272,3393,3538,3644,3757,3871,4010,4155,4264,4371,4457,4558,4659,4745,4831,4942,5022,5106,5207,5315,5414,5518,5605,5718,5818,5925,6044,6124,6241,6348"
+                    },
+                    "to": {
+                        "startLines": "80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "8957,9078,9197,9316,9436,9536,9634,9749,9891,10006,10165,10249,10347,10445,10546,10663,10792,10895,11036,11176,11317,11483,11616,11733,11854,11983,12082,12179,12300,12445,12551,12664,12778,12917,13062,13171,13278,13364,13465,13566,13652,13738,13849,13929,14013,14114,14222,14321,14425,14512,14625,14725,14832,14951,15031,15148",
+                        "endColumns": "120,118,118,119,99,97,114,141,114,158,83,97,97,100,116,128,102,140,139,140,165,132,116,120,128,98,96,120,144,105,112,113,138,144,108,106,85,100,100,85,85,110,79,83,100,107,98,103,86,112,99,106,118,79,116,106",
+                        "endOffsets": "9073,9192,9311,9431,9531,9629,9744,9886,10001,10160,10244,10342,10440,10541,10658,10787,10890,11031,11171,11312,11478,11611,11728,11849,11978,12077,12174,12295,12440,12546,12659,12773,12912,13057,13166,13273,13359,13460,13561,13647,13733,13844,13924,14008,14109,14217,14316,14420,14507,14620,14720,14827,14946,15026,15143,15250"
+                    }
+                },
+                {
+                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/7458e824121d7d9b49c31075798bf7d4/transformed/jetified-play-services-basement-18.0.0/res/values-ca/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "130",
+                        "endOffsets": "325"
+                    },
+                    "to": {
+                        "startLines": "48",
+                        "startColumns": "4",
+                        "startOffsets": "5022",
+                        "endColumns": "134",
+                        "endOffsets": "5152"
+                    }
+                },
+                {
+                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/f71d7760162e5c66772b90895051447b/transformed/jetified-foundation-release/res/values-ca/values-ca.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
@@ -123,7 +140,7 @@
                     }
                 },
                 {
-                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/debe64d9ce45657e72061054d90bc409/transformed/jetified-play-services-base-18.0.1/res/values-ca/values.xml",
+                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/a9dbf7991034cd5ddd926bff9cac3cf5/transformed/jetified-play-services-base-18.0.1/res/values-ca/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -137,23 +154,6 @@
                         "startOffsets": "4021,4126,4278,4405,4514,4664,4791,4914,5157,5328,5437,5596,5727,5891,6049,6114,6182",
                         "endColumns": "104,151,126,108,149,126,122,107,170,108,158,130,163,157,64,67,86",
                         "endOffsets": "4121,4273,4400,4509,4659,4786,4909,5017,5323,5432,5591,5722,5886,6044,6109,6177,6264"
-                    }
-                },
-                {
-                    "source": "/Users/amanpandey/.gradle/caches/9.0-milestone-1/transforms/4499d2a0e4dbf1bfe6c55a8b944bbb60/transformed/jetified-material3-release/res/values-ca/values-ca.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,176,295,414,534,634,732,847,989,1104,1263,1347,1445,1543,1644,1761,1890,1993,2134,2274,2415,2581,2714,2831,2952,3081,3180,3277,3398,3543,3649,3762,3876,4015,4160,4269,4376,4462,4563,4664,4750,4836,4947,5027,5111,5212,5320,5419,5523,5610,5723,5823,5930,6049,6129,6246",
-                        "endColumns": "120,118,118,119,99,97,114,141,114,158,83,97,97,100,116,128,102,140,139,140,165,132,116,120,128,98,96,120,144,105,112,113,138,144,108,106,85,100,100,85,85,110,79,83,100,107,98,103,86,112,99,106,118,79,116,106",
-                        "endOffsets": "171,290,409,529,629,727,842,984,1099,1258,1342,1440,1538,1639,1756,1885,1988,2129,2269,2410,2576,2709,2826,2947,3076,3175,3272,3393,3538,3644,3757,3871,4010,4155,4264,4371,4457,4558,4659,4745,4831,4942,5022,5106,5207,5315,5414,5518,5605,5718,5818,5925,6044,6124,6241,6348"
-                    },
-                    "to": {
-                        "startLines": "80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "8957,9078,9197,9316,9436,9536,9634,9749,9891,10006,10165,10249,10347,10445,10546,10663,10792,10895,11036,11176,11317,11483,11616,11733,11854,11983,12082,12179,12300,12445,12551,12664,12778,12917,13062,13171,13278,13364,13465,13566,13652,13738,13849,13929,14013,14114,14222,14321,14425,14512,14625,14725,14832,14951,15031,15148",
-                        "endColumns": "120,118,118,119,99,97,114,141,114,158,83,97,97,100,116,128,102,140,139,140,165,132,116,120,128,98,96,120,144,105,112,113,138,144,108,106,85,100,100,85,85,110,79,83,100,107,98,103,86,112,99,106,118,79,116,106",
-                        "endOffsets": "9073,9192,9311,9431,9531,9629,9744,9886,10001,10160,10244,10342,10440,10541,10658,10787,10890,11031,11171,11312,11478,11611,11728,11849,11978,12077,12174,12295,12440,12546,12659,12773,12912,13057,13166,13273,13359,13460,13561,13647,13733,13844,13924,14008,14109,14217,14316,14420,14507,14620,14720,14827,14946,15026,15143,15250"
                     }
                 }
             ]

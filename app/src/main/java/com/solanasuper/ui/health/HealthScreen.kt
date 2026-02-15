@@ -29,6 +29,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInVertically
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.solanasuper.data.HealthEntity
@@ -40,7 +44,9 @@ fun HealthScreen(
     state: HealthState = HealthState(),
     onUnlock: () -> Unit = {}
 ) {
-    if (state.isLocked) {
+    if (state.mpcState != com.solanasuper.ui.state.ArciumComputationState.IDLE) {
+        com.solanasuper.ui.components.MpcLoadingOverlay(state.mpcState)
+    } else if (state.isLocked) {
         // Locked State
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -49,32 +55,33 @@ fun HealthScreen(
             Card(
                 modifier = Modifier
                     .fillMaxWidth(0.85f)
-                    .padding(16.dp),
-                shape = RoundedCornerShape(24.dp),
+                    .padding(24.dp),
+                shape = RoundedCornerShape(32.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = Color.White.copy(alpha = 0.1f) // Glass effect
-                )
+                    containerColor = Color.White.copy(alpha = 0.05f) // Refined Glass effect
+                ),
+                border = BorderStroke(1.dp, Color.White.copy(alpha = 0.1f))
             ) {
                 Column(
-                    modifier = Modifier.padding(32.dp),
+                    modifier = Modifier.padding(40.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
                     Box(
                         modifier = Modifier
-                            .size(80.dp)
-                            .background(Color.White.copy(alpha = 0.1f), CircleShape),
+                            .size(96.dp)
+                            .background(Color.White.copy(alpha = 0.05f), CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = Icons.Default.Lock,
                             contentDescription = "Locked",
-                            tint = Color.White,
-                            modifier = Modifier.size(40.dp)
+                            tint = Color.White.copy(alpha = 0.9f),
+                            modifier = Modifier.size(48.dp)
                         )
                     }
                     
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(32.dp))
                     
                     Text(
                         text = "Secure Health Vault",
@@ -83,7 +90,7 @@ fun HealthScreen(
                         fontWeight = FontWeight.Bold
                     )
                     
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
                     
                     Text(
                         text = "Encrypted with SQLCipher",
@@ -91,25 +98,26 @@ fun HealthScreen(
                         color = Color.White.copy(alpha = 0.6f)
                     )
                     
-                    Spacer(modifier = Modifier.height(32.dp))
+                    Spacer(modifier = Modifier.height(40.dp))
                     
                     Button(
                         onClick = onUnlock,
-                        modifier = Modifier.fillMaxWidth().height(56.dp),
-                        shape = RoundedCornerShape(16.dp),
+                        modifier = Modifier.fillMaxWidth().height(64.dp),
+                        shape = RoundedCornerShape(24.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color(0xFF03DAC5)
                         )
                     ) {
-                        Text("Tap to Unlock", color = Color.Black, fontWeight = FontWeight.Bold)
+                        Text("Tap to Unlock", color = Color.Black, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
                     }
                     
                     if (state.error != null) {
-                        Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(24.dp))
                         Text(
                             text = state.error,
-                            color = Color.Red,
-                            style = MaterialTheme.typography.bodySmall
+                            color = Color(0xFFCF6679),
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier.background(Color.Red.copy(alpha = 0.1f), RoundedCornerShape(8.dp)).padding(8.dp)
                         )
                     }
                 }
@@ -117,23 +125,28 @@ fun HealthScreen(
         }
     } else {
         // Unlocked State (List of Records)
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+        AnimatedVisibility(
+            visible = true,
+            enter = fadeIn() + slideInVertically()
         ) {
-            item {
-                Text(
-                    text = "Medical Records",
-                    style = MaterialTheme.typography.headlineMedium, // Slightly larger
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-            }
-            
-            items(state.records) { record ->
-                HealthRecordItem(record)
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(24.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                item {
+                    Text(
+                        text = "Medical Records",
+                        style = MaterialTheme.typography.displaySmall, 
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(bottom = 16.dp, start = 8.dp)
+                    )
+                }
+                
+                items(state.records) { record ->
+                    HealthRecordItem(record)
+                }
             }
         }
     }
@@ -143,26 +156,47 @@ fun HealthScreen(
 fun HealthRecordItem(record: DecryptedHealthRecord) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color.White.copy(alpha = 0.08f)
-        )
+            containerColor = Color.White.copy(alpha = 0.05f)
+        ),
+        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.05f))
     ) {
-        Column(
-            modifier = Modifier.padding(20.dp)
+        androidx.compose.foundation.layout.Row(
+            modifier = Modifier.padding(20.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = record.title, // e.g. "Vaccine Certificate"
-                style = MaterialTheme.typography.titleMedium,
-                color = Color(0xFF03DAC5),
-                fontWeight = FontWeight.SemiBold
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = record.description, // e.g. "COVID-19..."
-                style = MaterialTheme.typography.bodyLarge,
-                color = Color.White
-            )
+            Box(
+                modifier = Modifier
+                    .size(48.dp)
+                    .background(Color(0xFF03DAC5).copy(alpha = 0.1f), CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = androidx.compose.material.icons.Icons.Default.Lock, 
+                    contentDescription = null,
+                    tint = Color(0xFF03DAC5),
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+            
+            Spacer(modifier = Modifier.padding(end = 16.dp))
+            
+            Column {
+                Text(
+                    text = record.title,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = Color.White,
+                    fontWeight = FontWeight.SemiBold
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = record.description,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.White.copy(alpha = 0.6f),
+                    maxLines = 2
+                )
+            }
         }
     }
 }

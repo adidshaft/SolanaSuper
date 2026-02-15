@@ -112,6 +112,9 @@ dependencies {
     // Protobuf
     implementation(libs.protobuf.java)
 
+    // Solana (Manual)
+    implementation(libs.eddsa)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

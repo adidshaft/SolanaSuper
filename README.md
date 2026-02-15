@@ -35,7 +35,7 @@ This application is architected to be the flagship reference implementation for 
 ### System Architecture
 ```mermaid
 graph TD
-    subgraph UI_Layer [UI Layer (Jetpack Compose)]
+    subgraph UI_Layer ["UI Layer (Jetpack Compose)"]
         Nav[MainNavigation]
         Gov[Governance Screen]
         Health[Health Screen]
@@ -43,28 +43,28 @@ graph TD
         Toggle[Network Toggle]
     end
 
-    subgraph ViewModel_Layer [State Management]
+    subgraph ViewModel_Layer ["State Management"]
         GovVM[GovernanceViewModel]
         HealthVM[HealthViewModel]
         IncVM[IncomeViewModel]
     end
 
-    subgraph Service_Layer [Service Logic]
-        NetMgr[NetworkManager<br/>(Live/Sim Switch)]
-        IdMgr[IdentityKeyManager<br/>(Keystore/Biometrics)]
-        P2PMgr[P2PTransferManager<br/>(Nearby Connections)]
+    subgraph Service_Layer ["Service Logic"]
+        NetMgr["NetworkManager<br/>(Live/Sim Switch)"]
+        IdMgr["IdentityKeyManager<br/>(Keystore/Biometrics)"]
+        P2PMgr["P2PTransferManager<br/>(Nearby Connections)"]
     end
 
-    subgraph Core_Layer [Core Instructure]
-        DB[(Room Database<br/>SQLCipher)]
-        JNI[Rust JNI Bridge<br/>(ZKProver)]
-        Lib[libsolanasuper_core.so<br/>(zk-SNARKs)]
+    subgraph Core_Layer ["Core Infrastructure"]
+        DB[("Room Database<br/>SQLCipher")]
+        JNI["Rust JNI Bridge<br/>(ZKProver)"]
+        Lib["libsolanasuper_core.so<br/>(zk-SNARKs)"]
     end
 
-    subgraph External [External Networks]
+    subgraph External ["External Networks"]
         Solana[Solana Devnet]
         Arcium[Arcium MPC Network]
-        Peers[Local Peers<br/>(Bluetooth/WiFi)]
+        Peers["Local Peers<br/>(Bluetooth/WiFi)"]
     end
 
     %% Connections

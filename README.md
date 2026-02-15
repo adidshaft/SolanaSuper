@@ -32,6 +32,63 @@ This application is architected to be the flagship reference implementation for 
 - **Jetpack Compose**: Premium, Glassmorphic UI with complex animations and mesh gradients.
 - **Coroutines & Flow**: Reactive state management for seamless asynchronous operations.
 
+### System Architecture
+```mermaid
+graph TD
+    subgraph UI_Layer [UI Layer (Jetpack Compose)]
+        Nav[MainNavigation]
+        Gov[Governance Screen]
+        Health[Health Screen]
+        Inc[Income Screen]
+        Toggle[Network Toggle]
+    end
+
+    subgraph ViewModel_Layer [State Management]
+        GovVM[GovernanceViewModel]
+        HealthVM[HealthViewModel]
+        IncVM[IncomeViewModel]
+    end
+
+    subgraph Service_Layer [Service Logic]
+        NetMgr[NetworkManager<br/>(Live/Sim Switch)]
+        IdMgr[IdentityKeyManager<br/>(Keystore/Biometrics)]
+        P2PMgr[P2PTransferManager<br/>(Nearby Connections)]
+    end
+
+    subgraph Core_Layer [Core Instructure]
+        DB[(Room Database<br/>SQLCipher)]
+        JNI[Rust JNI Bridge<br/>(ZKProver)]
+        Lib[libsolanasuper_core.so<br/>(zk-SNARKs)]
+    end
+
+    subgraph External [External Networks]
+        Solana[Solana Devnet]
+        Arcium[Arcium MPC Network]
+        Peers[Local Peers<br/>(Bluetooth/WiFi)]
+    end
+
+    %% Connections
+    Nav --> Gov & Health & Inc & Toggle
+    Toggle -.-> NetMgr
+    
+    Gov --> GovVM
+    Health --> HealthVM
+    Inc --> IncVM
+
+    GovVM --> JNI & NetMgr
+    HealthVM --> JNI & IdMgr
+    
+    IncVM --> P2PMgr & NetMgr & DB
+
+    JNI --> Lib
+    
+    NetMgr -- Live Mode --> Solana & Arcium
+    NetMgr -- Sim Mode --> NetMgr
+    
+    P2PMgr <--> Peers
+    IdMgr -.-> JNI
+```
+
 ### Backend & Storage
 - **Room Database**: Local persistence for transaction history.
 - **SQLCipher**: At-rest encryption for sensitive user data.

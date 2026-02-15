@@ -20,14 +20,24 @@ class BiometricPromptManager(private val activity: FragmentActivity) {
         cryptoObject: BiometricPrompt.CryptoObject? = null
     ) {
         val manager = BiometricManager.from(activity)
-        val authenticators = BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL
+        // If CryptoObject is provided, we MUST use BIOMETRIC_STRONG (no Device Credential allowed for Per-Use Keys usually)
+        val authenticators = if (cryptoObject != null) {
+            BiometricManager.Authenticators.BIOMETRIC_STRONG
+        } else {
+            BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL
+        }
 
-        val promptInfo = PromptInfo.Builder()
+        val promptInfoBuilder = PromptInfo.Builder()
             .setTitle(title)
             .setDescription(description)
             .setAllowedAuthenticators(authenticators)
-            //.setNegativeButtonText("Cancel") // Not allowed with DEVICE_CREDENTIAL
-            .build()
+
+        if (cryptoObject != null) {
+           // When NOT using Device Credential, we can set Negative Button
+           promptInfoBuilder.setNegativeButtonText("Cancel")
+        }
+        
+        val promptInfo = promptInfoBuilder.build()
 
         val prompt = BiometricPrompt(activity, ContextCompat.getMainExecutor(activity), object : BiometricPrompt.AuthenticationCallback() {
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
@@ -47,10 +57,6 @@ class BiometricPromptManager(private val activity: FragmentActivity) {
         })
 
         if (cryptoObject != null) {
-            // If we have a CryptoObject, we MUST use BIOMETRIC_STRONG only (no DEVICE_CREDENTIAL fallback usually)
-            // But let's check. Actually, KeyGenParameterSpec.setUserAuthenticationRequired(true) without duration
-            // usually implies Strong Biometrics.
-            // If we pass cryptoObject, setAllowedAuthenticators might need adjustment if it conflicts with PromptInfo
             prompt.authenticate(promptInfo, cryptoObject)
         } else {
             prompt.authenticate(promptInfo)

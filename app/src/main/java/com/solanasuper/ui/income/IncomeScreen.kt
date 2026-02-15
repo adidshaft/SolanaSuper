@@ -39,6 +39,35 @@ fun IncomeScreen(
     onClaimUbi: () -> Unit = {},
     onOfflinePay: () -> Unit = {}
 ) {
+    val permissionLauncher = androidx.activity.compose.rememberLauncherForActivityResult(
+        contract = androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val allGranted = permissions.values.all { it }
+        if (allGranted) {
+            onOfflinePay()
+        } else {
+            // Handle denial (show snackbar or dialog) - For now just log or ignore
+        }
+    }
+
+    val p2pPermissions = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+        listOf(
+            android.Manifest.permission.BLUETOOTH_SCAN,
+            android.Manifest.permission.BLUETOOTH_ADVERTISE,
+            android.Manifest.permission.BLUETOOTH_CONNECT,
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.ACCESS_WIFI_STATE,
+            android.Manifest.permission.CHANGE_WIFI_STATE
+        )
+    } else {
+        listOf(
+            android.Manifest.permission.BLUETOOTH,
+            android.Manifest.permission.BLUETOOTH_ADMIN,
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.ACCESS_WIFI_STATE,
+            android.Manifest.permission.CHANGE_WIFI_STATE
+        )
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -94,7 +123,10 @@ fun IncomeScreen(
                 Text("Claim UBI")
             }
             Button(
-                onClick = onOfflinePay,
+                onClick = {
+                    // Check and Request Permissions before starting P2P
+                    permissionLauncher.launch(p2pPermissions.toTypedArray())
+                },
                 modifier = Modifier.weight(1f).height(56.dp),
                 shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF03DAC5))

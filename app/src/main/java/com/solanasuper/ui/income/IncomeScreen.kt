@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,11 +22,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.solanasuper.data.OfflineTransaction
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -35,60 +32,26 @@ import java.util.Locale
 
 @Composable
 fun IncomeScreen(
-    state: IncomeState = IncomeState(), // Default for preview/testing
+    state: IncomeState = IncomeState(),
     onClaimUbi: () -> Unit = {},
     onSendOffline: () -> Unit = {},
-    onReceiveOffline: () -> Unit = {}
+    onReceiveOffline: () -> Unit = {},
+    onCancelP2P: () -> Unit = {}
 ) {
-    // Current Action Tracking to know which callback to invoke after permission grant
-    val currentAction = androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf<(() -> Unit)?>(null) }
-
-    val permissionLauncher = androidx.activity.compose.rememberLauncherForActivityResult(
-        contract = androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions()
-    ) { permissions ->
-        val allGranted = permissions.values.all { it }
-        if (allGranted) {
-            currentAction.value?.invoke()
-        } else {
-            // Handle denial
-        }
-    }
-    
-    // ... p2pPermissions list definition (unchanged) ...
-    val p2pPermissions = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-        listOf(
-            android.Manifest.permission.BLUETOOTH_SCAN,
-            android.Manifest.permission.BLUETOOTH_ADVERTISE,
-            android.Manifest.permission.BLUETOOTH_CONNECT,
-            android.Manifest.permission.ACCESS_FINE_LOCATION,
-            android.Manifest.permission.ACCESS_WIFI_STATE,
-            android.Manifest.permission.CHANGE_WIFI_STATE,
-            "android.permission.NEARBY_WIFI_DEVICES" // Added for Android 13+
-        )
-    } else {
-        listOf(
-            android.Manifest.permission.BLUETOOTH,
-            android.Manifest.permission.BLUETOOTH_ADMIN,
-            android.Manifest.permission.ACCESS_FINE_LOCATION,
-            android.Manifest.permission.ACCESS_WIFI_STATE,
-            android.Manifest.permission.CHANGE_WIFI_STATE
-        )
-    }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Balance Card (unchanged)
+        // Balance Card
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(180.dp),
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(
-                containerColor = Color.White.copy(alpha = 0.1f) // Glass effect
+                containerColor = Color.White.copy(alpha = 0.1f)
             )
         ) {
             Box(
@@ -119,14 +82,10 @@ fun IncomeScreen(
         // Actions
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp) // Tighter spacing
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            // Send Offline (Discoverer)
             Button(
-                onClick = {
-                    currentAction.value = onSendOffline
-                    permissionLauncher.launch(p2pPermissions.toTypedArray())
-                },
+                onClick = onSendOffline,
                 modifier = Modifier.weight(1f).height(56.dp),
                 shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF03DAC5))
@@ -134,12 +93,8 @@ fun IncomeScreen(
                 Text("Send Offline")
             }
             
-            // Receive Offline (Advertiser)
             Button(
-                onClick = {
-                    currentAction.value = onReceiveOffline
-                    permissionLauncher.launch(p2pPermissions.toTypedArray())
-                },
+                onClick = onReceiveOffline,
                 modifier = Modifier.weight(1f).height(56.dp),
                 shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFBB86FC))
@@ -150,7 +105,6 @@ fun IncomeScreen(
         
         Spacer(modifier = Modifier.height(16.dp))
         
-        // Claim UBI (Secondary)
         Button(
             onClick = onClaimUbi,
             modifier = Modifier.fillMaxWidth().height(48.dp),
@@ -162,7 +116,6 @@ fun IncomeScreen(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // History Header
         Text(
             text = "Recent Transactions",
             style = MaterialTheme.typography.titleMedium,
@@ -172,7 +125,6 @@ fun IncomeScreen(
         
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Transaction List
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
@@ -182,20 +134,27 @@ fun IncomeScreen(
         }
     }
 
-    // P2P Bottom Sheet / Dialog Overlay
     if (state.p2pStatus != P2PStatus.IDLE) {
-        P2POverlay(state.p2pStatus, state.p2pPeerName)
+        P2POverlay(
+            status = state.p2pStatus,
+            peerName = state.p2pPeerName,
+            error = state.error,
+            onCancel = onCancelP2P
+        )
     }
 }
 
 @Composable
-fun P2POverlay(status: P2PStatus, peerName: String?) {
-    // A simple full-screen or dialog overlay for P2P status
-    // Using Box with background blur would be nice, but simple semi-transparent background works too.
+fun P2POverlay(
+    status: P2PStatus,
+    peerName: String?,
+    error: String?,
+    onCancel: () -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.8f))
+            .background(Color.Black.copy(alpha = 0.85f))
             .padding(24.dp),
         contentAlignment = Alignment.Center
     ) {
@@ -203,7 +162,7 @@ fun P2POverlay(status: P2PStatus, peerName: String?) {
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(
-                containerColor = Color(0xFF2D2D2D)
+                containerColor = Color(0xFF1E1E1E)
             )
         ) {
             Column(
@@ -212,26 +171,66 @@ fun P2POverlay(status: P2PStatus, peerName: String?) {
                 verticalArrangement = Arrangement.Center
             ) {
                 val (title, color) = when (status) {
-                    P2PStatus.SCANNING -> "Scanning for peers..." to Color.Yellow
-                    P2PStatus.FOUND_PEER -> "Found Peer: $peerName" to Color.Cyan
-                    P2PStatus.TRANSFERRING -> "Sending ZK Proof..." to Color.Blue
-                    P2PStatus.SUCCESS -> "Transfer Complete!" to Color.Green
+                    P2PStatus.SCANNING -> "Searching for devices..." to Color.Yellow
+                    P2PStatus.FOUND_PEER -> "Device Found!" to Color.Cyan
+                    P2PStatus.CONNECTING -> "Connecting..." to Color.Magenta
+                    P2PStatus.CONNECTED -> "Secure Link Established" to Color.Blue
+                    P2PStatus.TRANSFERRING -> "Transferring Secure Data..." to Color.Blue
+                    P2PStatus.SUCCESS -> "Transfer Successful!" to Color.Green
                     P2PStatus.ERROR -> "Transfer Failed" to Color.Red
-                    else -> "" to Color.White
+                    else -> "Processing..." to Color.White
                 }
                 
                 Text(
                     text = title,
                     style = MaterialTheme.typography.headlineSmall,
                     color = color,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    textAlign = androidx.compose.ui.text.style.TextAlign.Center
                 )
                 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 
-                if (status == P2PStatus.SCANNING || status == P2PStatus.TRANSFERRING) {
-                    // Simple loading indicator text if we don't have CircularProgressIndicator handy
-                    Text("Please wait...", color = Color.Gray)
+                if (peerName != null && status != P2PStatus.ERROR) {
+                    Text(
+                        text = peerName,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.LightGray
+                    )
+                }
+
+                if (status == P2PStatus.ERROR && error != null) {
+                    Text(
+                        text = error,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.Red.copy(alpha = 0.8f),
+                        textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                    )
+                }
+                
+                Spacer(modifier = Modifier.height(24.dp))
+                
+                if (status != P2PStatus.SUCCESS && status != P2PStatus.ERROR) {
+                    androidx.compose.material3.CircularProgressIndicator(
+                        color = color,
+                        modifier = Modifier.padding(16.dp)
+                    )
+                    Spacer(modifier = Modifier.height(24.dp))
+                }
+
+                Button(
+                    onClick = onCancel,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (status == P2PStatus.SUCCESS || status == P2PStatus.ERROR) 
+                            Color(0xFF03DAC5) else Color.White.copy(alpha = 0.1f)
+                    ),
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text(
+                        text = if (status == P2PStatus.SUCCESS || status == P2PStatus.ERROR) "Done" else "Cancel",
+                        color = if (status == P2PStatus.SUCCESS || status == P2PStatus.ERROR) Color.Black else Color.White
+                    )
                 }
             }
         }
@@ -259,7 +258,9 @@ fun TransactionItem(tx: OfflineTransaction) {
                 Text(text = date, style = MaterialTheme.typography.bodySmall, color = Color.Gray)
             }
             Column(horizontalAlignment = Alignment.End) {
-                Text(text = "-$${tx.amount}", fontWeight = FontWeight.Bold, color = Color.Red)
+                val amountColor = if (tx.amount > 0) Color(0xFF03DAC5) else Color.Red
+                val prefix = if (tx.amount > 0) "+" else ""
+                Text(text = "$prefix$${tx.amount}", fontWeight = FontWeight.Bold, color = amountColor)
                 Text(text = tx.status.name, style = MaterialTheme.typography.bodySmall, color = Color.Gray)
             }
         }

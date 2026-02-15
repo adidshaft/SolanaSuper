@@ -22,16 +22,47 @@ class IncomeViewModel(
     val state = _state.asStateFlow()
 
     init {
+        setupP2P()
         loadData()
+    }
+
+    private fun setupP2P() {
+        p2pTransferManager.callback = object : com.solanasuper.network.P2PTransferManager.P2PCallback {
+            override fun onPeerFound(endpointId: String) {
+                _state.update { 
+                    it.copy(
+                        p2pStatus = P2PStatus.FOUND_PEER,
+                        p2pPeerName = "Peer: $endpointId"
+                    ) 
+                }
+            }
+
+            override fun onDataReceived(endpointId: String, data: ByteArray) {
+                _state.update { it.copy(p2pStatus = P2PStatus.TRANSFERRING) }
+                // Handle actual data transfer logic here
+                viewModelScope.launch {
+                    delay(2000) // Simulate processing
+                    _state.update { it.copy(p2pStatus = P2PStatus.SUCCESS) }
+                    loadData()
+                }
+            }
+
+            override fun onConnected(endpointId: String) {
+                _state.update { it.copy(p2pStatus = P2PStatus.CONNECTED, p2pPeerName = "Connected to $endpointId") }
+            }
+
+            override fun onError(message: String) {
+                _state.update { it.copy(error = message, p2pStatus = P2PStatus.ERROR) }
+            }
+        }
     }
 
     fun loadData() {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
             try {
-                // In a real app, use Flow from Room. Here we poll or fetch once.
                 val balance = transactionDao.getAvailableBalance() ?: 0L
-                val transactions = transactionDao.getAllTransactions() // Need to add this to DAO
+                val transactions = transactionDao.getAllTransactions()
                 
                 _state.update { 
                     it.copy(
@@ -48,41 +79,33 @@ class IncomeViewModel(
 
     fun claimUbi() {
         viewModelScope.launch {
-            // Mock UBI Claim
             _state.update { it.copy(isLoading = true) }
             delay(1000)
-            
-            // Insert Deposit
             transactionManager.receiveFunds(1000, "Global UBI")
-            
             loadData()
         }
     }
 
     fun startSending() {
-        // Role: Discoverer (Sender)
         if (_state.value.p2pStatus != P2PStatus.IDLE) return
-
-        viewModelScope.launch {
-            _state.update { it.copy(p2pStatus = P2PStatus.SCANNING, error = null) }
-            p2pTransferManager.startDiscovery()
-            
-            // For prototype, we might want to listen to callbacks from P2PTransferManager to update state
-            // But relying on the existing simulated logic for now, or we can wire it up fully.
-            // The prompt asks to "trigger ConnectionsClient.startDiscovery(...)".
-            // We should keep the simulated UI flow for now unless we fully integrate callbacks.
-            // But better to at least call the real manager.
-        }
+        _state.update { it.copy(p2pStatus = P2PStatus.SCANNING, error = null) }
+        p2pTransferManager.startDiscovery()
     }
 
     fun startReceiving() {
-        // Role: Advertiser (Receiver)
         if (_state.value.p2pStatus != P2PStatus.IDLE) return
+        _state.update { it.copy(p2pStatus = P2PStatus.SCANNING, error = null) }
+        p2pTransferManager.startAdvertising()
+    }
 
-        viewModelScope.launch {
-            _state.update { it.copy(p2pStatus = P2PStatus.SCANNING, error = null) } // "Scanning" as generic "Waiting" state
-            p2pTransferManager.startAdvertising()
-        }
+    fun stopP2P() {
+        p2pTransferManager.stop()
+        _state.update { it.copy(p2pStatus = P2PStatus.IDLE, error = null, p2pPeerName = null) }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        p2pTransferManager.stop()
     }
 
     @Suppress("UNCHECKED_CAST")

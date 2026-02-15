@@ -32,35 +32,34 @@ class TransactionManagerTest {
             // Arrange
             val amount = 500L
             val currentBalance = 1000L
-            `when`(transactionDao.getBalance()).thenReturn(currentBalance)
+            `when`(transactionDao.getAvailableBalance()).thenReturn(currentBalance)
 
             // Act
-            transactionManager.lockFunds(amount)
+            val result = transactionManager.lockFunds(amount)
 
             // Assert
+            assertEquals(true, result)
             verify(transactionDao).insert(
                 org.mockito.kotlin.argThat { 
-                    status == TransactionStatus.LOCKED && this.amount == amount 
+                    status == TransactionStatus.LOCKED_PENDING_P2P && this.amount == amount 
                 }
             )
         }
     }
 
     @Test
-    fun `lockFunds should throw exception if insufficient funds`() {
+    fun `lockFunds should return false if insufficient funds`() {
         runBlocking {
             // Arrange
             val amount = 1500L
             val currentBalance = 1000L
-            `when`(transactionDao.getBalance()).thenReturn(currentBalance)
+            `when`(transactionDao.getAvailableBalance()).thenReturn(currentBalance)
 
-            // Act & Assert
-            val exception = assertThrows(IllegalStateException::class.java) {
-                runBlocking {
-                    transactionManager.lockFunds(amount)
-                }
-            }
-            assertEquals("Insufficient funds", exception.message)
+            // Act
+            val result = transactionManager.lockFunds(amount)
+
+            // Assert
+            assertEquals(false, result)
         }
     }
 }

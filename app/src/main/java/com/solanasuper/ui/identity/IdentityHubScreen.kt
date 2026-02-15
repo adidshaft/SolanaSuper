@@ -5,9 +5,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -17,7 +22,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.solanasuper.security.BiometricPromptManager
 import com.solanasuper.security.IdentityKeyManager
 import java.security.Signature
@@ -83,40 +91,59 @@ fun IdentityHubScreen(
     }
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+            .padding(24.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Identity Hub")
-        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "Identity Hub",
+            style = MaterialTheme.typography.displayMedium,
+            fontWeight = FontWeight.Bold,
+            color = Color.White
+        )
         
-        Text(text = "Status: $authStatus")
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(32.dp))
         
-        Button(onClick = {
-            try {
-                // Ensure key exists
-                if (identityKeyManager.getPublicKey() == null) {
-                    identityKeyManager.generateIdentityKey()
-                }
+        Text(
+            text = "Status: $authStatus",
+            style = MaterialTheme.typography.bodyMedium,
+            color = if(authStatus.contains("Success")) Color(0xFF14F195) else Color.White.copy(alpha = 0.5f)
+        )
+        
+        Spacer(modifier = Modifier.height(48.dp))
+        
+        Button(
+            onClick = {
+                try {
+                    // Ensure key exists
+                    if (identityKeyManager.getPublicKey() == null) {
+                        identityKeyManager.generateIdentityKey()
+                    }
 
-                // Initialize Signature
-                val signature = identityKeyManager.initSignature()
-                
-                if (signature != null) {
-                     promptManager.showBiometricPrompt(
-                        title = "Authenticate Identity",
-                        description = "Unlock your secure identity key",
-                        cryptoObject = BiometricPrompt.CryptoObject(signature)
-                    )
-                } else {
-                    authStatus = "Error: Could not init signature"
+                    // Initialize Signature
+                    val signature = identityKeyManager.initSignature()
+                    
+                    if (signature != null) {
+                         promptManager.showBiometricPrompt(
+                            title = "Authenticate Identity",
+                            description = "Unlock your secure identity key",
+                            cryptoObject = BiometricPrompt.CryptoObject(signature)
+                        )
+                    } else {
+                        authStatus = "Error: Could not init signature"
+                    }
+                } catch (e: Exception) {
+                    authStatus = "Error: ${e.message}"
                 }
-            } catch (e: Exception) {
-                authStatus = "Error: ${e.message}"
-            }
-        }) {
-            Text("Generate Identity Attestation")
+            },
+            modifier = Modifier.fillMaxWidth().height(64.dp),
+            shape = RoundedCornerShape(32.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.White.copy(alpha = 0.1f))
+        ) {
+            Text("Generate Attestation", fontWeight = FontWeight.Bold, color = Color.White, fontSize = 16.sp)
         }
     }
 }

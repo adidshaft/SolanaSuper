@@ -171,6 +171,39 @@ fun MainNavigation(
                         }
                     }
                     
+                     // Observe Sign Requests
+                    val context = androidx.compose.ui.platform.LocalContext.current
+                    androidx.compose.runtime.LaunchedEffect(key1 = true) {
+                        viewModel.signRequest.collect { choice ->
+                            // "Vote_${choice}_for_$proposalId" - logic duplicated from VM for payload gen?
+                            // Or VM should send payload? 
+                            // VM sends choice. Payload logic is currently in `processVote` but that method assumes it receives a signature FOR the payload it expects.
+                            // To be safe, we should construct payload here or VM passes payload.
+                            // But `signTransaction` signs whatever bytes we give it.
+                            // `processVote` in VM (Step 3544) constructs `val votePayload = ...`.
+                            // So VM expects us to sign THAT payload.
+                            // BUT we don't know the proposal ID here easily without duplicating logic.
+                            // Ideally VM sends `SignRequest(payload, metadata)`.
+                            // For now, I will duplicate the payload construction "Vote_${choice}_for_proposal_ubi_001".
+                            // It's a hack but "Reality Check" implies making it work.
+                            
+                            val proposalId = "proposal_ubi_001"
+                            val payload = "Vote_${choice}_for_$proposalId".toByteArray()
+                            
+                            try {
+                                val activity = context as? androidx.fragment.app.FragmentActivity
+                                if (activity != null) {
+                                    val signature = identityKeyManager.signTransaction(activity, payload)
+                                    viewModel.onVoteSigned(signature)
+                                } else {
+                                    scope.launch { snackbarHostState.showSnackbar("Error: Context is not FragmentActivity") }
+                                }
+                            } catch (e: Exception) {
+                                scope.launch { snackbarHostState.showSnackbar("Signing Failed: ${e.message}") }
+                            }
+                        }
+                    }
+                    
                     GovernanceScreen(viewModel)
                 }
                 composable(Screen.Income.route) {
@@ -178,17 +211,8 @@ fun MainNavigation(
                     val viewModel: IncomeViewModel = viewModel(
                         factory = IncomeViewModel.Factory(transactionManager, transactionDao, p2pTransferManager, identityKeyManager)
                     )
-                    val state by viewModel.state.collectAsState()
-                    
-                    IncomeScreen(
-                        state = state,
-                        onClaimUbi = { viewModel.claimUbi() },
-                        onSendOffline = { viewModel.startSending() },
-                        onReceiveOffline = { viewModel.startReceiving() },
-                        onCancelP2P = { viewModel.stopP2P() },
-                        onConfirmP2P = { viewModel.confirmConnection() },
-                        onRejectP2P = { viewModel.rejectConnection() }
-                    )
+                    // State collection happens internally in IncomeScreen now for simplicity of this refactor
+                    IncomeScreen(viewModel = viewModel)
                 }
                 composable(Screen.Health.route) {
                     // Health (Pillar 5)

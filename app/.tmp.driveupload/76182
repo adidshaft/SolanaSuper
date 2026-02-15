@@ -1,0 +1,19 @@
+/Users/amanpandey/Library/Android/sdk/cmake/3.22.1/bin/cmake \
+  -H/Users/amanpandey/Desktop/SolanaSuper/app/src/main/cpp \
+  -DCMAKE_SYSTEM_NAME=Android \
+  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+  -DCMAKE_SYSTEM_VERSION=26 \
+  -DANDROID_PLATFORM=android-26 \
+  -DANDROID_ABI=x86_64 \
+  -DCMAKE_ANDROID_ARCH_ABI=x86_64 \
+  -DANDROID_NDK=/Users/amanpandey/Library/Android/sdk/ndk/28.0.12433566 \
+  -DCMAKE_ANDROID_NDK=/Users/amanpandey/Library/Android/sdk/ndk/28.0.12433566 \
+  -DCMAKE_TOOLCHAIN_FILE=/Users/amanpandey/Library/Android/sdk/ndk/28.0.12433566/build/cmake/android.toolchain.cmake \
+  -DCMAKE_MAKE_PROGRAM=/Users/amanpandey/Library/Android/sdk/cmake/3.22.1/bin/ninja \
+  -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/amanpandey/Desktop/SolanaSuper/app/build/intermediates/cxx/Debug/5m6h2o5e/obj/x86_64 \
+  -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/Users/amanpandey/Desktop/SolanaSuper/app/build/intermediates/cxx/Debug/5m6h2o5e/obj/x86_64 \
+  -DCMAKE_BUILD_TYPE=Debug \
+  -B/Users/amanpandey/Desktop/SolanaSuper/app/.cxx/Debug/5m6h2o5e/x86_64 \
+  -GNinja \
+  -DANDROID_LD=lld \
+  -DCMAKE_SHARED_LINKER_FLAGS=-Wl,-z,max-page-size=16384

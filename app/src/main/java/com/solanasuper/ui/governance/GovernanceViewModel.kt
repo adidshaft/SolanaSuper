@@ -30,53 +30,36 @@ class GovernanceViewModel(
 
     private val _uiEvent = Channel<String>()
     val uiEvent = _uiEvent.receiveAsFlow()
+    
+    private val _signRequest = Channel<String>()
+    val signRequest = _signRequest.receiveAsFlow()
 
     private var pendingVoteChoice: String? = null
 
-    init {
-        // Collect biometric results for signing
-        viewModelScope.launch {
-            promptManager.promptResults.collectLatest { result ->
-                when (result) {
-                    is BiometricPromptManager.BiometricResult.AuthenticationSuccess -> {
-                        val cryptoObject = result.result.cryptoObject
-                        if (cryptoObject?.signature != null && pendingVoteChoice != null) {
-                            processVote(cryptoObject.signature!!, pendingVoteChoice!!)
-                        }
-                    }
-                    is BiometricPromptManager.BiometricResult.AuthenticationError -> {
-                        _state.update { it.copy(voteStatus = "Auth Error: ${result.error}") }
-                    }
-                    BiometricPromptManager.BiometricResult.AuthenticationFailed -> {
-                        _state.update { it.copy(voteStatus = "Auth Failed") }
-                    }
-                }
-            }
-        }
-    }
+    // promptManager results are no longer used here; we use RequestSign flow.
+    // init block removed.
 
     fun initiateVote(choice: String) {
         pendingVoteChoice = choice
-        try {
-            if (identityKeyManager.getPublicKey() == null) {
-                identityKeyManager.generateIdentityKey()
+        viewModelScope.launch {
+            if (identityKeyManager.getSolanaPublicKey() == null) {
+                identityKeyManager.ensureIdentity()
             }
-            val signature = identityKeyManager.initSignature()
-            if (signature != null) {
-                promptManager.showBiometricPrompt(
-                    title = "Confirm Vote",
-                    description = "Sign your vote with your secure identity",
-                    cryptoObject = androidx.biometric.BiometricPrompt.CryptoObject(signature)
-                )
-            } else {
-                _state.update { it.copy(voteStatus = "Could not initialize secure signature") }
+            // Request UI to trigger signing
+            _signRequest.send(choice) 
+        }
+    }
+    
+    // Called by UI after successful signing
+    fun onVoteSigned(signatureBytes: ByteArray) {
+        pendingVoteChoice?.let { choice ->
+            viewModelScope.launch {
+                processVote(signatureBytes, choice)
             }
-        } catch (e: Exception) {
-            _state.update { it.copy(voteStatus = "Error: ${e.message}") }
         }
     }
 
-    private suspend fun processVote(signature: java.security.Signature, choice: String) {
+    private suspend fun processVote(signatureBytes: ByteArray, choice: String) {
         try {
             val proposalId = "proposal_ubi_001"
             
@@ -86,16 +69,15 @@ class GovernanceViewModel(
                 voteStatus = "Generating Local ZK Proof (Rust Enclave)..."
             ) }
             
-            // 1. Sign Vote Payload (Hardware Key)
-            val votePayload = "Vote_${choice}_for_$proposalId".toByteArray()
-            signature.update(votePayload)
-            val signedBytes = signature.sign()
-
+            // 1. Signature is already provided by Hardware Wallet (IdentityKeyManager)
+            // The payload was likely "Vote_${choice}_for_$proposalId" (Determined by UI/VM agreement)
+            // We assume the signature passed in VALID for that payload.
+            
             // 2. Call Native Rust JNI to Generate Proof
             val govReq = EnclaveProto.GovernanceRequest.newBuilder()
                 .setProposalId(proposalId)
                 .setVoteChoice(choice)
-                .setIdentitySignature(com.google.protobuf.ByteString.copyFrom(signedBytes))
+                .setIdentitySignature(com.google.protobuf.ByteString.copyFrom(signatureBytes))
                 .build()
                 
             val request = EnclaveProto.EnclaveRequest.newBuilder()

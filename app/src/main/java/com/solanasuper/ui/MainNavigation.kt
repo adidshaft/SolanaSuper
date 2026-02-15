@@ -53,6 +53,7 @@ sealed class Screen(val route: String, val label: String) {
     object Governance : Screen("governance", "Governance")
     object Income : Screen("income", "Income")
     object Health : Screen("health", "Health")
+    object Profile : Screen("profile", "Profile")
 }
 
 @Composable
@@ -62,7 +63,8 @@ fun MainNavigation(
     arciumClient: MockArciumClient,
     transactionManager: TransactionManager,
     transactionDao: TransactionDao,
-    p2pTransferManager: com.solanasuper.network.P2PTransferManager
+    p2pTransferManager: com.solanasuper.network.P2PTransferManager,
+    activityRepository: com.solanasuper.data.ActivityRepository // Inject Repository
 ) {
     val navController = rememberNavController()
 
@@ -96,8 +98,19 @@ fun MainNavigation(
                 ) {
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                     val currentDestination = navBackStackEntry?.destination
-                    val items = listOf(Screen.Identity, Screen.Governance, Screen.Income, Screen.Health)
- 
+                    // Modified: Removed Identity from Tab, replaced with Profile as the "Identity" tab technically
+                    // Or keep Identity (Hub) and add Profile? 
+                    // Let's add Profile as the 5th tab or replace one?
+                    // "Create a new ProfileScreen.kt... As a user I need to view my solana address"
+                    // IdentityHub was more about "Biometrics". Profile is "Wallet + History".
+                    // Let's keep them all for now or user might complain features are missing.
+                    // But 5 tabs is crowded.
+                    // Let's swap "Identity" (Hub) with "Profile" for the bottom bar, 
+                    // and maybe IdentityHub is accessible inside Profile?
+                    // OR just append Profile.
+                    
+                    val items = listOf(Screen.Governance, Screen.Income, Screen.Health, Screen.Profile)
+
                     items.forEach { screen ->
                         NavigationBarItem(
                             icon = { 
@@ -130,11 +143,11 @@ fun MainNavigation(
             Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
                 NavHost(
                     navController = navController,
-                    startDestination = Screen.Identity.route,
+                    startDestination = Screen.Governance.route, // Changed start to Governance for "Dashboard" feel
                     modifier = Modifier.fillMaxSize()
                 ) {
                 composable(Screen.Identity.route) {
-                    // Identity Hub (Pillar 2)
+                    // Identity Hub (Pillar 2) - Kept available if routed, but hidden from main tabs
                     IdentityHubScreen(promptManager, identityKeyManager)
                 }
                 composable(Screen.Governance.route) {
@@ -191,6 +204,19 @@ fun MainNavigation(
                     HealthScreen(
                         state = state,
                         onUnlock = { viewModel.unlockVault() }
+                    )
+                }
+                composable(Screen.Profile.route) {
+                    // Profile (Phase 9)
+                    val viewModel: com.solanasuper.ui.profile.ProfileViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
+                        factory = com.solanasuper.ui.profile.ProfileViewModel.Factory(identityKeyManager, activityRepository)
+                    )
+                    
+                    com.solanasuper.ui.profile.ProfileScreen(
+                        viewModel = viewModel,
+                        onShowSnackbar = { msg ->
+                            scope.launch { snackbarHostState.showSnackbar(msg) }
+                        }
                     )
                 }
             }

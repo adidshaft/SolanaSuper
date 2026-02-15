@@ -21,7 +21,7 @@ abstract class WalletDatabase : RoomDatabase() {
     // Step 1249 shows TransactionDao.kt.
     // Step 1027 shows WalletDao.kt.
     // I should unify them. TransactionDao is better for Generic Transactions.
-    abstract fun transactionDao(): TransactionDao
+
 
     companion object {
         @Volatile

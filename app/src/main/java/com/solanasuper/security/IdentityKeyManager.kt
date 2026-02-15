@@ -54,41 +54,50 @@ class IdentityKeyManager(private val context: Context) {
 
     // --- Solana Logic ---
 
+    fun ensureSolanaKey() {
+        if (getSolanaPublicKey() == null) {
+            generateAndStoreSolanaKey()
+        }
+    }
+
     private fun generateAndStoreSolanaKey() {
-        // 1. Generate new Solana Keypair using EdDSA
-        val kpg = KeyPairGenerator()
-        val kp = kpg.generateKeyPair()
-        val privateKey = kp.private as EdDSAPrivateKey
-        val publicKey = kp.public as EdDSAPublicKey
-        
-        // We persist the SEED if possible for deterministic reconstruction, or just the private key bytes.
-        // EdDSAPrivateKey.getSeed() returns the seed.
-        val privateKeyBytes = privateKey.seed 
-        
-        // 2. Encrypt Private Key with AES (Biometric/KeyStore)
-        val secretKey = getOrCreateStorageKey()
-        val cipher = Cipher.getInstance("AES/GCM/NoPadding")
-        cipher.init(Cipher.ENCRYPT_MODE, secretKey)
-        val iv = cipher.iv
-        val encryptedBytes = cipher.doFinal(privateKeyBytes)
-        
-        // 3. Store Encrypted Data
-        File(context.filesDir, SOLANA_PRIVATE_KEY_FILE).writeBytes(encryptedBytes)
-        File(context.filesDir, SOLANA_IV_FILE).writeBytes(iv)
-        
-        // 4. Store Public Key (Convenience)
-        // Solana addresses are Base58 encoded 32-byte public keys.
-        // We lack Base58 lib right now (removed web3-solana).
-        // Storing Base64 for now.
-        // TODO: In Phase 2, include a Base58 implementation or full SDK.
-        val pubKeyBytes = publicKey.abyte
-        val pubKeyString = android.util.Base64.encodeToString(pubKeyBytes, android.util.Base64.NO_WRAP) 
-        
-        context.getSharedPreferences("solana_prefs", Context.MODE_PRIVATE)
-            .edit().putString("solana_pubkey", pubKeyString).apply()
+        try {
+            // 1. Generate new Solana Keypair using EdDSA
+            val kpg = KeyPairGenerator()
+            val kp = kpg.generateKeyPair()
+            val privateKey = kp.private as EdDSAPrivateKey
+            val publicKey = kp.public as EdDSAPublicKey
+            
+            // 2. Encrypt Private Key with AES
+            // Note: Storage Key DOES NOT require biometrics for encryption/decryption of the private key on disk.
+            // This allows the app to "access" the key (e.g. for display or auto-signing if we wanted) without prompt.
+            // However, for high-security actions, we should require the Identity Key (which is bio-bound).
+            val secretKey = getOrCreateStorageKey()
+            val cipher = Cipher.getInstance("AES/GCM/NoPadding")
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey)
+            val iv = cipher.iv
+            val encryptedBytes = cipher.doFinal(privateKey.seed)
+            
+            // 3. Store Encrypted Data
+            File(context.filesDir, SOLANA_PRIVATE_KEY_FILE).writeBytes(encryptedBytes)
+            File(context.filesDir, SOLANA_IV_FILE).writeBytes(iv)
+            
+            // 4. Store Public Key (Base58)
+            val pubKeyBytes = publicKey.abyte
+            val pubKeyString = com.solanasuper.utils.Base58.encode(pubKeyBytes)
+            
+            context.getSharedPreferences("solana_prefs", Context.MODE_PRIVATE)
+                .edit().putString("solana_pubkey", pubKeyString).apply()
+
+            android.util.Log.d("SolanaSuper", "Generated Identity: $pubKeyString")
+
+        } catch (e: Exception) {
+            android.util.Log.e("SolanaSuper", "Failed to generate Solana Key", e)
+        }
     }
     
     fun getSolanaPublicKey(): String? {
+        // Returns Base58 address
         return context.getSharedPreferences("solana_prefs", Context.MODE_PRIVATE)
             .getString("solana_pubkey", null)
     }
@@ -98,7 +107,9 @@ class IdentityKeyManager(private val context: Context) {
         val cipher = Cipher.getInstance("AES/GCM/NoPadding")
         
         if (mode == Cipher.DECRYPT_MODE) {
-            val iv = File(context.filesDir, SOLANA_IV_FILE).readBytes()
+            val ivFile = File(context.filesDir, SOLANA_IV_FILE)
+            if (!ivFile.exists()) return null
+            val iv = ivFile.readBytes()
             cipher.init(mode, secretKey, GCMParameterSpec(128, iv))
         } else {
             cipher.init(mode, secretKey)
@@ -131,7 +142,7 @@ class IdentityKeyManager(private val context: Context) {
             )
                 .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
                 .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
-                .setUserAuthenticationRequired(true) // require bio
+                // Removed: .setUserAuthenticationRequired(true) -> Allows silent background usage
                 .setKeySize(256)
                 .build()
             keyGenerator.init(spec)

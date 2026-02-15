@@ -108,30 +108,32 @@ class IncomeViewModel(
         if (_state.value.isClaiming) return
 
         viewModelScope.launch {
-            _state.update { it.copy(isClaiming = true, isLoading = true) }
+            _state.update { it.copy(isClaiming = true, isLoading = true, error = null) }
             try {
                 // 1. Get Solana Address
-                val solanaAddress = identityKeyManager.getSolanaPublicKey() // Base64 or Base58?
-                // Note: IdentityKeyManager now stores Base64 if import failed, or we need to fix it.
-                // Assuming it returns a string we can use/log. 
-                // Since this is Devnet Airdrop, we need a valid Base58 address.
-                // If IdentityKeyManager used Base64, we might need to decode/encode.
-                // But let's assume we fixed imports or it worked.
+                val solanaAddress = identityKeyManager.getSolanaPublicKey()
                 
+                if (solanaAddress.isNullOrEmpty()) {
+                    throw Exception("No identity found. Restart app.")
+                }
+                
+                android.util.Log.d("SolanaSuper", "Requesting Airdrop for: $solanaAddress")
+
                  // 2. Request Airdrop (Devnet)
                 kotlinx.coroutines.Dispatchers.IO.let { dispatcher ->
                     kotlinx.coroutines.withContext(dispatcher) {
                          if (NetworkManager.isLiveMode.value) {
+                             // REAL SOLANA DEVNET POST
                              try {
-                                 android.util.Log.d("SolanaSuper", "Attempting Live Airdrop for $solanaAddress")
-                                 // REAL SOLANA DEVNET POST
                                  val url = java.net.URL("https://api.devnet.solana.com")
                                  val connection = url.openConnection() as java.net.HttpURLConnection
                                  connection.requestMethod = "POST"
                                  connection.doOutput = true
-                                 connection.connectTimeout = 3000
+                                 connection.connectTimeout = 5000
+                                 connection.readTimeout = 5000
                                  connection.setRequestProperty("Content-Type", "application/json")
                                  
+                                 // Request 1 SOL (1,000,000,000 Lamports)
                                  val jsonBody = """
                                      {"jsonrpc":"2.0", "id":1, "method":"requestAirdrop", "params":["$solanaAddress", 1000000000]}
                                  """.trimIndent()
@@ -139,28 +141,42 @@ class IncomeViewModel(
                                  connection.outputStream.use { it.write(jsonBody.toByteArray()) }
                                  
                                  val responseCode = connection.responseCode
-                                 android.util.Log.d("SolanaSuper", "Live Airdrop Response: $responseCode")
+                                 android.util.Log.d("SolanaSuper", "Airdrop HTTP $responseCode")
                                  
-                                 if (responseCode !in 200..299) {
-                                     throw java.lang.Exception("HTTP $responseCode")
+                                 if (responseCode == 200) {
+                                     // Success!
+                                     val response = connection.inputStream.bufferedReader().use { it.readText() }
+                                     android.util.Log.d("SolanaSuper", "Airdrop Response: $response")
+                                     // We could parse the signature here, but looking at balance is enough proof.
+                                     
+                                     // Wait a moment for confirmation
+                                     delay(2000)
+                                     
+                                     // Update local balance to reflect "success" even if we don't query RPC balance yet
+                                     // (We want immediate feedback)
+                                     transactionManager.receiveFunds(1000L, "Devnet Airdrop")
+                                     
+                                 } else if (responseCode == 429) {
+                                     throw Exception("Rate Limited (429). Try again later.")
+                                 } else {
+                                     throw Exception("Devnet Error (HTTP $responseCode)")
                                  }
                              } catch (e: Exception) {
-                                  android.util.Log.e("SolanaSuper", "Live Airdrop Failed: ${e.message}. Fallback to Sim.")
-                                  Thread.sleep(2000) // Fallback delay
+                                  android.util.Log.e("SolanaSuper", "Airdrop Error", e)
+                                  throw e
                              }
                          } else {
                              // SIMULATION
-                             android.util.Log.d("SolanaSuper", "Simulating Airdrop for $solanaAddress")
-                             Thread.sleep(2000)
+                             delay(1000)
+                             transactionManager.receiveFunds(1000L, "Simulated Airdrop")
                          }
                     }
                 }
                 
-                // 3. Update Balance (Simulated for Devnet Proof)
-                transactionManager.receiveFunds(1000L, "Global UBI (Devnet)")
                 loadData()
             } catch (e: Exception) {
-                _state.update { it.copy(error = "Airdrop Failed: ${e.message}") }
+                val msg = if (e.message?.contains("429") == true) "Faucet Rate Limited. Try later." else e.message
+                _state.update { it.copy(error = msg) }
             } finally {
                 _state.update { it.copy(isClaiming = false, isLoading = false) }
             }

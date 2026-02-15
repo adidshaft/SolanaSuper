@@ -26,9 +26,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
+import androidx.compose.ui.platform.LocalContext
 import com.solanasuper.security.BiometricPromptManager
 import com.solanasuper.security.IdentityKeyManager
 import java.security.Signature
+
 
 @Composable
 fun IdentityHubScreen(
@@ -115,28 +118,46 @@ fun IdentityHubScreen(
         
         Spacer(modifier = Modifier.height(48.dp))
         
+        val scope = androidx.compose.runtime.rememberCoroutineScope()
+        val context = androidx.compose.ui.platform.LocalContext.current
+        
         Button(
             onClick = {
-                try {
-                    // Ensure key exists
-                    if (identityKeyManager.getPublicKey() == null) {
-                        identityKeyManager.generateIdentityKey()
+                scope.launch {
+                    try {
+                        identityKeyManager.ensureIdentity()
+                        
+                        // 1. SIGN THE PAYLOAD
+                        val timestamp = System.currentTimeMillis()
+                        val payload = "IdentityProof_$timestamp".toByteArray()
+                        
+                        val signature = identityKeyManager.signTransaction(context as androidx.fragment.app.FragmentActivity, payload)
+                        
+                        // 2. Send to Rust ZK Core
+                        val identityReq = com.solanasuper.core.EnclaveProto.IdentityRequest.newBuilder()
+                            .setAttributeId("biometric_auth")
+                            .setEncryptedIdentitySeed(com.google.protobuf.ByteString.copyFrom(signature)) 
+                            .build()
+                            
+                        val request = com.solanasuper.core.EnclaveProto.EnclaveRequest.newBuilder()
+                            .setRequestId("req_$timestamp")
+                            .setActionType("GENERATE_IDENTITY_PROOF")
+                            .setIdentityReq(identityReq)
+                            .build()
+                            
+                        // Offload to IO
+                        val response = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                             com.solanasuper.core.ZKProver.processRequest(request)
+                        }
+                        
+                        if (response.success) {
+                            authStatus = "Success! Proof len: ${response.proofData.size()}"
+                        } else {
+                            authStatus = "ZK Error: ${response.errorMessage}"
+                        }
+                    } catch (e: Exception) {
+                        authStatus = "Error: ${e.message}"
                     }
-
-                    // Initialize Signature
-                    val signature = identityKeyManager.initSignature()
-                    
-                    if (signature != null) {
-                         promptManager.showBiometricPrompt(
-                            title = "Authenticate Identity",
-                            description = "Unlock your secure identity key",
-                            cryptoObject = BiometricPrompt.CryptoObject(signature)
-                        )
-                    } else {
-                        authStatus = "Error: Could not init signature"
-                    }
-                } catch (e: Exception) {
-                    authStatus = "Error: ${e.message}"
                 }
             },
             modifier = Modifier.fillMaxWidth().height(64.dp),

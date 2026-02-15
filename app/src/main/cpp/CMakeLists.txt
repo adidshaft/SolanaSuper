@@ -21,16 +21,37 @@ endif()
 set(RUST_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/rust/target/${RUST_TARGET}/release")
 set(RUST_LIB_FILE "${RUST_BUILD_DIR}/lib${RUST_LIB_NAME}.so")
 
+# Get NDK bin directory from CMake compiler path
+get_filename_component(NDK_BIN_DIR "${CMAKE_C_COMPILER}" DIRECTORY)
+
+# Determine correct linker filename (assuming API 26 as per build.gradle)
+if(ANDROID_ABI STREQUAL "arm64-v8a")
+    set(CURRENT_LINKER "aarch64-linux-android26-clang")
+    set(LINKER_ENV_VAR "CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER")
+elseif(ANDROID_ABI STREQUAL "armeabi-v7a")
+    set(CURRENT_LINKER "armv7a-linux-androideabi26-clang")
+    set(LINKER_ENV_VAR "CARGO_TARGET_ARMV7_LINUX_ANDROIDEABI_LINKER")
+elseif(ANDROID_ABI STREQUAL "x86")
+    set(CURRENT_LINKER "i686-linux-android26-clang")
+    set(LINKER_ENV_VAR "CARGO_TARGET_I686_LINUX_ANDROID_LINKER")
+elseif(ANDROID_ABI STREQUAL "x86_64")
+    set(CURRENT_LINKER "x86_64-linux-android26-clang")
+    set(LINKER_ENV_VAR "CARGO_TARGET_X86_64_LINUX_ANDROID_LINKER")
+endif()
+
+message(STATUS "NDK BIN: ${NDK_BIN_DIR}")
+message(STATUS "LINKER: ${CURRENT_LINKER}")
+
 # Create a custom command to build the Rust library
 add_custom_command(
     OUTPUT "${RUST_LIB_FILE}"
-    COMMAND cargo build --target ${RUST_TARGET} --release --manifest-path "${CMAKE_CURRENT_SOURCE_DIR}/rust/Cargo.toml"
+    COMMAND ${CMAKE_COMMAND} -E env "PATH=${NDK_BIN_DIR}:$ENV{PATH}" "${LINKER_ENV_VAR}=${CURRENT_LINKER}" cargo build --target ${RUST_TARGET} --release --manifest-path "${CMAKE_CURRENT_SOURCE_DIR}/rust/Cargo.toml"
     # Ensure correct linker is used (handled by cargo config or environment usually, 
     # but for simplicity we rely on standard cargo-ndk or environment setup if present.
     # PRO-TIP: We might need to pass linker flags here or assume user environment is set up.
     # For this environment, we assume `cargo` is available.
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/rust"
-    COMMENT "Building Rust library for ${RUST_TARGET}"
+    COMMENT "Building Rust library for ${RUST_TARGET} using linker ${CURRENT_LINKER}"
     DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/rust/src/lib.rs" "${CMAKE_CURRENT_SOURCE_DIR}/rust/Cargo.toml"
     VERBATIM
 )

@@ -8,10 +8,17 @@ crate-type = ["cdylib"]
 
 [dependencies]
 jni = "0.21.1"
-prost = "0.9"
-prost-types = "0.9"
+prost = "0.12.6"
+prost-types = "0.12.6"
 getrandom = "=0.2.17"
+rand = "=0.8.5"
+indexmap = "=2.2.6"
 log = "0.4"
-android_logger = "0.13"
+android_logger = "0.12.0"
 
-
+[build-dependencies]
+prost-build = "0.12.6"
+getrandom = "=0.2.17"
+rand = "=0.8.5"
+tempfile = "=3.10.1"
+indexmap = "=2.2.6"

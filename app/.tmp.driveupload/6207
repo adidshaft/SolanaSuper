@@ -1,0 +1,13 @@
+package com.solanasuper.ui.income
+
+enum class PeerStatus {
+    IDLE,
+    SCANNING,
+    FOUND_PEER,
+    CONNECTING,
+    CONNECTED,
+    VERIFYING,
+    TRANSFERRING,
+    SUCCESS,
+    ERROR
+}

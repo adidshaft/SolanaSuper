@@ -16,8 +16,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.clickable
 import com.solanasuper.data.OfflineTransaction
 import com.solanasuper.data.TransactionStatus
+import com.solanasuper.ui.income.P2PStatus
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -200,7 +202,7 @@ fun P2POverlay(
         ) {
             Text(
                 text = when (status) {
-                    com.solanasuper.ui.income.P2PStatus.DISCOVERING -> "Searching for peers..."
+                    com.solanasuper.ui.income.P2PStatus.SCANNING -> "Searching for peers..."
                     com.solanasuper.ui.income.P2PStatus.CONNECTING -> "Connecting..."
                     com.solanasuper.ui.income.P2PStatus.CONNECTED -> "Peer Connected"
                     com.solanasuper.ui.income.P2PStatus.TRANSFERRING -> "Transferring..."

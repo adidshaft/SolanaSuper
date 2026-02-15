@@ -34,6 +34,9 @@ import com.solanasuper.security.IdentityKeyManager
 import com.solanasuper.network.NetworkManager
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.clickable
@@ -238,7 +241,7 @@ fun MainNavigation(
                     modifier = Modifier
                         .background(
                             color = Color.Black.copy(alpha = 0.6f),
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(50)
+                            shape = RoundedCornerShape(50)
                         )
                         .clickable { NetworkManager.toggleMode() }
                         .padding(horizontal = 16.dp, vertical = 8.dp)
@@ -250,10 +253,10 @@ fun MainNavigation(
                         // Status Dot
                         Box(
                             modifier = Modifier
-                                .androidx.compose.foundation.layout.size(8.dp)
+                                .size(8.dp)
                                 .background(
                                     color = if (isLive) Color(0xFF14F195) else Color(0xFF00C2FF),
-                                    shape = androidx.compose.foundation.shape.CircleShape
+                                    shape = CircleShape
                                 )
                         )
                         

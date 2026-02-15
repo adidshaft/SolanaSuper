@@ -35,16 +35,18 @@ class MainNavigationTest {
         // Mock new dependencies
         val transactionDao = Mockito.mock(TransactionDao::class.java)
         val transactionManager = Mockito.mock(TransactionManager::class.java)
+        // Mock P2PTransferManager (needs to be mocked or real context provided)
+        val p2pTransferManager = Mockito.mock(com.solanasuper.network.P2PTransferManager::class.java)
         
         composeTestRule.setContent {
-            // MainNavigation doesn't exist yet, or hasn't been updated.
-            // This references a Composable we EXPECT to implement.
+            // MainNavigation updated signature
              MainNavigation(
                  promptManager = promptManager,
                  identityKeyManager = identityKeyManager,
                  arciumClient = arciumClient,
                  transactionManager = transactionManager,
-                 transactionDao = transactionDao
+                 transactionDao = transactionDao,
+                 p2pTransferManager = p2pTransferManager
              )
         }
 

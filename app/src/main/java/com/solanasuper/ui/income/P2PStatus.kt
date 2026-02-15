@@ -5,6 +5,7 @@ enum class P2PStatus {
     SCANNING,
     FOUND_PEER,
     CONNECTING,
+    CONNECTED,
     TRANSFERRING,
     SUCCESS,
     ERROR

@@ -106,7 +106,8 @@ fun MainNavigation(
                     state = state,
                     onClaimUbi = { viewModel.claimUbi() },
                     onSendOffline = { viewModel.startSending() },
-                    onReceiveOffline = { viewModel.startReceiving() }
+                    onReceiveOffline = { viewModel.startReceiving() },
+                    onCancelP2P = { viewModel.stopP2P() }
                 )
             }
             composable(Screen.Health.route) {

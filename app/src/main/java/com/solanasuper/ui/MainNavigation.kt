@@ -195,28 +195,47 @@ fun MainNavigation(
                 }
             }
             
-            // Network Mode Toggle (Overlay)
+            // Network Mode Toggle (Sleek Minimalist Capsule)
             val isLive by NetworkManager.isLiveMode.collectAsState()
+            
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 16.dp, end = 16.dp), // Top Right
+                    .statusBarsPadding()
+                    .padding(top = 8.dp, end = 24.dp), 
                 contentAlignment = androidx.compose.ui.Alignment.TopEnd
             ) {
                 Box(
                     modifier = Modifier
                         .background(
-                            color = if (isLive) Color.Red.copy(alpha = 0.2f) else Color.Blue.copy(alpha = 0.2f),
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp)
+                            color = Color.Black.copy(alpha = 0.6f),
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(50)
                         )
                         .clickable { NetworkManager.toggleMode() }
-                        .padding(horizontal = 12.dp, vertical = 6.dp)
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
                 ) {
-                    Text(
-                        text = if (isLive) "LIVE NET" else "SIMULATED",
-                        color = if (isLive) Color.Red else Color.Cyan,
-                        style = androidx.compose.material3.MaterialTheme.typography.labelSmall
-                    )
+                    androidx.compose.foundation.layout.Row(
+                        verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+                        horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp)
+                    ) {
+                        // Status Dot
+                        Box(
+                            modifier = Modifier
+                                .androidx.compose.foundation.layout.size(8.dp)
+                                .background(
+                                    color = if (isLive) Color(0xFF14F195) else Color(0xFF00C2FF),
+                                    shape = androidx.compose.foundation.shape.CircleShape
+                                )
+                        )
+                        
+                        Text(
+                            text = if (isLive) "LIVE" else "SIMULATION",
+                            color = Color.White,
+                            style = androidx.compose.material3.MaterialTheme.typography.labelMedium,
+                            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                            letterSpacing = 1.sp
+                        )
+                    }
                 }
             }
         }

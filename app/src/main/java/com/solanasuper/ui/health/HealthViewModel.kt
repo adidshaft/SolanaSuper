@@ -126,11 +126,47 @@ class HealthViewModel(
         _state.update { it.copy(mpcState = ArciumComputationState.IDLE) }
     }
 
+    fun updateRecord(id: String, newDescription: String) {
+        com.solanasuper.utils.AppLogger.d("HealthViewModel", "Updating record $id")
+        val currentRecords = _state.value.records.toMutableList()
+        val index = currentRecords.indexOfFirst { it.id == id }
+        if (index != -1) {
+            val oldRecord = currentRecords[index]
+            currentRecords[index] = oldRecord.copy(description = newDescription, date = System.currentTimeMillis())
+            _state.update { it.copy(records = currentRecords) }
+            com.solanasuper.utils.AppLogger.i("HealthViewModel", "Record $id updated successfully")
+        }
+    }
+
+    fun shareRecord(id: String) {
+        com.solanasuper.utils.AppLogger.i("HealthViewModel", "Initiating ZK Proof generation for record $id")
+        val record = _state.value.records.find { it.id == id } ?: return
+        
+        viewModelScope.launch {
+            _state.update { it.copy(mpcState = ArciumComputationState.GENERATING_LOCAL_PROOF) }
+            try {
+                 // Use JNI to generate proof for specific field (e.g. "Diabetes Status")
+                 com.solanasuper.utils.AppLogger.d("HealthViewModel", "Calling JNI processRequest(action=2)")
+                 val proof = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                     ZKProver.processRequest(2, "proof_req_${record.id}")
+                 }
+                 com.solanasuper.utils.AppLogger.i("HealthViewModel", "ZK Proof generated: ${proof.take(20)}...")
+                 _uiEvent.send("Proof Generated! Ready to Share.")
+            } catch (e: Exception) {
+                 com.solanasuper.utils.AppLogger.e("HealthViewModel", "Proof generation failed", e)
+                 _uiEvent.send("Error: ${e.message}")
+            } finally {
+                 _state.update { it.copy(mpcState = ArciumComputationState.IDLE) }
+            }
+        }
+    }
+
     private fun getMockRecords(): List<DecryptedHealthRecord> {
         return listOf(
-            DecryptedHealthRecord("1", "Vaccine Certificate", "COVID-19 Vaccination Record", System.currentTimeMillis()),
-            DecryptedHealthRecord("2", "Prescription", "Amoxicillin 500mg", System.currentTimeMillis()),
-            DecryptedHealthRecord("3", "Lab Result", "Blood Test - Normal", System.currentTimeMillis())
+            DecryptedHealthRecord("1", "Blood Type", "O+", System.currentTimeMillis(), "Vital"),
+            DecryptedHealthRecord("2", "Allergies", "Penicillin, Peanuts", System.currentTimeMillis(), "Vital"),
+            DecryptedHealthRecord("3", "Vaccination", "COVID-19 (3 Doses)", System.currentTimeMillis(), "Record"),
+            DecryptedHealthRecord("4", "Notes", "No known conditions.", System.currentTimeMillis(), "General")
         )
     }
 

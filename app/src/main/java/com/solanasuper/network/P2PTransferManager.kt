@@ -17,11 +17,18 @@ import com.google.android.gms.nearby.connection.Strategy
 class P2PTransferManager(private val context: Context) {
 
     private val connectionsClient: ConnectionsClient = Nearby.getConnectionsClient(context)
-    private val strategy = Strategy.P2P_CLUSTER // Supports M-to-N, good for small groups/mesh
+    
+    // Explicitly disable Wi-Fi/LAN upgrades (Bluetooth only) to prevent crashes
+    private val parameters = com.google.android.gms.nearby.connection.ConnectionOptions.Builder()
+        .setDisruptiveUpgrade(false)
+        .build()
+
+    // Switch to P2P_STAR as requested for stabilization
+    private val strategy = Strategy.P2P_STAR 
+    
     private val serviceId = "com.solanasuper.p2p"
     private val TAG = "SovereignLifeOS"
 
-    // Simplified callback interface
     interface P2PCallback {
         fun onPeerFound(endpointId: String)
         fun onConnectionInitiated(endpointId: String, info: ConnectionInfo)
@@ -86,7 +93,7 @@ class P2PTransferManager(private val context: Context) {
         Log.d(TAG, "P2P: Starting Advertising...")
         val options = AdvertisingOptions.Builder().setStrategy(strategy).build()
         connectionsClient.startAdvertising(
-            "SolanaSuperUser", // Should be random alias
+            "SolanaSuperUser", 
             serviceId,
             connectionLifecycleCallback,
             options
@@ -107,9 +114,13 @@ class P2PTransferManager(private val context: Context) {
                 override fun onEndpointFound(endpointId: String, info: com.google.android.gms.nearby.connection.DiscoveredEndpointInfo) {
                     Log.d(TAG, "P2P: Peer Found: $endpointId (${info.endpointName})")
                     callback?.onPeerFound(endpointId)
-                    // Auto-connect for prototype
-                    connectionsClient.requestConnection("SolanaSuperPeer", endpointId, connectionLifecycleCallback)
-                        .addOnFailureListener { e ->
+                    // Auto-connect for prototype, using explicit ConnectionOptions
+                    connectionsClient.requestConnection(
+                        "SolanaSuperPeer", 
+                        endpointId, 
+                        connectionLifecycleCallback,
+                        parameters
+                    ).addOnFailureListener { e ->
                             Log.e(TAG, "P2P: Request connection failed", e)
                             callback?.onError("Request connection failed: ${e.localizedMessage}")
                         }

@@ -24,11 +24,17 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.IconButton
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,9 +47,26 @@ import com.solanasuper.ui.health.DecryptedHealthRecord
 
 @Composable
 fun HealthScreen(
-    state: HealthState = HealthState(),
+    viewModel: HealthViewModel,
     onUnlock: () -> Unit = {}
 ) {
+    val state by viewModel.state.collectAsState()
+    val uiEvent = viewModel.uiEvent.collectAsState(initial = null)
+    
+    // Edit Dialog State
+    var showEditDialog by remember { mutableStateOf(false) }
+    var editingRecord by remember { mutableStateOf<DecryptedHealthRecord?>(null) }
+    var editValue by remember { mutableStateOf("") }
+    
+    val context = androidx.compose.ui.platform.LocalContext.current
+    
+    // Handle UI Events (e.g. Proof Generated toast)
+    LaunchedEffect(uiEvent.value) {
+        uiEvent.value?.let { msg ->
+            android.widget.Toast.makeText(context, msg, android.widget.Toast.LENGTH_LONG).show()
+        }
+    }
+
     if (state.mpcState != com.solanasuper.ui.state.ArciumComputationState.IDLE) {
         com.solanasuper.ui.components.MpcLoadingOverlay(state.mpcState)
     } else if (state.isLocked) {
@@ -61,7 +84,7 @@ fun HealthScreen(
                         .size(120.dp)
                         .clip(CircleShape)
                         .background(Color.White.copy(alpha = 0.05f))
-                        .clickable { onUnlock() },
+                        .clickable { viewModel.unlockVault() }, // Use VM method
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
@@ -92,7 +115,7 @@ fun HealthScreen(
                 if (state.error != null) {
                     Spacer(modifier = Modifier.height(32.dp))
                     Text(
-                        text = state.error,
+                        text = state.error!!,
                         color = Color(0xFFCF6679),
                         style = MaterialTheme.typography.bodySmall
                     )
@@ -122,15 +145,51 @@ fun HealthScreen(
                 }
                 
                 items(state.records) { record ->
-                    HealthRecordItem(record)
+                    HealthRecordItem(
+                        record = record,
+                        onEdit = { 
+                            editingRecord = record
+                            editValue = record.description
+                            showEditDialog = true
+                        },
+                        onShare = { viewModel.shareRecord(record.id) }
+                    )
                 }
             }
+        }
+        
+        if (showEditDialog && editingRecord != null) {
+            AlertDialog(
+                onDismissRequest = { showEditDialog = false },
+                title = { Text("Update ${editingRecord!!.title}") },
+                text = {
+                    OutlinedTextField(
+                        value = editValue,
+                        onValueChange = { editValue = it },
+                        label = { Text("Value / Details") },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                },
+                confirmButton = {
+                    TextButton(onClick = {
+                        viewModel.updateRecord(editingRecord!!.id, editValue)
+                        showEditDialog = false
+                    }) { Text("Save") }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showEditDialog = false }) { Text("Cancel") }
+                }
+            )
         }
     }
 }
 
 @Composable
-fun HealthRecordItem(record: DecryptedHealthRecord) {
+fun HealthRecordItem(
+    record: DecryptedHealthRecord,
+    onEdit: () -> Unit,
+    onShare: () -> Unit
+) {
     Row(
         modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -151,7 +210,7 @@ fun HealthRecordItem(record: DecryptedHealthRecord) {
         
         Spacer(modifier = Modifier.size(20.dp))
         
-        Column {
+        Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = record.title,
                 style = MaterialTheme.typography.titleMedium,
@@ -166,6 +225,19 @@ fun HealthRecordItem(record: DecryptedHealthRecord) {
                 color = Color.White.copy(alpha = 0.5f),
                 maxLines = 2
             )
+             Spacer(modifier = Modifier.height(4.dp))
+             Text(
+                text = "Last Updated: ${java.text.SimpleDateFormat("MMM dd, HH:mm").format(java.util.Date(record.date))}",
+                style = MaterialTheme.typography.labelSmall,
+                color = Color.Gray.copy(alpha = 0.5f)
+            )
+        }
+        
+        IconButton(onClick = onEdit) {
+            Icon(Icons.Default.Edit, contentDescription = "Edit", tint = Color.White.copy(alpha = 0.7f))
+        }
+        IconButton(onClick = onShare) {
+            Icon(Icons.Default.Share, contentDescription = "Share ZK Proof", tint = MaterialTheme.colorScheme.primary)
         }
     }
 }

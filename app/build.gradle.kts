@@ -6,6 +6,8 @@ plugins {
     alias(libs.plugins.protobuf)
 }
 
+import java.util.Properties
+
 android {
     namespace = "com.solanasuper"
     compileSdk = 34
@@ -27,6 +29,19 @@ android {
                 arguments("-DANDROID_LD=lld", "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-z,max-page-size=16384")
             }
         }
+
+        // Secure QuickNode & IPFS Configuration
+        val localProperties = Properties()
+        val localFile = rootProject.file("local.properties")
+        if (localFile.exists()) {
+            localFile.inputStream().use { localProperties.load(it) }
+        }
+
+        val quickNodeRpc = localProperties.getProperty("QUICKNODE_SOLANA_RPC") ?: "https://api.devnet.solana.com"
+        val quickNodeIpfs = localProperties.getProperty("QUICKNODE_IPFS_URL") ?: "https://ipfs.io"
+
+        buildConfigField("String", "QUICKNODE_SOLANA_RPC", "\"$quickNodeRpc\"")
+        buildConfigField("String", "QUICKNODE_IPFS_URL", "\"$quickNodeIpfs\"")
     }
 
     ndkVersion = "28.0.12433566"
@@ -54,6 +69,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.10"
@@ -139,6 +155,14 @@ dependencies {
 
     // Nearby - Fixed accessor
     implementation(libs.play.services.nearby)
+
+    // CameraX & MLKit (QR Scanning)
+    val camerax_version = "1.3.0-alpha04" // Use stable or alpha as needed
+    implementation("androidx.camera:camera-core:$camerax_version")
+    implementation("androidx.camera:camera-camera2:$camerax_version")
+    implementation("androidx.camera:camera-lifecycle:$camerax_version")
+    implementation("androidx.camera:camera-view:$camerax_version")
+    implementation("com.google.mlkit:barcode-scanning:17.2.0")
 
     // Protobuf
     implementation(libs.protobuf.java)

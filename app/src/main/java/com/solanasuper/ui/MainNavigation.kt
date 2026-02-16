@@ -232,8 +232,7 @@ fun MainNavigation(
                     val state by viewModel.state.collectAsState()
                     
                     HealthScreen(
-                        state = state,
-                        onUnlock = { viewModel.unlockVault() }
+                        viewModel = viewModel
                     )
                 }
                 composable(Screen.Profile.route) {

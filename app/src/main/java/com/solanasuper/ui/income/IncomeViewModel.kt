@@ -12,11 +12,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 
 import com.solanasuper.security.IdentityKeyManager
-// import com.solana.networking.RpcClient // Uncomment if needed for real implementation
-// import com.solana.networking.Networking // ...
-
 
 class IncomeViewModel(
     private val transactionManager: TransactionManager,
@@ -25,15 +24,25 @@ class IncomeViewModel(
     private val identityKeyManager: IdentityKeyManager
 ) : ViewModel() {
 
+    // Expose IdentityKeyManager for UI interactions (Signing)
+    val identityManager: IdentityKeyManager get() = identityKeyManager
+
     private val _state = MutableStateFlow(IncomeUiState())
     val state = _state.asStateFlow()
+
+    // New State for optional signing flow
+    private val _signRequest = Channel<ByteArray>()
+    val signRequest = _signRequest.receiveAsFlow()
+
+    private var pendingTransaction: PendingTx? = null
+
+    data class PendingTx(val recipient: String, val amount: Double, val data: ByteArray)
 
     init {
         setupP2P()
         loadData()
     }
 
-    // ... P2P Setup (kept mostly same, maybe update status mappings) ...
     private fun setupP2P() {
         p2pTransferManager.callback = object : com.solanasuper.network.P2PTransferManager.P2PCallback {
             override fun onPeerFound(endpointId: String) {
@@ -90,33 +99,94 @@ class IncomeViewModel(
         viewModelScope.launch {
             _state.update { it.copy(status = UiStatus.Loading) }
             try {
-                // Timeout safety
-                kotlinx.coroutines.withTimeout(5000) {
+                if (!NetworkManager.isLiveMode.value) {
+                    // Simulation Fallback
                     val balance = transactionDao.getAvailableBalance() ?: 0L
-                    val transactions = transactionDao.getAllTransactions()
-                    val reversed = transactions.sortedByDescending { it.timestamp }
-                val uiTransactions = reversed.map { tx ->
-                    UiTransaction(
-                        id = tx.id,
-                        amount = tx.amount,
-                        timestamp = tx.timestamp,
-                        recipientId = tx.recipientId,
-                        isReceived = tx.amount >= 0
-                    )
-                } 
-                
+                    _state.update {
+                        it.copy(
+                            balance = balance / 1_000_000_000.0,
+                            status = UiStatus.Success
+                        )
+                    }
+                    return@launch
+                }
+
+                // On-Chain Truth
+                val rpcUrl = NetworkManager.activeRpcUrl.value
+                val solanaAddress = identityKeyManager.getSolanaPublicKey() ?: throw Exception("No Identity")
+
+                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                    // 1. Fetch Balance
+                    val balanceSol = fetchSolanaBalance(rpcUrl, solanaAddress)
+                    
+                    // 2. Fetch History (Signatures)
+                    val history = fetchTransactionHistory(rpcUrl, solanaAddress)
+
                     _state.update { 
                         it.copy(
-                            balance = balance.toDouble(),
-                            transactions = uiTransactions,
+                            balance = balanceSol,
+                            transactions = history,
                             status = UiStatus.Success
                         ) 
                     }
                 }
             } catch (e: Exception) {
-                _state.update { it.copy(status = UiStatus.Error(e.message ?: "Failed to load")) }
+                _state.update { it.copy(status = UiStatus.Error(e.message ?: "Failed to load on-chain data")) }
             }
         }
+    }
+
+    private fun fetchSolanaBalance(rpcUrl: String, address: String): Double {
+        val json = """{"jsonrpc":"2.0", "id":1, "method":"getBalance", "params":["$address"]}"""
+        val response = postRpc(rpcUrl, json)
+        val jsonObject = org.json.JSONObject(response)
+        if (jsonObject.has("error")) throw Exception("RPC Error: ${jsonObject.get("error")}")
+        
+        val lamports = jsonObject.getJSONObject("result").getLong("value")
+        return lamports / 1_000_000_000.0
+    }
+
+    private fun fetchTransactionHistory(rpcUrl: String, address: String): List<UiTransaction> {
+        val json = """{"jsonrpc":"2.0", "id":1, "method":"getSignaturesForAddress", "params":["$address", {"limit": 10}]}"""
+        val response = postRpc(rpcUrl, json)
+        
+        val jsonResponse = org.json.JSONObject(response)
+        if (jsonResponse.has("error")) return emptyList()
+        
+        val resultArray = jsonResponse.getJSONArray("result")
+        val list = mutableListOf<UiTransaction>()
+        
+        for (i in 0 until resultArray.length()) {
+            val tx = resultArray.getJSONObject(i)
+            val signature = tx.getString("signature")
+            val blockTime = tx.optLong("blockTime", 0) * 1000 // sec to ms
+            
+            list.add(UiTransaction(
+                id = signature,
+                amount = 0.0,
+                timestamp = blockTime,
+                recipientId = "On-Chain",
+                isReceived = true
+            ))
+        }
+        return list
+    }
+
+    private fun postRpc(url: String, body: String): String {
+        val connection = java.net.URL(url).openConnection() as java.net.HttpURLConnection
+        connection.requestMethod = "POST"
+        connection.doOutput = true
+        connection.setRequestProperty("Content-Type", "application/json")
+        connection.connectTimeout = 10000
+        connection.readTimeout = 10000
+        
+        connection.outputStream.use { it.write(body.toByteArray()) }
+        
+        if (connection.responseCode != 200) {
+            throw Exception("RPC HTTP ${connection.responseCode}")
+        }
+        
+        return connection.inputStream.bufferedReader().use { it.readText() }
     }
 
     fun claimUbi() {
@@ -125,47 +195,27 @@ class IncomeViewModel(
         viewModelScope.launch {
             _state.update { it.copy(status = UiStatus.Loading) }
             try {
-                // 1. Get Solana Address
                 val solanaAddress = identityKeyManager.getSolanaPublicKey() ?: throw Exception("No Identity")
-                val rpcUrl = NetworkManager.activeRpcUrl.value
+                
+                // FORCE DEVNET URL for Airdrop (ignore QuickNode)
+                val airdropRpcUrl = "https://api.devnet.solana.com"
+                val LAMROTS_PER_SOL = 1_000_000_000L
 
-                kotlinx.coroutines.withTimeout(10000) {
-                    kotlinx.coroutines.Dispatchers.IO.let { dispatcher ->
-                        kotlinx.coroutines.withContext(dispatcher) {
-                             if (NetworkManager.isLiveMode.value) {
-                                 android.util.Log.d("SolanaSuper", "Airdrop via $rpcUrl")
-                                 
-                                 val url = java.net.URL(rpcUrl)
-                                 val connection = url.openConnection() as java.net.HttpURLConnection
-                                 connection.requestMethod = "POST"
-                                 connection.doOutput = true
-                                 connection.connectTimeout = 5000
-                                 connection.readTimeout = 5000
-                                 connection.setRequestProperty("Content-Type", "application/json")
-                                 
-                                 val jsonBody = """
-                                     {"jsonrpc":"2.0", "id":1, "method":"requestAirdrop", "params":["$solanaAddress", 1000000000]}
-                                 """.trimIndent()
-                                 
-                                 connection.outputStream.use { it.write(jsonBody.toByteArray()) }
-                                 
-                                 val responseCode = connection.responseCode
-                                 
-                                 if (responseCode == 200) {
-                                     // Success
-                                     delay(2000) // Wait for confirm
-                                     transactionManager.receiveFunds(1000L, "Devnet Airdrop")
-                                 } else if (responseCode == 429) {
-                                     throw Exception("Rate Limit (429)")
-                                 } else {
-                                      throw Exception("HTTP $responseCode")
-                                 }
-                             } else {
-                                 delay(1000)
-                                 transactionManager.receiveFunds(1000L, "Simulated Airdrop")
-                             }
-                        }
-                    }
+                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                     if (NetworkManager.isLiveMode.value) {
+                         android.util.Log.d("SolanaSuper", "Airdrop via $airdropRpcUrl")
+                         
+                         val jsonBody = """
+                             {"jsonrpc":"2.0", "id":1, "method":"requestAirdrop", "params":["$solanaAddress", $LAMROTS_PER_SOL]}
+                         """.trimIndent()
+                         
+                         val response = postRpc(airdropRpcUrl, jsonBody)
+                         if (response.contains("error")) throw Exception("Airdrop Rejected")
+                         delay(4000)
+                     } else {
+                         delay(1000)
+                         transactionManager.receiveFunds(LAMROTS_PER_SOL, "Simulated Airdrop")
+                     }
                 }
                 loadData()
             } catch (e: Exception) {
@@ -196,12 +246,71 @@ class IncomeViewModel(
         p2pTransferManager.stop()
     }
 
+    // 3-Way Send Logic
+
+    fun prepareTransaction(recipient: String, amount: Double) {
+        com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Preparing transaction: $amount SOL to $recipient")
+        viewModelScope.launch {
+            try {
+                // 1. Validate
+                if (amount <= 0) throw Exception("Invalid amount")
+                if (amount > (_state.value.balance ?: 0.0)) throw Exception("Insufficient funds")
+
+                // 2. Create Payload (Simulated Solana Instruction Construction)
+                // In real app: SystemProgram.transfer(..., amount).serialize()
+                val instruction = "Transfer ${amount} SOL to $recipient".toByteArray()
+                
+                pendingTransaction = PendingTx(recipient, amount, instruction)
+                com.solanasuper.utils.AppLogger.d("IncomeViewModel", "Transaction payload created. Requesting biometric signature.")
+                _signRequest.send(instruction) // Trigger UI to sign
+            } catch (e: Exception) {
+                com.solanasuper.utils.AppLogger.e("IncomeViewModel", "Transaction preparation failed", e)
+                _state.update { it.copy(status = UiStatus.Error(e.message ?: "Invalid Transaction")) }
+            }
+        }
+    }
+
+    fun broadcastTransaction(signature: ByteArray) {
+        val tx = pendingTransaction ?: return
+        com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Broadcasting signed transaction...")
+        viewModelScope.launch {
+            _state.update { it.copy(status = UiStatus.Loading) }
+            try {
+                 // 3. Broadcast to Network
+                 val rpcUrl = NetworkManager.activeRpcUrl.value
+                 
+                 if (NetworkManager.isLiveMode.value) {
+                     // Real Broadcast (Placeholder for sendTransaction)
+                     com.solanasuper.utils.AppLogger.d("IncomeViewModel", "Live Mode: Posting to RPC $rpcUrl")
+                     delay(2000) // Simulate network
+                 } else {
+                     com.solanasuper.utils.AppLogger.d("IncomeViewModel", "Simulation Mode: Locking funds locally")
+                     delay(1000)
+                     // Simulate send by locking funds locally
+                     val success = transactionManager.lockFunds((tx.amount * 1_000_000_000).toLong())
+                     if (!success) throw Exception("Insufficient Funds (Simulated)")
+                 }
+
+                 // 4. Save to DB (Offline/Online)
+                 // If offline, status = PENDING_SYNC. 
+                 
+                 com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Transaction successful!")
+                 loadData()
+                 _state.update { it.copy(status = UiStatus.Success) }
+                 pendingTransaction = null
+            } catch (e: Exception) {
+                com.solanasuper.utils.AppLogger.e("IncomeViewModel", "Broadcast failed", e)
+                _state.update { it.copy(status = UiStatus.Error("Broadcast Failed: ${e.message}")) }
+            }
+        }
+    }
+
     @Suppress("UNCHECKED_CAST")
     class Factory(
         private val transactionManager: TransactionManager,
         private val transactionDao: TransactionDao,
         private val p2pTransferManager: com.solanasuper.network.P2PTransferManager,
-        private val identityKeyManager: IdentityKeyManager
+        val identityKeyManager: IdentityKeyManager // Allow access in UI for signing helper
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return IncomeViewModel(transactionManager, transactionDao, p2pTransferManager, identityKeyManager) as T

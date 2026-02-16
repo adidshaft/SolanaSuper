@@ -8,16 +8,16 @@ object NetworkManager {
     private val _isLiveMode = MutableStateFlow(false) // Default to Simulation
     val isLiveMode = _isLiveMode.asStateFlow()
 
-    // RPC Configuration (QuickNode Support)
-    // In production, these should be injected or loaded from valid config/env
-    private const val DEFAULT_DEVNET_RPC = "https://api.devnet.solana.com"
-    private const val QUICKNODE_DEVNET_RPC = "https://example.solana-devnet.quiknode.pro/custom-token/" // Placeholder
+    // RPC Configuration (Injected via BuildConfig)
+    // Sourced from local.properties (QUICKNODE_SOLANA_RPC) or fallback to public Devnet
+    private val SECURE_RPC_URL = com.solanasuper.BuildConfig.QUICKNODE_SOLANA_RPC
 
-    private val _activeRpcUrl = MutableStateFlow(DEFAULT_DEVNET_RPC)
+    private val _activeRpcUrl = MutableStateFlow(SECURE_RPC_URL)
     val activeRpcUrl = _activeRpcUrl.asStateFlow()
 
     fun toggleMode() {
-        _isLiveMode.update { !it }
+        _isLiveMode.value = !_isLiveMode.value
+        com.solanasuper.utils.AppLogger.i("NetworkManager", "Switched to ${if (_isLiveMode.value) "LIVE" else "SIMULATION"} mode")
     }
     
     fun setLiveMode(isLive: Boolean) {

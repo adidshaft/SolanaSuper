@@ -111,24 +111,41 @@ class GovernanceViewModel(
                 var success = false
                 
                 if (NetworkManager.isLiveMode.value) {
-                    try {
-                        // LIVE MODE: Attempt Real Network Call with Timeout
-                        android.util.Log.d("GovernanceVM", "Attempting Live Network Call...")
-                        // We use a withTimeout block to enforce the 3.5s limit
-                        kotlinx.coroutines.withTimeout(3500) { 
-                             success = arciumClient.submitVoteReal(proposalId, response.proofData.toByteArray())
+                    // LIVE MODE: Call Cloud Relayer (Handles Cold Start)
+                    android.util.Log.d("GovernanceVM", "Broadcasting to Live Arcium Relayer...")
+                    
+                    kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                        val relayerUrl = "https://sovereign-arcium-relayer.onrender.com/api/vote"
+                        val url = java.net.URL(relayerUrl)
+                        val connection = url.openConnection() as java.net.HttpURLConnection
+                        
+                        // CONNECT TIMEOUT: 60s for Render Cold Start
+                        connection.connectTimeout = 60000 
+                        connection.readTimeout = 60000
+                        
+                        connection.requestMethod = "POST"
+                        connection.doOutput = true
+                        connection.setRequestProperty("Content-Type", "application/json")
+                        
+                        // Construct JSON Payload
+                        // The relayer expects: { "proposalId": "...", "voteChoice": "...", "proof": "HEX_STRING" }
+                        val proofHex = response.proofData.toByteArray().joinToString("") { "%02x".format(it) }
+                        val json = org.json.JSONObject()
+                        json.put("proposalId", proposalId)
+                        json.put("voteChoice", choice)
+                        json.put("proof", proofHex)
+                        
+                        connection.outputStream.use { it.write(json.toString().toByteArray()) }
+                        
+                        val responseCode = connection.responseCode
+                        if (responseCode in 200..299) {
+                            success = true
+                            android.util.Log.d("GovernanceVM", "Relayer Success: $responseCode")
+                        } else {
+                            val errorStream = connection.errorStream?.bufferedReader()?.use { it.readText() }
+                            android.util.Log.e("GovernanceVM", "Relayer Error $responseCode: $errorStream")
+                            throw Exception("Relayer HTTP $responseCode")
                         }
-                        android.util.Log.d("GovernanceVM", "Live Network Call Success: $success")
-                    } catch (e: Exception) {
-                        // FALLBACK
-                        android.util.Log.e("GovernanceVM", "Live Network Failed/Timed Out: ${e.message}. Falling back to Simulation.")
-                        _state.update { it.copy(voteStatus = "Network Busy. Switching to Simulation...") }
-                        _uiEvent.send("⚠️ Network Busy: Falling back to Simulation")
-                        delay(1000) 
-                         
-                        // Fallback Simulation Logic
-                        delay(1500)
-                        success = arciumClient.submitVote(proposalId, response.proofData.toByteArray())
                     }
                 } else {
                     // SIMULATION MODE

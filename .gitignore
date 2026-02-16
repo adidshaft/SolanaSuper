@@ -9,3 +9,9 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Rust Build Artifacts
+app/src/main/cpp/rust/target/
+
+# Drive Upload Temp
+app/.tmp.driveupload/

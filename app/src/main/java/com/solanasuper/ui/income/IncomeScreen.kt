@@ -27,10 +27,51 @@ import com.solanasuper.ui.income.IncomeViewModel
 // import com.solanasuper.ui.income.P2PStatus
 import com.solanasuper.ui.income.UiStatus
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun IncomeScreen(viewModel: IncomeViewModel) {
     val state by viewModel.state.collectAsState()
     val isLive by NetworkManager.isLiveMode.collectAsState()
+    var selectedTransaction by remember { mutableStateOf<UiTransaction?>(null) }
+    
+    // 3-Way Modal State
+    var showSendOptions by remember { mutableStateOf(false) }
+    var showAddressDialog by remember { mutableStateOf(false) }
+    var showQrScanner by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState()
+    
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val scope = rememberCoroutineScope()
+    
+    // Biometric Signing Observer
+    LaunchedEffect(Unit) {
+        viewModel.signRequest.collect { payload ->
+             try {
+                 val activity = context as? androidx.fragment.app.FragmentActivity
+                 if (activity != null) {
+                     // Use exposed identityManager
+                     val signature = viewModel.identityManager.signTransaction(activity, payload)
+                     viewModel.broadcastTransaction(signature)
+                 } else {
+                     android.widget.Toast.makeText(context, "Error: Context is not FragmentActivity", android.widget.Toast.LENGTH_SHORT).show()
+                 }
+             } catch (e: Exception) {
+                 android.widget.Toast.makeText(context, "Signing Failed: ${e.message}", android.widget.Toast.LENGTH_SHORT).show()
+             }
+        }
+    }
+
+    if (showQrScanner) {
+        com.solanasuper.ui.components.QrScanner(onQrCodeScanned = { address ->
+             showQrScanner = false
+             // Open Address Dialog with pre-filled address
+             // Needed state for address?
+             // Implementation detail: I'll just use a VM method `setScannedAddress(address)` and show dialog?
+             // Or pass it to dialog state.
+             // For simplicity, I will immediately prompt amount for scanned address?
+        })
+        return // Show only QR
+    }
 
     Column(
         modifier = Modifier
@@ -38,6 +79,15 @@ fun IncomeScreen(viewModel: IncomeViewModel) {
             .padding(16.dp)
             .statusBarsPadding()
     ) {
+        // ... Header ...
+        // ... Balance Card ...
+        
+        // ... Actions ...
+        // Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+        //     ActionButton(icon = Icons.Default.Send, label = "Send") { showSendOptions = true } // CHANGED
+        //     ActionButton(icon = Icons.Default.ArrowDropDown, label = "Receive") { viewModel.startReceiving() }
+        // }
+        
         // Header
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -87,7 +137,7 @@ fun IncomeScreen(viewModel: IncomeViewModel) {
                 Text("Total Balance", style = MaterialTheme.typography.labelLarge)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "${state.balance} SOL",
+                    text = "${String.format("%.2f", state.balance)} SOL",
                     style = MaterialTheme.typography.displayMedium,
                     fontWeight = FontWeight.Bold
                 )
@@ -96,7 +146,7 @@ fun IncomeScreen(viewModel: IncomeViewModel) {
                     onClick = { viewModel.claimUbi() },
                     enabled = !state.isLoading
                 ) {
-                    if (state.isLoading && state.p2pStatus == PeerStatus.IDLE) {
+                    if (state.isLoading && state.p2pStatus == com.solanasuper.ui.income.PeerStatus.IDLE) {
                        CircularProgressIndicator(modifier = Modifier.size(16.dp), strokeWidth = 2.dp)
                        Spacer(modifier = Modifier.width(8.dp))
                     }
@@ -109,7 +159,7 @@ fun IncomeScreen(viewModel: IncomeViewModel) {
 
         // Actions
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-            ActionButton(icon = Icons.Default.Send, label = "Send") { viewModel.startSending() }
+            ActionButton(icon = Icons.Default.Send, label = "Send") { showSendOptions = true }
             ActionButton(icon = Icons.Default.ArrowDropDown, label = "Receive") { viewModel.startReceiving() }
         }
 
@@ -188,8 +238,17 @@ fun IncomeScreen(viewModel: IncomeViewModel) {
         } else {
             LazyColumn {
                 items(items = state.transactions) { tx ->
-                    TransactionItem(tx)
+                    TransactionItem(tx) {
+                        selectedTransaction = tx
+                    }
                 }
+            }
+        }
+        
+        // Transaction Details Dialog
+        if (selectedTransaction != null) {
+            TransactionDetailsDialog(tx = selectedTransaction!!) {
+                selectedTransaction = null
             }
         }
         
@@ -202,7 +261,102 @@ fun IncomeScreen(viewModel: IncomeViewModel) {
              )
         }
     }
+    
+    // 3-Way Send Modal
+    if (showSendOptions) {
+        ModalBottomSheet(
+            onDismissRequest = { showSendOptions = false },
+            sheetState = sheetState
+        ) {
+            Column(modifier = Modifier.padding(24.dp)) {
+                Text("Select Send Method", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.height(24.dp))
+                
+                // Option 1: Send to Address
+                SendOptionItem(icon = Icons.Default.Send, title = "Send to Address", subtitle = "Enter Solana address manually") {
+                    showSendOptions = false
+                    showAddressDialog = true
+                }
+                
+                // Option 2: Scan QR
+                SendOptionItem(icon = Icons.Default.Send, title = "Scan QR Code", subtitle = "Use camera to scan Base58 address") {
+                    showSendOptions = false
+                    showQrScanner = true
+                }
+                
+                // Option 3: Offline P2P
+                SendOptionItem(icon = Icons.Default.ArrowDropDown, title = "Send Offline (P2P)", subtitle = "Nearby Connections via Bluetooth") {
+                    showSendOptions = false
+                    viewModel.startSending()
+                }
+                Spacer(modifier = Modifier.height(24.dp))
+            }
+        }
+    }
+    
+    // Send to Address Dialog
+    if (showAddressDialog) {
+        var address by remember { mutableStateOf("") }
+        var amount by remember { mutableStateOf("") }
+        
+        AlertDialog(
+            onDismissRequest = { showAddressDialog = false },
+            title = { Text("Send SOL") },
+            text = {
+                Column {
+                    OutlinedTextField(
+                        value = address,
+                        onValueChange = { address = it },
+                        label = { Text("Recipient Address") },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    OutlinedTextField(
+                        value = amount,
+                        onValueChange = { amount = it },
+                        label = { Text("Amount (SOL)") },
+                        modifier = Modifier.fillMaxWidth(), // keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        val amountDouble = amount.toDoubleOrNull()
+                        if (amountDouble != null && address.isNotBlank()) {
+                            // viewModel.sendTransaction(address, amountDouble) // TODO: Implement
+                            // Since VM needs signing, assume we implemented logic
+                            viewModel.prepareTransaction(address, amountDouble)
+                            showAddressDialog = false
+                        }
+                    }
+                ) { Text("Sign & Send") }
+            },
+            dismissButton = {
+                TextButton(onClick = { showAddressDialog = false }) { Text("Cancel") }
+            }
+        )
+    }
 }
+
+@Composable
+fun SendOptionItem(icon: androidx.compose.ui.graphics.vector.ImageVector, title: String, subtitle: String, onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+            .padding(vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(32.dp))
+        Spacer(modifier = Modifier.width(16.dp))
+        Column {
+            Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+            Text(subtitle, style = MaterialTheme.typography.bodySmall, color = Color.Gray)
+        }
+    }
+}
+
 
 @Composable
 fun ActionButton(icon: androidx.compose.ui.graphics.vector.ImageVector, label: String, onClick: () -> Unit) {
@@ -216,18 +370,26 @@ fun ActionButton(icon: androidx.compose.ui.graphics.vector.ImageVector, label: S
 }
 
 @Composable
-fun TransactionItem(tx: UiTransaction) {
+fun TransactionItem(tx: UiTransaction, onClick: () -> Unit) {
     val title = if (tx.isReceived) "Received" else "Sent"
     val subtitle = tx.recipientId ?: "Unknown"
 
-    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .clickable { onClick() }
+        .padding(vertical = 8.dp)
+    ) {
         Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
             Column {
                 Text(title, fontWeight = FontWeight.Medium)
-                Text(subtitle, style = MaterialTheme.typography.bodySmall, color = Color.Gray)
+                Text(
+                    text = if (subtitle.length > 10) subtitle.take(4) + "..." + subtitle.takeLast(4) else subtitle,
+                    style = MaterialTheme.typography.bodySmall, 
+                    color = Color.Gray
+                )
             }
             Text(
-                text = "${if (tx.isReceived) "+" else ""}${tx.amount} SOL",
+                text = "${if (tx.isReceived) "+" else ""}${String.format("%.4f", tx.amount)} SOL",
                 color = if (tx.isReceived) Color.Green else Color.Red,
                 fontWeight = FontWeight.Bold
             )
@@ -237,6 +399,51 @@ fun TransactionItem(tx: UiTransaction) {
             style = MaterialTheme.typography.bodySmall,
             color = Color.Gray
         )
-        Divider(modifier = Modifier.padding(top = 8.dp), color = MaterialTheme.colorScheme.surfaceVariant)
+        HorizontalDivider(modifier = Modifier.padding(top = 8.dp), color = MaterialTheme.colorScheme.surfaceVariant)
+    }
+}
+
+@Composable
+fun TransactionDetailsDialog(tx: UiTransaction, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Transaction Details") },
+        text = {
+            Column {
+                DetailRow("Status", "Success")
+                DetailRow("Amount", "${String.format("%.9f", tx.amount)} SOL")
+                DetailRow("Date", java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date(tx.timestamp)))
+                Spacer(modifier = Modifier.height(8.dp))
+                DetailRow("Transaction ID", tx.id)
+                Spacer(modifier = Modifier.height(8.dp))
+                DetailRow("From/To", tx.recipientId ?: "System")
+                
+                Spacer(modifier = Modifier.height(16.dp))
+                val context = androidx.compose.ui.platform.LocalContext.current
+                Text(
+                    text = "View on Solana Explorer",
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.clickable { 
+                        val url = "https://explorer.solana.com/tx/${tx.id}?cluster=devnet"
+                        val intent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(url))
+                        context.startActivity(intent)
+                    }
+                )
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Close")
+            }
+        }
+    )
+}
+
+@Composable
+fun DetailRow(label: String, value: String) {
+    Column(modifier = Modifier.statusBarsPadding()) {
+        Text(label, style = MaterialTheme.typography.bodySmall, color = Color.Gray)
+        Text(value, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
     }
 }

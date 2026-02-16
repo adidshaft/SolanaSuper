@@ -87,7 +87,8 @@ class IdentityKeyManager(private val context: Context) {
 
     // Suspending function to Sign Transaction (Requires Biometric Auth)
     // We pass the activity to launch the prompt
-    suspend fun signTransaction(activity: FragmentActivity, data: ByteArray): ByteArray {
+    suspend fun signTransaction(activity: FragmentActivity, payload: ByteArray): ByteArray {
+        com.solanasuper.utils.AppLogger.d("IdentityKeyManager", "Requesting biometric signature for payload size: ${payload.size} bytes")
         val promptManager = BiometricPromptManager(activity)
         
         // 1. Authenticate User
@@ -100,6 +101,7 @@ class IdentityKeyManager(private val context: Context) {
         val result = promptManager.promptResults.first()
         
         if (result is BiometricPromptManager.BiometricResult.AuthenticationSuccess) {
+            com.solanasuper.utils.AppLogger.i("IdentityKeyManager", "Biometric authentication successful")
             try {
                 // 2. Decrypt Mnemonic (In memory only)
                 val mnemonicString = decryptMnemonic()

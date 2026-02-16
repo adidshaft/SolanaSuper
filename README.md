@@ -139,6 +139,19 @@ We believe in radical transparency. Here is the breakdown of what is running on 
 - JDK 17.
 - Two physical Android devices (for P2P testing).
 
+### Configuration (QuickNode & IPFS)
+This project uses **QuickNode** for high-performance Solana RPC calls and IPFS pinning. To configure your local environment:
+1.  Open `local.properties` in the project root.
+2.  Add your private QuickNode URLs (or use defaults):
+    ```properties
+    # QuickNode / Private RPC
+    QUICKNODE_SOLANA_RPC=https://your-custom-endpoint.solana-devnet.quiknode.pro/token/
+    
+    # IPFS Gateway
+    QUICKNODE_IPFS_URL=https://your-custom-gateway.mypinata.cloud/ipfs/
+    ```
+    *Note: If these are omitted, the app defaults to public `api.devnet.solana.com` and `ipfs.io`.*
+
 ### Compiling
 1.  **Clone the Repo**:
     ```bash

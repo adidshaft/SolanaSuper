@@ -41,6 +41,40 @@ object Base58 {
         return String(encoded, outputStart, encoded.size - outputStart)
     }
 
+    fun decode(input: String): ByteArray {
+        if (input.isEmpty()) {
+            return ByteArray(0)
+        }
+        val input58 = ByteArray(input.length)
+        for (i in input.indices) {
+            val c = input[i]
+            val digit = if (c.code < 128) INDEXES[c.code] else -1
+            if (digit < 0) {
+                throw IllegalArgumentException("Invalid character '$c' at index $i")
+            }
+            input58[i] = digit.toByte()
+        }
+        var zeros = 0
+        while (zeros < input58.size && input58[zeros].toInt() == 0) {
+            ++zeros
+        }
+        val decoded = ByteArray(input.length)
+        var outputStart = decoded.size
+        var inputStart = zeros
+        while (inputStart < input58.size) {
+            val remainder = divmod(input58, inputStart, 58, 256)
+            decoded[--outputStart] = remainder.toByte()
+            if (input58[inputStart].toInt() == 0) {
+                ++inputStart
+            }
+        }
+        while (outputStart < decoded.size && decoded[outputStart].toInt() == 0) {
+            ++outputStart
+        }
+        
+        return java.util.Arrays.copyOfRange(decoded, outputStart - zeros, decoded.size)
+    }
+
     private fun divmod(number: ByteArray, firstDigit: Int, base: Int, divisor: Int): Int {
         var remainder = 0
         for (i in firstDigit until number.size) {

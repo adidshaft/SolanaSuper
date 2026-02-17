@@ -85,46 +85,74 @@ class HealthViewModel(
             com.solanasuper.utils.AppLogger.d("HealthVM", "Generated Access Proof: $proofHex")
             
             // State 2: Submitting to Network (STRICTLY LIVE)
-             _state.update { it.copy(mpcState = ArciumComputationState.SUBMITTING_TO_ARCIUM_MXE) }
+            _state.update { it.copy(mpcState = ArciumComputationState.SUBMITTING_TO_ARCIUM_MXE) }
             
             com.solanasuper.utils.AppLogger.i("HealthVM", "Broadcasting to Live Arcium Relayer (STRICT COMPLIANCE)...")
             
             kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
-                // Use api/vote as it is the only confirmed working endpoint on the demo server.
-                // We adapt the payload to fit the relayer's expected schema: { proposalId, voteChoice, proof }
-                val relayerUrl = "https://sovereign-arcium-relayer.onrender.com/api/vote"
+                var attempt = 1
+                val maxAttempts = 3
+                var success = false
                 
-                val url = java.net.URL(relayerUrl)
-                val connection = url.openConnection() as java.net.HttpURLConnection
-                
-                // CONNECTION SETTINGS
-                connection.connectTimeout = 60000 
-                connection.readTimeout = 60000
-                
-                connection.requestMethod = "POST"
-                connection.doOutput = true
-                connection.setRequestProperty("Content-Type", "application/json")
-                
-                // Construct JSON Payload compatible with Relay
-                val json = org.json.JSONObject()
-                json.put("proposalId", "HEALTH_ACCESS_VERIFICATION") // Special ID for Health
-                json.put("voteChoice", "VERIFY_ACCESS")
-                json.put("proof", proofHex)
-                
-                connection.outputStream.use { it.write(json.toString().toByteArray()) }
-                
-                val responseCode = connection.responseCode
-                if (responseCode in 200..299) {
-                    com.solanasuper.utils.AppLogger.d("HealthVM", "Relayer Success: $responseCode")
-                    // Log to Activity Repository
-                    repository.logActivity(
-                        com.solanasuper.data.ActivityType.ARCIUM_PROOF,
-                        "Health Access Verified | Proof: ${proofHex.take(8)}..."
-                    )
-                } else {
-                    val errorStream = connection.errorStream?.bufferedReader()?.use { it.readText() }
-                    com.solanasuper.utils.AppLogger.e("HealthVM", "Relayer Error $responseCode: $errorStream")
-                    throw Exception("Relayer HTTP $responseCode: $errorStream")
+                while (attempt <= maxAttempts && !success) {
+                    try {
+                        if (attempt > 1) {
+                             _uiEvent.send("Waking up Relayer... (Attempt $attempt/$maxAttempts)")
+                            com.solanasuper.utils.AppLogger.w("HealthVM", "Retrying connection (Attempt $attempt)...")
+                        }
+
+                        // Use api/vote as it is the only confirmed working endpoint on the demo server.
+                        val relayerUrl = "https://sovereign-arcium-relayer.onrender.com/api/vote"
+                        
+                        val url = java.net.URL(relayerUrl)
+                        val connection = url.openConnection() as java.net.HttpURLConnection
+                        
+                        // CONNECTION SETTINGS (Aggressive Timeout for Retry)
+                        connection.connectTimeout = 15000 
+                        connection.readTimeout = 15000
+                        
+                        connection.requestMethod = "POST"
+                        connection.doOutput = true
+                        connection.setRequestProperty("Content-Type", "application/json")
+                        
+                        // Construct JSON Payload compatible with Relay
+                        val json = org.json.JSONObject()
+                        json.put("proposalId", "HEALTH_ACCESS_VERIFICATION") 
+                        json.put("voteChoice", "VERIFY_ACCESS")
+                        json.put("proof", proofHex)
+                        
+                        connection.outputStream.use { it.write(json.toString().toByteArray()) }
+                        
+                        val responseCode = connection.responseCode
+                        if (responseCode in 200..299) {
+                            com.solanasuper.utils.AppLogger.d("HealthVM", "Relayer Success: $responseCode")
+                            repository.logActivity(
+                                com.solanasuper.data.ActivityType.ARCIUM_PROOF,
+                                "Health Access Verified | Proof: ${proofHex.take(8)}..."
+                            )
+                            success = true
+                        } else {
+                            val errorStream = connection.errorStream?.bufferedReader()?.use { it.readText() }
+                            com.solanasuper.utils.AppLogger.e("HealthVM", "Relayer Error $responseCode: $errorStream")
+                            if (responseCode >= 500) {
+                                // Server Error - Retry
+                                throw java.io.IOException("Server Error $responseCode")
+                            } else {
+                                // Client Error - Fail immediately (e.g. 400 Bad Request)
+                                throw Exception("Application Error $responseCode: $errorStream")
+                            }
+                        }
+                    } catch (e: Exception) {
+                        com.solanasuper.utils.AppLogger.w("HealthVM", "Attempt $attempt failed: ${e.message}")
+                        if (attempt == maxAttempts) {
+                             // Final Failure -> Offline Mode
+                             com.solanasuper.utils.AppLogger.e("HealthVM", "All retries failed. switch to Offline Mode.")
+                             _uiEvent.send("Offline Mode: Relayer Unreachable")
+                        } else {
+                            delay(attempt * 2000L) // Backoff: 2s, 4s
+                        }
+                    }
+                    attempt++
                 }
             }
 
@@ -201,13 +229,13 @@ class HealthViewModel(
                 
                 if (cid == null) {
                     com.solanasuper.utils.AppLogger.e("HealthViewModel", "IPFS Upload Failed: CID is null")
-                    _uiEvent.send("IPFS Upload Failed: Check Configuration")
-                    return@launch // STRICT FAILURE: Abort save
+                    _uiEvent.send("Warning: Saved Locally Only (IPFS Upload Failed)")
+                    // Proceed to Local Save with null CID
+                } else {
+                    com.solanasuper.utils.AppLogger.i("HealthViewModel", "IPFS Pin Success: $cid")
                 }
-                
-                com.solanasuper.utils.AppLogger.i("HealthViewModel", "IPFS Pin Success: $cid")
 
-                // 2. Local Save (Only if CID is valid)
+                // 2. Local Save (Always Persist)
                 val currentRecords = _state.value.records.toMutableList()
                 val index = currentRecords.indexOfFirst { it.id == id }
                 if (index != -1) {
@@ -215,7 +243,7 @@ class HealthViewModel(
                     val updatedRecord = oldRecord.copy(
                          description = newDescription, 
                          date = System.currentTimeMillis(),
-                         ipfsCid = cid
+                         ipfsCid = cid // Can be null if failed
                     )
                     
                     // PERSIST TO DB
@@ -231,10 +259,12 @@ class HealthViewModel(
                     
                     currentRecords[index] = updatedRecord
                     _state.update { it.copy(records = currentRecords) }
-                    com.solanasuper.utils.AppLogger.i("HealthViewModel", "Record $id updated successfully (Local + IPFS)")
                     
-                    // Log Activity
-                    repository.logActivity(com.solanasuper.data.ActivityType.IPFS_HASH, "Record Updated | CID: $cid")
+                    if (cid != null) {
+                        repository.logActivity(com.solanasuper.data.ActivityType.IPFS_HASH, "Record Updated | CID: $cid")
+                    } else {
+                        com.solanasuper.utils.AppLogger.w("HealthViewModel", "Record saved without IPFS CID")
+                    }
                 }
             } catch (e: Exception) {
                 com.solanasuper.utils.AppLogger.e("HealthViewModel", "Update Failed", e)

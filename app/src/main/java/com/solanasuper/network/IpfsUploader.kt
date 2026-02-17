@@ -32,8 +32,14 @@ object IpfsUploader {
                 connection.doOutput = true
                 connection.setRequestProperty("Content-Type", "application/json")
                 
-                // If using Pinata or QuickNode API, auth headers might be needed
-                // But we don't have them in the prompt. We assume the URL includes the key or is a proxy.
+                // AUTHENTICATION
+                val jwt = BuildConfig.IPFS_JWT
+                if (jwt.isNotEmpty()) {
+                    connection.setRequestProperty("Authorization", "Bearer $jwt")
+                } else {
+                    // Legacy/Open: Check if User provided keys in URL or relies on open gateway (rarely works for uploads)
+                    com.solanasuper.utils.AppLogger.w("IpfsUploader", "No IPFS_JWT found. Upload may fail on secure gateways.")
+                }
                 
                 connection.outputStream.use { 
                     it.write(data.toString().toByteArray())

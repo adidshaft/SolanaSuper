@@ -38,10 +38,13 @@ android {
         }
 
         val quickNodeRpc = localProperties.getProperty("QUICKNODE_SOLANA_RPC") ?: "https://api.devnet.solana.com"
-        val quickNodeIpfs = localProperties.getProperty("QUICKNODE_IPFS_URL") ?: "https://ipfs.io"
+        // Default to Pinata if not provided
+        val quickNodeIpfs = localProperties.getProperty("QUICKNODE_IPFS_URL") ?: "https://api.pinata.cloud/pinning/pinJSONToIPFS"
+        val ipfsJwt = localProperties.getProperty("IPFS_JWT") ?: ""
 
         buildConfigField("String", "QUICKNODE_SOLANA_RPC", "\"$quickNodeRpc\"")
         buildConfigField("String", "QUICKNODE_IPFS_URL", "\"$quickNodeIpfs\"")
+        buildConfigField("String", "IPFS_JWT", "\"$ipfsJwt\"")
     }
 
     ndkVersion = "28.0.12433566"

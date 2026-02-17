@@ -1,14 +1,2 @@
 ninja: Entering directory `/Users/amanpandey/Desktop/SolanaSuper/app/.cxx/Debug/5m6h2o5e/arm64-v8a'
-[1/3] Building Rust library for aarch64-linux-android using linker aarch64-linux-android26-clang
-warning: unused imports: `GovernanceRequest`, `IdentityRequest`, `IncomeRequest`
-  --> src/lib.rs:63:48
-   |
-63 | use enclave::{EnclaveRequest, EnclaveResponse, IdentityRequest, GovernanceRequest, IncomeRequest};
-   |                                                ^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^
-   |
-   = note: `#[warn(unused_imports)]` on by default
-
-warning: `solanasuper_core` (lib) generated 1 warning (run `cargo fix --lib -p solanasuper_core` to apply 1 suggestion)
-    Finished `release` profile [optimized] target(s) in 0.17s
-[2/3] Building CXX object CMakeFiles/jni_wrapper.dir/stub.cpp.o
-[3/3] Linking CXX shared library /Users/amanpandey/Desktop/SolanaSuper/app/build/intermediates/cxx/Debug/5m6h2o5e/obj/arm64-v8a/libjni_wrapper.so
+ninja: no work to do.

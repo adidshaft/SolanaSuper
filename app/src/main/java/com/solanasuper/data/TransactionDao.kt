@@ -18,4 +18,7 @@ interface TransactionDao {
 
     @androidx.room.Query("SELECT SUM(amount) FROM offline_transactions WHERE status = 'AVAILABLE'")
     suspend fun getAvailableBalance(): Long?
+
+    @androidx.room.Query("SELECT * FROM offline_transactions WHERE isLiveBroadcastPending = 1")
+    suspend fun getPendingBroadcasts(): List<OfflineTransaction>
 }

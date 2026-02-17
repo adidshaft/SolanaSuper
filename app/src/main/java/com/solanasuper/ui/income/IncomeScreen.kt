@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.DisposableEffect
@@ -68,7 +69,7 @@ fun IncomeScreen(viewModel: IncomeViewModel) {
     DisposableEffect(lifecycleOwner) {
         val observer = androidx.lifecycle.LifecycleEventObserver { _, event ->
             if (event == androidx.lifecycle.Lifecycle.Event.ON_RESUME) {
-                viewModel.loadData()
+                viewModel.refresh()
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
@@ -299,7 +300,20 @@ fun IncomeScreen(viewModel: IncomeViewModel) {
 
         // Transactions List Header
         item {
-            Text("Recent Activity", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text("Recent Activity", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                IconButton(onClick = { viewModel.refresh() }) {
+                    Icon(
+                        imageVector = androidx.compose.material.icons.Icons.Default.Refresh,
+                        contentDescription = "Sync",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
+            }
             Spacer(modifier = Modifier.height(8.dp))
         }
         

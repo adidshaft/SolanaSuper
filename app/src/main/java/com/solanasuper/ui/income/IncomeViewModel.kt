@@ -45,6 +45,56 @@ class IncomeViewModel(
     init {
         setupP2P()
         loadData()
+        refresh() // Check for pending broadcasts on start
+    }
+
+    fun refresh() {
+        loadData()
+        retryPendingBroadcasts()
+    }
+
+    private fun retryPendingBroadcasts() {
+        viewModelScope.launch {
+            if (!NetworkManager.isLiveMode.value) return@launch
+            
+            val pendingTxs = transactionDao.getPendingBroadcasts()
+            if (pendingTxs.isEmpty()) return@launch
+
+            com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Retrying ${pendingTxs.size} pending broadcasts...")
+            val rpcUrl = NetworkManager.activeRpcUrl.value
+            
+            pendingTxs.forEach { tx ->
+                try {
+                     if (tx.signedPayload != null) {
+                         val json = """{"jsonrpc":"2.0", "id":1, "method":"sendTransaction", "params":["${tx.signedPayload}", {"encoding": "base64"}]}"""
+                         
+                         kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                             val response = postRpc(rpcUrl, json)
+                             val jsonResp = org.json.JSONObject(response)
+                             if (jsonResp.has("error")) {
+                                 throw Exception("RPC Error: ${jsonResp.get("error")}")
+                             }
+                         }
+                         
+                         // Success! Mark as done (or delete). We'll update status.
+                         // Using ID to update.
+                         // For simplicity in this Dao, we might need a specific update method or just re-insert.
+                         // Since we don't have updateStatus, we'll re-insert with modified fields or delete if it was a temp holder.
+                         // Ideally we want to keep it as history? But we fetch history from chain.
+                         // So we can just mark it as settled locally or delete. 
+                         // Let's mark it as SETTLED and not pending.
+                         
+                         transactionDao.insert(tx.copy(status = TransactionStatus.CONFIRMED, isLiveBroadcastPending = false))
+                         com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Retry Success for ${tx.id}")
+                     }
+                } catch (e: Exception) {
+                    com.solanasuper.utils.AppLogger.e("IncomeViewModel", "Retry Failed for ${tx.id}", e)
+                }
+            }
+            // Reload data after attempts
+            delay(1000)
+            loadData()
+        }
     }
 
     private fun setupP2P() {
@@ -122,7 +172,23 @@ class IncomeViewModel(
                              stopP2P()
                          } catch (e: Exception) {
                             com.solanasuper.utils.AppLogger.e("IncomeViewModel", "P2P Broadcast Failed", e)
-                            _state.update { it.copy(p2pStatus = PeerStatus.ERROR, status = UiStatus.Error("Broadcast Failed: ${e.message}")) }
+                            // PERSISTENCE: Save for later retry
+                            try {
+                                val offlineTx = com.solanasuper.data.OfflineTransaction(
+                                    id = "pending_${System.currentTimeMillis()}", // Temporary ID until broadcast
+                                    amount = 0, // Unknown amount from just base64, unless we parse it. For now 0 is fine as placeholder.
+                                    timestamp = System.currentTimeMillis(),
+                                    recipientId = "Network",
+                                    status = TransactionStatus.LOCKED_SYNCING,
+                                    isLiveBroadcastPending = true,
+                                    signedPayload = base64Tx
+                                )
+                                transactionDao.insert(offlineTx)
+                                _state.update { it.copy(p2pStatus = PeerStatus.ERROR, status = UiStatus.Error("Broadcast Failed. Saved for retry.")) }
+                            } catch (dbEx: Exception) {
+                                com.solanasuper.utils.AppLogger.e("IncomeViewModel", "Failed to save pending broadcast", dbEx)
+                                _state.update { it.copy(p2pStatus = PeerStatus.ERROR, status = UiStatus.Error("Critical: Broadcast & Save Failed.")) }
+                            }
                          }
                      }
                      return

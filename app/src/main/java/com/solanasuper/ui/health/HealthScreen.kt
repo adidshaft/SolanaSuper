@@ -61,9 +61,21 @@ fun HealthScreen(
     val context = androidx.compose.ui.platform.LocalContext.current
     
     // Handle UI Events (e.g. Proof Generated toast)
-    LaunchedEffect(uiEvent.value) {
-        uiEvent.value?.let { msg ->
-            android.widget.Toast.makeText(context, msg, android.widget.Toast.LENGTH_LONG).show()
+    // Handle UI Events (e.g. Proof Generated toast & Share Action)
+    LaunchedEffect(Unit) {
+        viewModel.uiEvent.collect { msg ->
+            if (msg.startsWith("SHARE_PROOF|")) {
+                val shareText = msg.removePrefix("SHARE_PROOF|")
+                val sendIntent: android.content.Intent = android.content.Intent().apply {
+                    action = android.content.Intent.ACTION_SEND
+                    putExtra(android.content.Intent.EXTRA_TEXT, shareText)
+                    type = "text/plain"
+                }
+                val shareIntent = android.content.Intent.createChooser(sendIntent, "Share ZK Proof")
+                context.startActivity(shareIntent)
+            } else {
+                android.widget.Toast.makeText(context, msg, android.widget.Toast.LENGTH_LONG).show()
+            }
         }
     }
 

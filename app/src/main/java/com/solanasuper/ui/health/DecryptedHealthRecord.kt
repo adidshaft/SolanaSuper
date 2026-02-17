@@ -5,5 +5,6 @@ data class DecryptedHealthRecord(
     val title: String,
     val description: String,
     val date: Long, 
-    val type: String = "General"
+    val type: String = "General",
+    val ipfsCid: String? = null
 )

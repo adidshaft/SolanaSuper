@@ -160,7 +160,7 @@ class IncomeViewModel(
     }
 
     private fun fetchTransactionHistory(rpcUrl: String, address: String): List<UiTransaction> {
-        val json = """{"jsonrpc":"2.0", "id":1, "method":"getSignaturesForAddress", "params":["$address", {"limit": 10}]}"""
+        val json = """{"jsonrpc":"2.0", "id":1, "method":"getSignaturesForAddress", "params":["$address", {"limit": 5}]}"""
         val response = postRpc(rpcUrl, json)
         
         val jsonResponse = org.json.JSONObject(response)
@@ -169,18 +169,79 @@ class IncomeViewModel(
         val resultArray = jsonResponse.getJSONArray("result")
         val list = mutableListOf<UiTransaction>()
         
+        // Parallelize fetching details would be better, but sequential is safer for now
         for (i in 0 until resultArray.length()) {
-            val tx = resultArray.getJSONObject(i)
-            val signature = tx.getString("signature")
-            val blockTime = tx.optLong("blockTime", 0) * 1000 // sec to ms
-            
-            list.add(UiTransaction(
-                id = signature,
-                amount = 0.0,
-                timestamp = blockTime,
-                recipientId = "On-Chain",
-                isReceived = true
-            ))
+            try {
+                val txObj = resultArray.getJSONObject(i)
+                val signature = txObj.getString("signature")
+                val blockTime = txObj.optLong("blockTime", 0) * 1000 // sec to ms
+                
+                // Fetch Details
+                val detailsJson = """
+                    {"jsonrpc":"2.0", "id":1, "method":"getTransaction", "params":["$signature", {"encoding": "json", "maxSupportedTransactionVersion": 0}]}
+                """.trimIndent()
+                
+                val detailsResponse = postRpc(rpcUrl, detailsJson)
+                val detailsObj = org.json.JSONObject(detailsResponse)
+                
+                if (!detailsObj.has("result") || detailsObj.isNull("result")) {
+                    // Fallback if details fail
+                    list.add(UiTransaction(signature, 0.0, blockTime, "Processing...", true))
+                    continue
+                }
+                
+                val result = detailsObj.getJSONObject("result")
+                val meta = result.getJSONObject("meta")
+                val transaction = result.getJSONObject("transaction")
+                val message = transaction.getJSONObject("message")
+                
+                // Find my index
+                val accountKeys = message.getJSONArray("accountKeys")
+                var myIndex = -1
+                for (k in 0 until accountKeys.length()) {
+                    // accountKeys can be array of strings OR array of objects (if versioned)
+                    // standard json encoding usually returns strings or objects with 'pubkey'
+                    val keyItem = accountKeys.get(k)
+                    val keyString = if (keyItem is String) keyItem else (keyItem as org.json.JSONObject).getString("pubkey")
+                    
+                    if (keyString == address) {
+                        myIndex = k
+                        break
+                    }
+                }
+                
+                if (myIndex != -1) {
+                    val preBalances = meta.getJSONArray("preBalances")
+                    val postBalances = meta.getJSONArray("postBalances")
+                    
+                    val pre = preBalances.getLong(myIndex)
+                    val post = postBalances.getLong(myIndex)
+                    
+                    val diffLamports = post - pre
+                    val isReceived = diffLamports >= 0
+                    val amountSol = kotlin.math.abs(diffLamports) / 1_000_000_000.0
+                    
+                    list.add(UiTransaction(
+                        id = signature,
+                        amount = amountSol,
+                        timestamp = blockTime,
+                        recipientId = if (isReceived) "From Network" else "To Network",
+                        isReceived = isReceived
+                    ))
+                } else {
+                     list.add(UiTransaction(signature, 0.0, blockTime, "Unknown", true))
+                }
+            } catch (e: Exception) {
+                com.solanasuper.utils.AppLogger.e("IncomeVM", "Failed to parse tx", e)
+                // Add placeholder on error to avoid empty list gaps
+                list.add(UiTransaction(
+                     id = resultArray.getJSONObject(i).getString("signature"),
+                     amount = 0.0,
+                     timestamp = System.currentTimeMillis(),
+                     recipientId = "Error",
+                     isReceived = true
+                 ))
+            }
         }
         return list
     }

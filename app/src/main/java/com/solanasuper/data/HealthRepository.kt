@@ -12,4 +12,8 @@ class HealthRepository(private val healthDao: HealthDao) {
     suspend fun getHealthRecord(id: String): HealthEntity? = withContext(Dispatchers.IO) {
         healthDao.getHealthRecord(id)
     }
+
+    suspend fun getAllRecords(): List<HealthEntity> = withContext(Dispatchers.IO) {
+        healthDao.getAllHealthRecords()
+    }
 }

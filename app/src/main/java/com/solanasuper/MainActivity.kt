@@ -64,6 +64,10 @@ class MainActivity : FragmentActivity() {
         val activityLogDao = database.activityLogDao()
         val activityRepository = com.solanasuper.data.ActivityRepository(activityLogDao)
         
+        // Initialize Health Persistence
+        val healthDatabase = com.solanasuper.data.HealthDatabase.getDatabase(this)
+        val healthRepository = com.solanasuper.data.HealthRepository(healthDatabase.healthDao())
+        
         // Ensure Identity is Generated on First Launch (Silent)
         identityKeyManager.ensureIdentity()
         
@@ -84,7 +88,8 @@ class MainActivity : FragmentActivity() {
                         transactionManager = transactionManager,
                         transactionDao = transactionDao,
                         p2pTransferManager = p2pTransferManager,
-                        activityRepository = activityRepository
+                        activityRepository = activityRepository,
+                        healthRepository = healthRepository
                     )
                 }
             }

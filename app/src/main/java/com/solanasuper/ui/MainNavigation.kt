@@ -70,7 +70,8 @@ fun MainNavigation(
     transactionManager: TransactionManager,
     transactionDao: TransactionDao,
     p2pTransferManager: com.solanasuper.network.P2PTransferManager,
-    activityRepository: com.solanasuper.data.ActivityRepository // Inject Repository
+    activityRepository: com.solanasuper.data.ActivityRepository, // Inject Repository,
+    healthRepository: com.solanasuper.data.HealthRepository
 ) {
     val navController = rememberNavController()
 
@@ -159,7 +160,12 @@ fun MainNavigation(
                 composable(Screen.Governance.route) {
                     // Governance (Pillar 3)
                     val viewModel: com.solanasuper.ui.governance.GovernanceViewModel = viewModel(
-                        factory = com.solanasuper.ui.governance.GovernanceViewModel.Factory(promptManager, identityKeyManager, arciumClient)
+                        factory = com.solanasuper.ui.governance.GovernanceViewModel.Factory(
+                            promptManager, 
+                            identityKeyManager, 
+                            arciumClient,
+                            activityRepository // Inject Repo
+                        )
                     )
                     
                     // Observe UI events
@@ -171,7 +177,7 @@ fun MainNavigation(
                         }
                     }
                     
-                     // Observe Sign Requests
+                    // Observe Sign Requests
                     val context = androidx.compose.ui.platform.LocalContext.current
                     androidx.compose.runtime.LaunchedEffect(key1 = true) {
                         viewModel.signRequest.collect { choice ->
@@ -211,13 +217,30 @@ fun MainNavigation(
                     val viewModel: IncomeViewModel = viewModel(
                         factory = IncomeViewModel.Factory(transactionManager, transactionDao, p2pTransferManager, identityKeyManager)
                     )
+                    
+                    // Observe UI Events (Added for Faucet Fallback)
+                    val context = androidx.compose.ui.platform.LocalContext.current
+                    androidx.compose.runtime.LaunchedEffect(key1 = true) {
+                        viewModel.uiEvent.collect { event ->
+                            if (event.startsWith("OPEN_URL|")) {
+                                val url = event.removePrefix("OPEN_URL|")
+                                val intent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(url))
+                                context.startActivity(intent)
+                            }
+                        }
+                    }
+                    
                     // State collection happens internally in IncomeScreen now for simplicity of this refactor
                     IncomeScreen(viewModel = viewModel)
                 }
                 composable(Screen.Health.route) {
                     // Health (Pillar 5)
                     val viewModel: com.solanasuper.ui.health.HealthViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
-                        factory = com.solanasuper.ui.health.HealthViewModel.Factory(promptManager)
+                        factory = com.solanasuper.ui.health.HealthViewModel.Factory(
+                            promptManager,
+                            activityRepository, // Inject Repo
+                            healthRepository
+                        )
                     )
                     
                     // Observe UI events
@@ -295,6 +318,5 @@ fun MainNavigation(
             }
         }
     }
+    }
 }
-}
-

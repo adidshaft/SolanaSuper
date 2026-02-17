@@ -117,7 +117,7 @@ class IdentityKeyManager(private val context: Context) {
                 // 4. Sign Data
                 val signature = java.security.Signature.getInstance("NONEwithEdDSA", "EdDSA")
                 signature.initSign(privateKey)
-                signature.update(data)
+                signature.update(payload)
                 return signature.sign()
             } catch (e: Exception) {
                android.util.Log.e("SolanaSuper", "Signing Failed", e)

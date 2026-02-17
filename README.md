@@ -95,7 +95,8 @@ graph TD
 - **Google Nearby Connections API**: The backbone of our high-bandwidth, low-latency offline P2P mesh (Wi-Fi Aware / Bluetooth).
 
 ### Web3 & Cryptography
-- **Solana Devnet**: Real-time integration for balances and airdrops.
+- **Solana Devnet**: Real-time integration for balances, history, and airdrops.
+- **Real On-Chain Transactions**: Custom `SolanaUtil` implementation for serializing `SystemProgram` transfers without heavy libraries.
 - **EdDSA (Ed25519)**: Manual implementation of Solana's signing algorithms suitable for restricted environments.
 - **Rust JNI Bridge**: A custom Rust library (`libsolanasuper_core.so`) compiled for Android (aarch64/x86_64) that handles mathematical heavy lifting.
 - **Zero-Knowledge Proofs**: Local generation of voting proofs inside the Rust enclave.
@@ -113,10 +114,11 @@ We believe in radical transparency. Here is the breakdown of what is running on 
 | **Rust ZK Core** | 🟢 **Live / Real** | JNI calls to Rust library generate actual mathematical proofs. |
 | **Offline P2P Mesh** | 🟢 **Live / Real** | Discovers peers and transfers data bytes over Bluetooth/WiFi. |
 | **Devnet Wallet** | 🟢 **Live / Real** | Real HTTP calls to Solana Devnet (Balance, Airdrop). |
+| **On-Chain Transactions** | 🟢 **Live / Real** | **Phase 31 Update**: Real signed transactions broadcast via RPC. |
+| **Transaction History** | 🟢 **Live / Real** | Fetches real signatures and parses balance changes from the chain. |
 | **Network Mode** | 🟢 **Live** | Toggle Switch for Live vs. Simulated environments. |
 | **Arcium Governance** | 🟢 **Live / Real** | Strict HTTP POST to Relayer; No simulation fallback. |
 | **Health Vault ZK** | 🟢 **Live / Real** | Generates Field Proofs via JNI & Verifies via Relayer. |
-| **Durable Nonce** | 🔴 **Simulated** | Complex durable nonce syncing is simulated for demo flow stability. |
 
 ---
 

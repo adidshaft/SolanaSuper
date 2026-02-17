@@ -49,6 +49,7 @@
         android:label="Solana Super"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:testOnly="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" >
         <activity
             android:name="com.solanasuper.MainActivity"

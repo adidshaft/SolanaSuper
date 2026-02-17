@@ -9,5 +9,6 @@ data class HealthEntity(
     @PrimaryKey val id: String,
     @ColumnInfo(name = "timestamp") val timestamp: Long,
     @ColumnInfo(name = "data_type") val dataType: String,
-    @ColumnInfo(name = "encrypted_payload") val encryptedPayload: String
+    @ColumnInfo(name = "encrypted_payload") val encryptedPayload: String,
+    @ColumnInfo(name = "ipfs_cid") val ipfsCid: String? = null
 )

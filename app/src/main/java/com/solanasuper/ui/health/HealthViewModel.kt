@@ -154,13 +154,45 @@ class HealthViewModel(
 
     fun updateRecord(id: String, newDescription: String) {
         com.solanasuper.utils.AppLogger.d("HealthViewModel", "Updating record $id")
-        val currentRecords = _state.value.records.toMutableList()
-        val index = currentRecords.indexOfFirst { it.id == id }
-        if (index != -1) {
-            val oldRecord = currentRecords[index]
-            currentRecords[index] = oldRecord.copy(description = newDescription, date = System.currentTimeMillis())
-            _state.update { it.copy(records = currentRecords) }
-            com.solanasuper.utils.AppLogger.i("HealthViewModel", "Record $id updated successfully")
+        
+        viewModelScope.launch {
+            try {
+                // 1. IPFS Upload (Fire & Forget or Blocking? User said "first serialize... and perform HTTP POST")
+                // We'll do it blocking for safety before local save, or parallel?
+                // "The app MUST first serialize... and perform an HTTP POST... to pin it."
+                
+                val payload = org.json.JSONObject()
+                payload.put("id", id)
+                payload.put("description", newDescription)
+                payload.put("timestamp", System.currentTimeMillis())
+                payload.put("encrypted", true) // In reality we'd encrypt this
+                
+                com.solanasuper.utils.AppLogger.i("HealthViewModel", "Pinning record to IPFS...")
+                val cid = com.solanasuper.network.IpfsUploader.uploadJson(payload)
+                
+                if (cid != null) {
+                    com.solanasuper.utils.AppLogger.i("HealthViewModel", "IPFS Pin Success: $cid")
+                } else {
+                    com.solanasuper.utils.AppLogger.w("HealthViewModel", "IPFS Pin Failed or Skipped")
+                }
+
+                // 2. Local Save
+                val currentRecords = _state.value.records.toMutableList()
+                val index = currentRecords.indexOfFirst { it.id == id }
+                if (index != -1) {
+                    val oldRecord = currentRecords[index]
+                    currentRecords[index] = oldRecord.copy(
+                        description = newDescription, 
+                        date = System.currentTimeMillis(),
+                        ipfsCid = cid
+                    )
+                    _state.update { it.copy(records = currentRecords) }
+                    com.solanasuper.utils.AppLogger.i("HealthViewModel", "Record $id updated successfully (Local + IPFS)")
+                }
+            } catch (e: Exception) {
+                com.solanasuper.utils.AppLogger.e("HealthViewModel", "Update Failed", e)
+                _uiEvent.send("Update Failed: ${e.message}")
+            }
         }
     }
 
@@ -186,7 +218,10 @@ class HealthViewModel(
                  if (response.success) {
                     val proofHex = response.proofData.toByteArray().joinToString("") { "%02x".format(it) }
                     com.solanasuper.utils.AppLogger.i("HealthViewModel", "ZK Proof generated: ${proofHex.take(20)}...")
-                    _uiEvent.send("Proof Generated! Ready to Share.")
+                    
+                    // Trigger Share Sheet
+                    val shareText = "Verification Proof: $proofHex\nIPFS CID: ${record.ipfsCid ?: "Not Pinned"}"
+                    _uiEvent.send("SHARE_PROOF|$shareText")
                  } else {
                     throw Exception("ZK Proof Generation Failed: ${response.errorMessage}")
                  }

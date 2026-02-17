@@ -119,10 +119,17 @@ afterEvaluate {
 
 // Custom Task to build Rust
 tasks.register<Exec>("cargoBuild") {
-    // In a real scenario, this would loop over ABIs.
-    // simplified: just build valid target if possible or skip if no cargo
-    commandLine("echo", "Skipping actual cargo build in simulated environment.")
-    // Real command: commandLine "cargo", "build", "--target", "aarch64-linux-android", "--release"
+    workingDir(file("src/main/cpp"))
+    if (System.getenv("CI") == "true") {
+        commandLine("./build_rust.sh")
+    } else {
+        commandLine("echo", "Skipping Rust build (Local Environment) - CI Only")
+    }
+}
+
+// Hook Rust build into standard build process
+tasks.named("preBuild").configure {
+    dependsOn("cargoBuild")
 }
 
 dependencies {

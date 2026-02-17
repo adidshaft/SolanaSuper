@@ -140,6 +140,15 @@ class IncomeViewModel(
         }
     }
 
+    // Helper to get Blockhash
+    private fun getLatestBlockhash(rpcUrl: String): String {
+        val json = """{"jsonrpc":"2.0", "id":1, "method":"getLatestBlockhash", "params":[]}"""
+        val response = postRpc(rpcUrl, json)
+        val jsonObject = org.json.JSONObject(response)
+        if (jsonObject.has("error")) throw Exception("RPC Error: ${jsonObject.get("error")}")
+        return jsonObject.getJSONObject("result").getJSONObject("value").getString("blockhash")
+    }
+
     private fun fetchSolanaBalance(rpcUrl: String, address: String): Double {
         val json = """{"jsonrpc":"2.0", "id":1, "method":"getBalance", "params":["$address"]}"""
         val response = postRpc(rpcUrl, json)
@@ -208,6 +217,7 @@ class IncomeViewModel(
                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
                      if (NetworkManager.isLiveMode.value) {
                          android.util.Log.d("SolanaSuper", "Airdrop via $airdropRpcUrl")
+
                          
                          val jsonBody = """
                              {"jsonrpc":"2.0", "id":1, "method":"requestAirdrop", "params":["$solanaAddress", $LAMROTS_PER_SOL]}
@@ -266,13 +276,32 @@ class IncomeViewModel(
                 if (amount <= 0) throw Exception("Invalid amount")
                 if (amount > (_state.value.balance ?: 0.0)) throw Exception("Insufficient funds")
 
-                // 2. Create Payload (Simulated Solana Instruction Construction)
-                // In real app: SystemProgram.transfer(..., amount).serialize()
-                val instruction = "Transfer ${amount} SOL to $recipient".toByteArray()
-                
-                pendingTransaction = PendingTx(recipient, amount, instruction)
-                com.solanasuper.utils.AppLogger.d("IncomeViewModel", "Transaction payload created. Requesting biometric signature.")
-                _signRequest.send(instruction) // Trigger UI to sign
+                if (NetworkManager.isLiveMode.value) {
+                     // 1. Get Blockhash
+                     val rpcUrl = NetworkManager.activeRpcUrl.value
+                     val blockhashStr = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                         getLatestBlockhash(rpcUrl)
+                     }
+                     val blockhash = com.solanasuper.utils.Base58.decode(blockhashStr)
+
+                     // 2. Build Message
+                     val myAddress = identityKeyManager.getSolanaPublicKey() ?: throw Exception("No Identity")
+                     val myPubkey = com.solanasuper.utils.Base58.decode(myAddress)
+                     val toPubkey = com.solanasuper.utils.Base58.decode(recipient)
+                     val lamports = (amount * 1_000_000_000).toLong()
+
+                     val message = com.solanasuper.utils.SolanaUtil.createTransferMessage(
+                         myPubkey, toPubkey, lamports, blockhash
+                     )
+                     
+                     pendingTransaction = PendingTx(recipient, amount, message)
+                     _signRequest.send(message) // Prompt User to Sign
+                } else {
+                     // Simulation Fallback
+                     val instruction = "Transfer ${amount} SOL to $recipient".toByteArray()
+                     pendingTransaction = PendingTx(recipient, amount, instruction)
+                     _signRequest.send(instruction)
+                }
             } catch (e: Exception) {
                 com.solanasuper.utils.AppLogger.e("IncomeViewModel", "Transaction preparation failed", e)
                 _state.update { it.copy(status = UiStatus.Error(e.message ?: "Invalid Transaction")) }
@@ -286,24 +315,34 @@ class IncomeViewModel(
         viewModelScope.launch {
             _state.update { it.copy(status = UiStatus.Loading) }
             try {
-                 // 3. Broadcast to Network
                  val rpcUrl = NetworkManager.activeRpcUrl.value
                  
                  if (NetworkManager.isLiveMode.value) {
-                     // Real Broadcast (Placeholder for sendTransaction)
-                     com.solanasuper.utils.AppLogger.d("IncomeViewModel", "Live Mode: Posting to RPC $rpcUrl")
-                     delay(2000) // Simulate network
+                     // 3. Encode Final Transaction
+                     val finalTxBytes = com.solanasuper.utils.SolanaUtil.encodeTransaction(signature, tx.data)
+                     val finalTxBase64 = android.util.Base64.encodeToString(finalTxBytes, android.util.Base64.NO_WRAP)
+                     
+                     // 4. Send to RPC
+                     kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                         val json = """
+                             {"jsonrpc":"2.0", "id":1, "method":"sendTransaction", "params":["$finalTxBase64", {"encoding": "base64"}]}
+                         """.trimIndent()
+                         
+                         val response = postRpc(rpcUrl, json)
+                         val jsonObject = org.json.JSONObject(response)
+                         if (jsonObject.has("error")) {
+                             throw Exception("RPC Error: ${jsonObject.get("error")}")
+                         }
+                         val txId = jsonObject.getString("result")
+                         com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Transaction Sent: $txId")
+                     }
                  } else {
                      com.solanasuper.utils.AppLogger.d("IncomeViewModel", "Simulation Mode: Locking funds locally")
                      delay(1000)
-                     // Simulate send by locking funds locally
                      val success = transactionManager.lockFunds((tx.amount * 1_000_000_000).toLong())
                      if (!success) throw Exception("Insufficient Funds (Simulated)")
                  }
 
-                 // 4. Save to DB (Offline/Online)
-                 // If offline, status = PENDING_SYNC. 
-                 
                  com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Transaction successful!")
                  loadData()
                  _state.update { it.copy(status = UiStatus.Success) }

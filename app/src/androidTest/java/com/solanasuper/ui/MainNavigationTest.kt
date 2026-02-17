@@ -28,41 +28,42 @@ class MainNavigationTest {
         val promptManager = Mockito.mock(BiometricPromptManager::class.java)
         val identityKeyManager = Mockito.mock(IdentityKeyManager::class.java)
         val arciumClient = Mockito.mock(MockArciumClient::class.java)
-        // P2PTransferManager needs context, might be harder to mock if it's a concrete class in signature
-        // We might need to pass a mock or null if allowed. 
-        // For strict TDD, we assume the MainNavigation composable accepts these as params.
         
-        // Mock new dependencies
         val transactionDao = Mockito.mock(TransactionDao::class.java)
         val transactionManager = Mockito.mock(TransactionManager::class.java)
-        // Mock P2PTransferManager (needs to be mocked or real context provided)
         val p2pTransferManager = Mockito.mock(com.solanasuper.network.P2PTransferManager::class.java)
         
+        // Mock Repositories
+        val activityRepository = Mockito.mock(com.solanasuper.data.ActivityRepository::class.java)
+        val healthRepository = Mockito.mock(com.solanasuper.data.HealthRepository::class.java)
+        
         composeTestRule.setContent {
-            // MainNavigation updated signature
              MainNavigation(
                  promptManager = promptManager,
                  identityKeyManager = identityKeyManager,
                  arciumClient = arciumClient,
                  transactionManager = transactionManager,
                  transactionDao = transactionDao,
-                 p2pTransferManager = p2pTransferManager
+                 p2pTransferManager = p2pTransferManager,
+                 activityRepository = activityRepository,
+                 healthRepository = healthRepository
              )
         }
 
-        // 1. Verify Start Screen (Identity)
-        composeTestRule.onNodeWithText("Identity Hub").assertIsDisplayed()
-
-        // 2. Navigate to Governance
-        composeTestRule.onNodeWithContentDescription("Governance").performClick()
+        // 1. Verify Start Screen (Governance) - Changed from Identity Hub to Governance as start destination
         composeTestRule.onNodeWithText("Democracy Dashboard").assertIsDisplayed()
 
-        // 3. Navigate to Income
+        // 2. Navigate to Validation (Identity/Hub is hidden from tab bar but accessible? No, Profile is new tab)
+        // Check tabs availability
+        // Tabs: G, I, H, P
+        
+        // Navigate to Income
         composeTestRule.onNodeWithContentDescription("Income").performClick()
-        composeTestRule.onNodeWithText("Sovereign Wallet").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Income & Assets").assertIsDisplayed() // Updated Title
 
-        // 4. Navigate to Health
+        // Navigate to Health
         composeTestRule.onNodeWithContentDescription("Health").performClick()
-        composeTestRule.onNodeWithText("Secure Health Vault").assertIsDisplayed()
+        // Might be "Health Vault" or "Secure Health Vault" depending on Locked state UI
+        composeTestRule.onNodeWithText("Health Vault").assertIsDisplayed()
     }
 }

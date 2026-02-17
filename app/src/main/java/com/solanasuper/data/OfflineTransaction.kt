@@ -10,5 +10,7 @@ data class OfflineTransaction(
     val timestamp: Long,
     val recipientId: String?, // Nullable if just locking for a general purpose initially
     val status: TransactionStatus,
-    val proof: String? = null // ZK Proof, added later
+    val proof: String? = null, // ZK Proof, added later
+    val isLiveBroadcastPending: Boolean = false,
+    val signedPayload: String? = null
 )

@@ -11,6 +11,8 @@ enum class PeerStatus {
     CONNECTING,
     CONNECTED,
     VERIFYING,
+    CONNECTED_WAITING_INPUT,
+    CONNECTED_WAITING_FUNDS,
     TRANSFERRING,
     SUCCESS,
     ERROR
@@ -29,8 +31,10 @@ data class IncomeUiState(
     val transactions: List<UiTransaction> = emptyList(),
     val p2pStatus: PeerStatus = PeerStatus.IDLE,
     val p2pPeerName: String? = null,
+    val peerPublicKey: String? = null,
     val p2pAuthToken: String? = null,
-    val p2pEndpointId: String? = null
+    val p2pEndpointId: String? = null,
+    val isP2PSender: Boolean = false
 ) {
     val isLoading: Boolean get() = status is UiStatus.Loading
     val error: String? get() = (status as? UiStatus.Error)?.message

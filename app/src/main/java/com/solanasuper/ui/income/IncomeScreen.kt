@@ -89,192 +89,247 @@ fun IncomeScreen(viewModel: IncomeViewModel) {
         return // Show only QR
     }
 
-    Column(
+    val focusManager = androidx.compose.ui.platform.LocalFocusManager.current
+
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
             .statusBarsPadding()
+            .imePadding() // Handle keyboard push up
     ) {
-        // ... Header ...
-        // ... Balance Card ...
-        
-        // ... Actions ...
-        // Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-        //     ActionButton(icon = Icons.Default.Send, label = "Send") { showSendOptions = true } // CHANGED
-        //     ActionButton(icon = Icons.Default.ArrowDropDown, label = "Receive") { viewModel.startReceiving() }
-        // }
-        
         // Header
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "Income & Assets",
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold
-            )
-            
-            // Network Toggle
-            Surface(
-                onClick = { NetworkManager.toggleMode() },
-                shape = RoundedCornerShape(50),
-                color = if (isLive) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant,
-                modifier = Modifier.padding(start = 8.dp)
+        item {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                   modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
-                   verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Box(modifier = Modifier
-                        .size(8.dp)
-                        .clip(CircleShape)
-                        .background(if (isLive) Color.Green else Color.Gray)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = if (isLive) "LIVE" else "SIM",
-                        style = MaterialTheme.typography.labelMedium,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-            }
-        }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // Balance Card
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
-        ) {
-            Column(modifier = Modifier.padding(24.dp)) {
-                Text("Total Balance", style = MaterialTheme.typography.labelLarge)
-                Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "${String.format("%.2f", state.balance)} SOL",
-                    style = MaterialTheme.typography.displayMedium,
+                    text = "Income & Assets",
+                    style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold
                 )
-                Spacer(modifier = Modifier.height(16.dp))
-                Button(
-                    onClick = { viewModel.claimUbi() },
-                    enabled = !state.isLoading
+                
+                // Network Toggle
+                Surface(
+                    onClick = { NetworkManager.toggleMode() },
+                    shape = RoundedCornerShape(50),
+                    color = if (isLive) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant,
+                    modifier = Modifier.padding(start = 8.dp)
                 ) {
-                    if (state.isLoading && state.p2pStatus == com.solanasuper.ui.income.PeerStatus.IDLE) {
-                       CircularProgressIndicator(modifier = Modifier.size(16.dp), strokeWidth = 2.dp)
-                       Spacer(modifier = Modifier.width(8.dp))
+                    Row(
+                       modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                       verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Box(modifier = Modifier
+                            .size(8.dp)
+                            .clip(CircleShape)
+                            .background(if (isLive) Color.Green else Color.Gray)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = if (isLive) "LIVE" else "SIM",
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
-                    Text("Claim UBI (Faucet)")
                 }
             }
+
+            Spacer(modifier = Modifier.height(24.dp))
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // Actions
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-            ActionButton(icon = Icons.Default.Send, label = "Send") { showSendOptions = true }
-            ActionButton(icon = Icons.Default.ArrowDropDown, label = "Receive") { viewModel.startReceiving() }
-        }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // P2P Section (Replaces Dialog)
-        AnimatedVisibility(visible = state.p2pStatus != PeerStatus.IDLE) {
+        // Balance Card
+        item {
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
             ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text("P2P Connection", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                Column(modifier = Modifier.padding(24.dp)) {
+                    Text("Total Balance", style = MaterialTheme.typography.labelLarge)
                     Spacer(modifier = Modifier.height(8.dp))
-                    
-                    when (state.p2pStatus) {
-                        PeerStatus.SCANNING -> {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                CircularProgressIndicator(modifier = Modifier.size(20.dp))
-                                Spacer(modifier = Modifier.width(12.dp))
-                                Text("Scanning for peers...")
-                            }
+                    Text(
+                        text = "${String.format("%.2f", state.balance)} SOL",
+                        style = MaterialTheme.typography.displayMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Button(
+                        onClick = { viewModel.claimUbi() },
+                        enabled = !state.isLoading
+                    ) {
+                        if (state.isLoading && state.p2pStatus == com.solanasuper.ui.income.PeerStatus.IDLE) {
+                           CircularProgressIndicator(modifier = Modifier.size(16.dp), strokeWidth = 2.dp)
+                           Spacer(modifier = Modifier.width(8.dp))
                         }
-                        PeerStatus.FOUND_PEER, PeerStatus.CONNECTING, PeerStatus.VERIFYING -> {
-                            Column {
-                                Text("Found Peer: ${state.p2pPeerName ?: "Unknown"}")
-                                if (state.p2pAuthToken != null) {
-                                    Text("Auth Token: ${state.p2pAuthToken}", style = MaterialTheme.typography.bodySmall)
-                                    Spacer(modifier = Modifier.height(8.dp))
-                                    Row {
-                                        Button(onClick = { viewModel.confirmConnection() }) { Text("Confirm") }
-                                        Spacer(modifier = Modifier.width(8.dp))
-                                        OutlinedButton(onClick = { viewModel.rejectConnection() }) { Text("Reject") }
-                                    }
-                                } else {
-                                     Text("Connecting...")
+                        Text("Claim UBI (Faucet)")
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+        }
+
+        // Actions
+        item {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                ActionButton(icon = Icons.Default.Send, label = "Send") { showSendOptions = true }
+                ActionButton(icon = Icons.Default.ArrowDropDown, label = "Receive") { viewModel.startReceiving() }
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+        }
+
+        // P2P Section
+        item {
+            AnimatedVisibility(visible = state.p2pStatus != PeerStatus.IDLE) {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text("P2P Connection", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                        Spacer(modifier = Modifier.height(8.dp))
+                        
+                        when (state.p2pStatus) {
+                            PeerStatus.SCANNING -> {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    CircularProgressIndicator(modifier = Modifier.size(20.dp))
+                                    Spacer(modifier = Modifier.width(12.dp))
+                                    Text("Scanning for peers...")
                                 }
                             }
+                            PeerStatus.FOUND_PEER, PeerStatus.CONNECTING, PeerStatus.VERIFYING -> {
+                                Column {
+                                    Text("Found Peer: ${state.p2pPeerName ?: "Unknown"}")
+                                    if (state.p2pAuthToken != null) {
+                                        Text("Auth Token: ${state.p2pAuthToken}", style = MaterialTheme.typography.bodySmall)
+                                        Spacer(modifier = Modifier.height(8.dp))
+                                        Row {
+                                            Button(onClick = { viewModel.confirmConnection() }) { Text("Confirm") }
+                                            Spacer(modifier = Modifier.width(8.dp))
+                                            OutlinedButton(onClick = { viewModel.rejectConnection() }) { Text("Reject") }
+                                        }
+                                    } else {
+                                         Text("Connecting...")
+                                    }
+                                }
+                            }
+                            PeerStatus.CONNECTED_WAITING_INPUT -> {
+                                var p2pAmount by remember { mutableStateOf("") }
+                                Column {
+                                    Text("Connected to ${state.p2pPeerName}", fontWeight = FontWeight.Bold)
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                    OutlinedTextField(
+                                        value = p2pAmount,
+                                        onValueChange = { newValue ->
+                                            if (newValue.all { it.isDigit() || it == '.' }) {
+                                                p2pAmount = newValue
+                                            }
+                                        },
+                                        label = { Text("Amount to Send") },
+                                        modifier = Modifier.fillMaxWidth(),
+                                        singleLine = true,
+                                        keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                                            keyboardType = androidx.compose.ui.text.input.KeyboardType.Decimal,
+                                            imeAction = androidx.compose.ui.text.input.ImeAction.Done
+                                        ),
+                                        keyboardActions = androidx.compose.foundation.text.KeyboardActions(
+                                            onDone = {
+                                                focusManager.clearFocus()
+                                                val amt = p2pAmount.toDoubleOrNull()
+                                                if (amt != null) viewModel.sendP2P(amt)
+                                            }
+                                        )
+                                    )
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                    Button(
+                                        onClick = { 
+                                            focusManager.clearFocus()
+                                            val amt = p2pAmount.toDoubleOrNull()
+                                            if (amt != null) viewModel.sendP2P(amt)
+                                        },
+                                        enabled = p2pAmount.isNotBlank() && p2pAmount.toDoubleOrNull() != null,
+                                        modifier = Modifier.fillMaxWidth()
+                                    ) {
+                                        Text("Send Payment")
+                                    }
+                                }
+                            }
+                            PeerStatus.CONNECTED_WAITING_FUNDS -> {
+                                Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+                                    Text("Connected to ${state.p2pPeerName}", fontWeight = FontWeight.Bold)
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    CircularProgressIndicator(modifier = Modifier.size(32.dp))
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    Text(
+                                        text = "Waiting for payment...",
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        color = MaterialTheme.colorScheme.primary
+                                    )
+                                }
+                            }
+                            PeerStatus.TRANSFERRING -> {
+                                 Text("Transfer in progress...", color = MaterialTheme.colorScheme.primary)
+                                 LinearProgressIndicator(modifier = Modifier.fillMaxWidth().padding(top = 8.dp))
+                            }
+                            PeerStatus.SUCCESS -> {
+                                 Text("Transfer Complete!", color = Color.Green, fontWeight = FontWeight.Bold)
+                            }
+                            PeerStatus.ERROR -> {
+                                 Text("Error: ${state.error}", color = MaterialTheme.colorScheme.error)
+                                 TextButton(onClick = { viewModel.stopP2P() }) { Text("Close") }
+                            }
+                            else -> {}
                         }
-                        PeerStatus.TRANSFERRING -> {
-                             Text("Transfer in progress...", color = MaterialTheme.colorScheme.primary)
-                             LinearProgressIndicator(modifier = Modifier.fillMaxWidth().padding(top = 8.dp))
-                        }
-                        PeerStatus.SUCCESS -> {
-                             Text("Transfer Complete!", color = Color.Green, fontWeight = FontWeight.Bold)
-                        }
-                        PeerStatus.ERROR -> {
-                             Text("Error: ${state.error}", color = MaterialTheme.colorScheme.error)
-                             TextButton(onClick = { viewModel.stopP2P() }) { Text("Close") }
-                        }
-                        else -> {}
-                    }
-                    
-                    if (state.p2pStatus != PeerStatus.SUCCESS && state.p2pStatus != PeerStatus.ERROR) {
-                        Spacer(modifier = Modifier.height(8.dp))
-                        TextButton(onClick = { viewModel.stopP2P() }, modifier = Modifier.align(Alignment.End)) {
-                            Text("Cancel")
+                        
+                        if (state.p2pStatus != PeerStatus.SUCCESS && state.p2pStatus != PeerStatus.ERROR) {
+                            Spacer(modifier = Modifier.height(8.dp))
+                            TextButton(onClick = { viewModel.stopP2P() }, modifier = Modifier.align(Alignment.End)) {
+                                Text("Cancel")
+                            }
                         }
                     }
                 }
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Transactions List
-        Text("Recent Activity", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-        Spacer(modifier = Modifier.height(8.dp))
+        // Transactions List Header
+        item {
+            Text("Recent Activity", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+            Spacer(modifier = Modifier.height(8.dp))
+        }
         
+        // List Content
         if (state.isLoading && state.transactions.isEmpty()) {
-            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
+            item {
+                Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
             }
         } else if (state.transactions.isEmpty()) {
-             Text("No transactions yet.", color = Color.Gray)
+             item { Text("No transactions yet.", color = Color.Gray) }
         } else {
-            LazyColumn {
-                items(items = state.transactions) { tx ->
-                    TransactionItem(tx) {
-                        selectedTransaction = tx
-                    }
-                }
-            }
+             items(items = state.transactions) { tx ->
+                 TransactionItem(tx) {
+                     selectedTransaction = tx
+                 }
+             }
         }
         
-        // Transaction Details Dialog
-        if (selectedTransaction != null) {
-            TransactionDetailsDialog(tx = selectedTransaction!!) {
-                selectedTransaction = null
-            }
-        }
-        
-        // Error Snackbar/Message
+        // Error Snackbar item (or keep it loosely here?)
+        // Better to put it in a Box over the lazy column, but item is fine for simple error text
         if (state.status is UiStatus.Error) {
-             Text(
-                 text = (state.status as UiStatus.Error).message,
-                 color = MaterialTheme.colorScheme.error,
-                 modifier = Modifier.padding(top = 8.dp)
-             )
+             item {
+                 Text(
+                     text = (state.status as UiStatus.Error).message,
+                     color = MaterialTheme.colorScheme.error,
+                     modifier = Modifier.padding(top = 8.dp)
+                 )
+             }
         }
     }
     
@@ -389,10 +444,21 @@ fun ActionButton(icon: androidx.compose.ui.graphics.vector.ImageVector, label: S
 fun TransactionItem(tx: UiTransaction, onClick: () -> Unit) {
     val title = if (tx.isReceived) "Received" else "Sent"
     val subtitle = tx.recipientId ?: "Unknown"
+    val context = androidx.compose.ui.platform.LocalContext.current
 
     Column(modifier = Modifier
         .fillMaxWidth()
-        .clickable { onClick() }
+        .clickable { 
+            // Launch Solana Explorer
+            try {
+                val url = "https://explorer.solana.com/tx/${tx.id}?cluster=devnet" // Default to devnet
+                val intent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(url))
+                context.startActivity(intent)
+            } catch (e: Exception) {
+                android.widget.Toast.makeText(context, "Could not open Explorer", android.widget.Toast.LENGTH_SHORT).show()
+                onClick() // Fallback to expanding/selecting (if needed)
+            }
+        }
         .padding(vertical = 8.dp)
     ) {
         Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {

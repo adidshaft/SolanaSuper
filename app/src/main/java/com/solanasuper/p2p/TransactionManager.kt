@@ -39,4 +39,21 @@ class TransactionManager(private val transactionDao: TransactionDao) {
         transactionDao.insert(newTransaction)
         android.util.Log.d("SovereignLifeOS", "WalletDao Transaction: UBI/Funds Successfully Added to Local DB. Amount: $amount, Source: $source")
     }
+
+    suspend fun sendFunds(amount: Long, recipient: String): Boolean {
+        val currentBalance = transactionDao.getAvailableBalance() ?: 0L
+        if (currentBalance < amount) {
+            return false
+        }
+
+        val newTransaction = OfflineTransaction(
+            id = UUID.randomUUID().toString(),
+            amount = -amount, // Negative for sending
+            timestamp = System.currentTimeMillis(),
+            recipientId = recipient,
+            status = TransactionStatus.AVAILABLE
+        )
+        transactionDao.insert(newTransaction)
+        return true
+    }
 }

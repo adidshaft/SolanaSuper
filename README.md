@@ -114,7 +114,8 @@ We believe in radical transparency. Here is the breakdown of what is running on 
 | **Offline P2P Mesh** | 🟢 **Live / Real** | Discovers peers and transfers data bytes over Bluetooth/WiFi. |
 | **Devnet Wallet** | 🟢 **Live / Real** | Real HTTP calls to Solana Devnet (Balance, Airdrop). |
 | **Network Mode** | 🟢 **Live** | Toggle Switch for Live vs. Simulated environments. |
-| **Arcium MXE Node** | 🟡 **Hybrid** | Real HTTP POST to Devnet; Auto-falls back to high-fidelity simulation on timeout. |
+| **Arcium Governance** | 🟢 **Live / Real** | Strict HTTP POST to Relayer; No simulation fallback. |
+| **Health Vault ZK** | 🟢 **Live / Real** | Generates Field Proofs via JNI & Verifies via Relayer. |
 | **Durable Nonce** | 🔴 **Simulated** | Complex durable nonce syncing is simulated for demo flow stability. |
 
 ---
@@ -129,6 +130,34 @@ We believe in radical transparency. Here is the breakdown of what is running on 
 
 3.  **Hardware-Locked Signing**:
     - We don't just store keys; we wrap them in a `BiometricPrompt.CryptoObject`. This means the private key *cannot* sign a transaction unless the biometric sensor successfully authenticates the user physically.
+
+---
+
+## 🕵️ Manual Physical Check (Verification)
+
+To verify the "sovereign" nature of this OS, perform these physical checks:
+
+### 1. Biometric Security 🔐
+- **Action**: Open the app and tap "Unlock Vault" or try to Send SOL.
+- **Verification**: The system must trigger the **native Android Biometric Prompt**.
+- **Failure Condition**: If it bypasses this or shows a custom UI, the secure enclave binding is broken.
+
+### 2. Governance vs. Relayer 🗳️
+- **Action**: Toggle Network to **LIVE**. Vote on a proposal.
+- **Verification**: Watch for `Broadcasting to Live Arcium Relayer...` toast/log.
+- **Success**: The Relayer (`api/vote`) must return **HTTP 200** for the vote to count.
+
+### 3. Health Vault Zero-Knowledge 🏥
+- **Action**: Unlock Vault -> Tap "Share/Verify" on a record.
+- **Verification**:
+    1.  **JNI**: Logcat shows `ZKProver` generating a proof (approx. 500ms-2s).
+    2.  **Network**: The app strictly POSTs this proof to `api/health/verify`.
+- **Note**: If the network fails, the UI **must show an error**. It does *not* fake success.
+
+### 4. Offline P2P Mesh 📡
+- **Setup**: Turn OFF Wi-Fi/Internet on two devices. Keep Bluetooth ON.
+- **Action**: Device A (Send Offline) <-> Device B (Receive Offline).
+- **Verification**: Devices discover each other via **Nearby Connections API** and exchange a payload without any cloud server.
 
 ---
 

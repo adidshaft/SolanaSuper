@@ -170,13 +170,15 @@ class HealthViewModel(
                 com.solanasuper.utils.AppLogger.i("HealthViewModel", "Pinning record to IPFS...")
                 val cid = com.solanasuper.network.IpfsUploader.uploadJson(payload)
                 
-                if (cid != null) {
-                    com.solanasuper.utils.AppLogger.i("HealthViewModel", "IPFS Pin Success: $cid")
-                } else {
-                    com.solanasuper.utils.AppLogger.w("HealthViewModel", "IPFS Pin Failed or Skipped")
+                if (cid == null) {
+                    com.solanasuper.utils.AppLogger.e("HealthViewModel", "IPFS Upload Failed: CID is null")
+                    _uiEvent.send("IPFS Upload Failed: Check Configuration")
+                    return@launch // STRICT FAILURE: Abort save
                 }
+                
+                com.solanasuper.utils.AppLogger.i("HealthViewModel", "IPFS Pin Success: $cid")
 
-                // 2. Local Save
+                // 2. Local Save (Only if CID is valid)
                 val currentRecords = _state.value.records.toMutableList()
                 val index = currentRecords.indexOfFirst { it.id == id }
                 if (index != -1) {

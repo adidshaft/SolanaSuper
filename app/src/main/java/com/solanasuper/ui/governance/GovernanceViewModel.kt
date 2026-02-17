@@ -10,6 +10,7 @@ import com.solanasuper.security.BiometricPromptManager
 import com.solanasuper.security.IdentityKeyManager
 import com.solanasuper.network.NetworkManager
 import com.solanasuper.ui.state.ArciumComputationState
+import com.solanasuper.data.ActivityRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,7 +23,8 @@ import kotlinx.coroutines.launch
 class GovernanceViewModel(
     private val promptManager: BiometricPromptManager,
     private val identityKeyManager: IdentityKeyManager,
-    private val arciumClient: MockArciumClient
+    private val arciumClient: MockArciumClient,
+    private val repository: ActivityRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(GovernanceState())
@@ -172,6 +174,17 @@ class GovernanceViewModel(
                         mpcState = ArciumComputationState.COMPLETED,
                         voteStatus = "Vote Verified & Counted via MPC! 🗳️"
                     ) }
+                    
+                    // Log to Activity Log
+                    if (NetworkManager.isLiveMode.value) {
+                        repository.logActivity(
+                            com.solanasuper.data.ActivityType.ARCIUM_PROOF, 
+                            "Vote Cast (Live) | Choice: $choice"
+                        )
+                    } else {
+                        // repository.logActivity("Vote Cast (Sim)", "Proposal: UBI, Choice: $choice") // Optional
+                    }
+                    
                     delay(2000) // Show success for a bit
                     _state.update { it.copy(mpcState = ArciumComputationState.IDLE) }
                 } else {
@@ -204,10 +217,11 @@ class GovernanceViewModel(
     class Factory(
         private val promptManager: BiometricPromptManager,
         private val identityKeyManager: IdentityKeyManager,
-        private val arciumClient: MockArciumClient
+        private val arciumClient: MockArciumClient,
+        private val repository: ActivityRepository
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return GovernanceViewModel(promptManager, identityKeyManager, arciumClient) as T
+            return GovernanceViewModel(promptManager, identityKeyManager, arciumClient, repository) as T
         }
     }
 }

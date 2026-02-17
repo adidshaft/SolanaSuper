@@ -33,6 +33,10 @@ class IncomeViewModel(
     // New State for optional signing flow
     private val _signRequest = Channel<ByteArray>()
     val signRequest = _signRequest.receiveAsFlow()
+    
+    // New UI Events (e.g. Open Faucet URL)
+    private val _uiEvent = Channel<String>()
+    val uiEvent = _uiEvent.receiveAsFlow()
 
     private var pendingTransaction: PendingTx? = null
 
@@ -210,7 +214,10 @@ class IncomeViewModel(
                          """.trimIndent()
                          
                          val response = postRpc(airdropRpcUrl, jsonBody)
-                         if (response.contains("error")) throw Exception("Airdrop Rejected")
+                         if (response.contains("error")) {
+                              // If program failed, instruct to use Faucet
+                              throw Exception("Airdrop limit reached or rejected")
+                         }
                          delay(4000)
                      } else {
                          delay(1000)
@@ -219,7 +226,10 @@ class IncomeViewModel(
                 }
                 loadData()
             } catch (e: Exception) {
-                _state.update { it.copy(status = UiStatus.Error(e.message ?: "Airdrop Failed")) }
+                // FALLBACK: Offer to open web faucet
+                _state.update { it.copy(status = UiStatus.Error("Auto-Airdrop Failed: Opening Web Faucet")) }
+                delay(1000) // wait for user to see message
+                _uiEvent.send("OPEN_URL|https://faucet.solana.com")
             }
         }
     }

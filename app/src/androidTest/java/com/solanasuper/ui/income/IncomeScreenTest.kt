@@ -7,6 +7,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito
 
 @RunWith(AndroidJUnit4::class)
 class IncomeScreenTest {
@@ -16,37 +17,44 @@ class IncomeScreenTest {
 
     @Test
     fun incomeScreen_displaysBalance_andActions() {
+        // Mock ViewModel
+        val viewModel = Mockito.mock(IncomeViewModel::class.java)
+        val stateFlow = kotlinx.coroutines.flow.MutableStateFlow(com.solanasuper.ui.income.IncomeUiState(balance = 100.0))
+        Mockito.`when`(viewModel.state).thenReturn(stateFlow)
+        Mockito.`when`(viewModel.signRequest).thenReturn(kotlinx.coroutines.flow.emptyFlow())
+        
         composeTestRule.setContent {
-            // We expect the IncomeScreen to eventually take a state or ViewModel
-            // For now, we test the current placeholder or the future contract.
-            // Since we follow TDD, we run against what we have or what we will build.
-            // Let's assume we will pass a static state for testing or just test the composable.
-            // Currently IncomeScreen() takes no args. 
-            // We will refactor it later.
-            IncomeScreen()
+            IncomeScreen(viewModel = viewModel)
         }
 
         // 1. Verify Balance Card (Header)
-        // We expect to see "Total Balance" or similar
         composeTestRule.onNodeWithText("Total Balance").assertIsDisplayed()
 
         // 2. Verify Action Buttons
-        composeTestRule.onNodeWithText("Claim UBI").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Offline Pay").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Claim UBI (Faucet)").assertIsDisplayed()
+        // "Offline Pay" was renamed/moved to "Send" modal or P2P section logic
+        // Let's check for "Send" and "Receive" buttons
+        composeTestRule.onNodeWithText("Send").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Receive").assertIsDisplayed()
 
         // 3. Verify Transaction List Header
-        composeTestRule.onNodeWithText("Recent Transactions").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Recent Activity").assertIsDisplayed()
     }
 
     @Test
     fun incomeScreen_showsP2PDialog_whenScanning() {
         // Arrange: State with P2P Scanning
-        val scanningState = IncomeState(
-            p2pStatus = P2PStatus.SCANNING
+        val scanningState = com.solanasuper.ui.income.IncomeUiState(
+            p2pStatus = com.solanasuper.ui.income.PeerStatus.SCANNING
         )
+        
+        val viewModel = Mockito.mock(IncomeViewModel::class.java)
+        val stateFlow = kotlinx.coroutines.flow.MutableStateFlow(scanningState)
+        Mockito.`when`(viewModel.state).thenReturn(stateFlow)
+        Mockito.`when`(viewModel.signRequest).thenReturn(kotlinx.coroutines.flow.emptyFlow())
 
         composeTestRule.setContent {
-            IncomeScreen(state = scanningState)
+            IncomeScreen(viewModel = viewModel)
         }
 
         // Assert: "Scanning for peers..." dialog/text is shown

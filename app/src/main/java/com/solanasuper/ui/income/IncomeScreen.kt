@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -58,6 +59,21 @@ fun IncomeScreen(viewModel: IncomeViewModel) {
              } catch (e: Exception) {
                  android.widget.Toast.makeText(context, "Signing Failed: ${e.message}", android.widget.Toast.LENGTH_SHORT).show()
              }
+        }
+    }
+
+    // Auto-Refresh on Resume (Fix for Web Faucet return)
+    // Fix: Use LocalContext to get LifecycleOwner safely, bypassing CompositionLocal issues
+    val lifecycleOwner = androidx.compose.ui.platform.LocalContext.current as androidx.lifecycle.LifecycleOwner
+    DisposableEffect(lifecycleOwner) {
+        val observer = androidx.lifecycle.LifecycleEventObserver { _, event ->
+            if (event == androidx.lifecycle.Lifecycle.Event.ON_RESUME) {
+                viewModel.loadData()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
         }
     }
 

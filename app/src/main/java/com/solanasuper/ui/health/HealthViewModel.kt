@@ -101,8 +101,7 @@ class HealthViewModel(
                             com.solanasuper.utils.AppLogger.w("HealthVM", "Retrying connection (Attempt $attempt)...")
                         }
 
-                        // Use api/vote as it is the only confirmed working endpoint on the demo server.
-                        val relayerUrl = "https://sovereign-arcium-relayer.onrender.com/api/vote"
+                        val relayerUrl = "https://sovereign-arcium-relayer.onrender.com/api/health/verify"
                         
                         val url = java.net.URL(relayerUrl)
                         val connection = url.openConnection() as java.net.HttpURLConnection
@@ -228,9 +227,10 @@ class HealthViewModel(
                 val cid = com.solanasuper.network.IpfsUploader.uploadJson(payload)
                 
                 if (cid == null) {
-                    com.solanasuper.utils.AppLogger.e("HealthViewModel", "IPFS Upload Failed: CID is null")
-                    _uiEvent.send("Warning: Saved Locally Only (IPFS Upload Failed)")
-                    // Proceed to Local Save with null CID
+                    // STRICT RULE: Abort local save if IPFS upload fails
+                    com.solanasuper.utils.AppLogger.e("HealthViewModel", "IPFS Upload Failed: Aborting save to preserve data integrity")
+                    _uiEvent.send("Error: IPFS upload failed. Record NOT saved. Check your network or IPFS configuration.")
+                    return@launch
                 } else {
                     com.solanasuper.utils.AppLogger.i("HealthViewModel", "IPFS Pin Success: $cid")
                 }
@@ -313,6 +313,41 @@ class HealthViewModel(
                  _uiEvent.send("Error: ${e.message}")
             } finally {
                  _state.update { it.copy(mpcState = ArciumComputationState.IDLE) }
+            }
+        }
+    }
+
+    fun addRecord(title: String, description: String, category: String) {
+        viewModelScope.launch {
+            try {
+                val newId = java.util.UUID.randomUUID().toString()
+                val timestamp = System.currentTimeMillis()
+
+                // 1. IPFS Upload first — strict rule
+                val payload = org.json.JSONObject().apply {
+                    put("id", newId); put("title", title)
+                    put("description", description); put("category", category)
+                    put("timestamp", timestamp); put("encrypted", true)
+                }
+                val cid = com.solanasuper.network.IpfsUploader.uploadJson(payload)
+                if (cid == null) {
+                    _uiEvent.send("Error: IPFS upload failed. Record NOT saved.")
+                    return@launch
+                }
+
+                // 2. Persist to DB
+                val entity = com.solanasuper.data.HealthEntity(
+                    id = newId, timestamp = timestamp,
+                    dataType = title, encryptedPayload = description, ipfsCid = cid
+                )
+                healthRepository.saveHealthRecord(entity)
+                repository.logActivity(com.solanasuper.data.ActivityType.IPFS_HASH, "Record Added | CID: $cid")
+
+                // 3. Update UI state
+                val newRecord = DecryptedHealthRecord(newId, title, description, timestamp, category, cid)
+                _state.update { it.copy(records = it.records + newRecord) }
+            } catch (e: Exception) {
+                _uiEvent.send("Add Record Failed: ${e.message}")
             }
         }
     }

@@ -40,11 +40,21 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.clickable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Icon
 import com.solanasuper.ui.governance.GovernanceScreen
 import com.solanasuper.ui.health.HealthScreen
 import com.solanasuper.ui.identity.IdentityHubScreen
 import com.solanasuper.ui.income.IncomeScreen
 import com.solanasuper.ui.income.IncomeViewModel
+import com.solanasuper.ui.invest.InvestScreen
+import com.solanasuper.ui.invest.InvestViewModel
 
 // Define generic icon resource or use vector assets if available.
 // For now, we reuse standard icons or placeholder IDs if resources aren't checked.
@@ -56,10 +66,11 @@ import com.solanasuper.ui.income.IncomeViewModel
 
 sealed class Screen(val route: String, val label: String) {
     object Identity : Screen("identity", "Identity")
-    object Governance : Screen("governance", "Governance")
-    object Income : Screen("income", "Income")
+    object Governance : Screen("governance", "Gov")
+    object Income : Screen("income", "Wallet")
+    object Invest : Screen("invest", "Invest")
     object Health : Screen("health", "Health")
-    object Profile : Screen("profile", "Profile")
+    object Profile : Screen("profile", "Me")
 }
 
 @Composable
@@ -70,8 +81,10 @@ fun MainNavigation(
     transactionManager: TransactionManager,
     transactionDao: TransactionDao,
     p2pTransferManager: com.solanasuper.network.P2PTransferManager,
-    activityRepository: com.solanasuper.data.ActivityRepository, // Inject Repository,
-    healthRepository: com.solanasuper.data.HealthRepository
+    activityRepository: com.solanasuper.data.ActivityRepository,
+    healthRepository: com.solanasuper.data.HealthRepository,
+    investDao: com.solanasuper.data.InvestDao,
+    nonceAccountDao: com.solanasuper.data.NonceAccountDao
 ) {
     val navController = rememberNavController()
 
@@ -116,13 +129,22 @@ fun MainNavigation(
                     // and maybe IdentityHub is accessible inside Profile?
                     // OR just append Profile.
                     
-                    val items = listOf(Screen.Governance, Screen.Income, Screen.Health, Screen.Profile)
+                    val items = listOf(Screen.Governance, Screen.Income, Screen.Invest, Screen.Health, Screen.Profile)
 
                     items.forEach { screen ->
                         NavigationBarItem(
-                            icon = { 
-                                // Placeholder icon
-                                Text(screen.label.first().toString(), color = Color.White) 
+                            icon = {
+                                Icon(
+                                    imageVector = when (screen) {
+                                        Screen.Governance -> Icons.Default.Star
+                                        Screen.Income     -> Icons.Default.Send
+                                        Screen.Invest     -> Icons.Default.Add
+                                        Screen.Health     -> Icons.Default.Favorite
+                                        Screen.Profile    -> Icons.Default.Person
+                                        else              -> Icons.Default.Person
+                                    },
+                                    contentDescription = screen.label
+                                )
                             },
                             label = { Text(screen.label, color = Color.White) },
                             selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
@@ -180,22 +202,7 @@ fun MainNavigation(
                     // Observe Sign Requests
                     val context = androidx.compose.ui.platform.LocalContext.current
                     androidx.compose.runtime.LaunchedEffect(key1 = true) {
-                        viewModel.signRequest.collect { choice ->
-                            // "Vote_${choice}_for_$proposalId" - logic duplicated from VM for payload gen?
-                            // Or VM should send payload? 
-                            // VM sends choice. Payload logic is currently in `processVote` but that method assumes it receives a signature FOR the payload it expects.
-                            // To be safe, we should construct payload here or VM passes payload.
-                            // But `signTransaction` signs whatever bytes we give it.
-                            // `processVote` in VM (Step 3544) constructs `val votePayload = ...`.
-                            // So VM expects us to sign THAT payload.
-                            // BUT we don't know the proposal ID here easily without duplicating logic.
-                            // Ideally VM sends `SignRequest(payload, metadata)`.
-                            // For now, I will duplicate the payload construction "Vote_${choice}_for_proposal_ubi_001".
-                            // It's a hack but "Reality Check" implies making it work.
-                            
-                            val proposalId = "proposal_ubi_001"
-                            val payload = "Vote_${choice}_for_$proposalId".toByteArray()
-                            
+                        viewModel.signRequest.collect { (choice, payload) ->
                             try {
                                 val activity = context as? androidx.fragment.app.FragmentActivity
                                 if (activity != null) {
@@ -215,7 +222,7 @@ fun MainNavigation(
                 composable(Screen.Income.route) {
                     // Income (Pillar 4)
                     val viewModel: IncomeViewModel = viewModel(
-                        factory = IncomeViewModel.Factory(transactionManager, transactionDao, p2pTransferManager, identityKeyManager)
+                        factory = IncomeViewModel.Factory(transactionManager, transactionDao, p2pTransferManager, identityKeyManager, nonceAccountDao)
                     )
                     
                     // Observe UI Events (Added for Faucet Fallback)
@@ -232,6 +239,12 @@ fun MainNavigation(
                     
                     // State collection happens internally in IncomeScreen now for simplicity of this refactor
                     IncomeScreen(viewModel = viewModel)
+                }
+                composable(Screen.Invest.route) {
+                    val viewModel: InvestViewModel = viewModel(
+                        factory = InvestViewModel.Factory(identityKeyManager, investDao, transactionDao)
+                    )
+                    InvestScreen(viewModel = viewModel)
                 }
                 composable(Screen.Health.route) {
                     // Health (Pillar 5)

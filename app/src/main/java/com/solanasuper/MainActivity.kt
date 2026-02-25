@@ -63,6 +63,8 @@ class MainActivity : FragmentActivity() {
         val transactionDao = database.transactionDao()
         val activityLogDao = database.activityLogDao()
         val activityRepository = com.solanasuper.data.ActivityRepository(activityLogDao)
+        val investDao = database.investDao()
+        val nonceAccountDao = database.nonceAccountDao()
         
         // Initialize Health Persistence
         val healthDatabase = com.solanasuper.data.HealthDatabase.getDatabase(this)
@@ -73,6 +75,23 @@ class MainActivity : FragmentActivity() {
         
         val transactionManager = com.solanasuper.p2p.TransactionManager(transactionDao)
         val p2pTransferManager = com.solanasuper.network.P2PTransferManager(this)
+
+        // Enqueue Network Sync Worker
+        val constraints = androidx.work.Constraints.Builder()
+            .setRequiredNetworkType(androidx.work.NetworkType.CONNECTED)
+            .build()
+            
+        val syncRequest = androidx.work.PeriodicWorkRequestBuilder<com.solanasuper.worker.NetworkSyncWorker>(
+            15, java.util.concurrent.TimeUnit.MINUTES // Minimum interval
+        )
+            .setConstraints(constraints)
+            .build()
+            
+        androidx.work.WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            "NetworkSyncWorker",
+            androidx.work.ExistingPeriodicWorkPolicy.KEEP,
+            syncRequest
+        )
 
         enableEdgeToEdge()
         setContent {
@@ -89,7 +108,9 @@ class MainActivity : FragmentActivity() {
                         transactionDao = transactionDao,
                         p2pTransferManager = p2pTransferManager,
                         activityRepository = activityRepository,
-                        healthRepository = healthRepository
+                        healthRepository = healthRepository,
+                        investDao = investDao,
+                        nonceAccountDao = nonceAccountDao
                     )
                 }
             }
@@ -97,11 +118,21 @@ class MainActivity : FragmentActivity() {
     }
 
     private fun checkAndRequestPermissions() {
-        val missing = REQUIRED_PERMISSIONS.filter {
+        // Add Notification Permission for Android 13+
+        val allPermissions = if (Build.VERSION.SDK_INT >= 33) {
+            REQUIRED_PERMISSIONS + Manifest.permission.POST_NOTIFICATIONS
+        } else {
+            REQUIRED_PERMISSIONS
+        }
+
+        val missing = allPermissions.filter {
             ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
         }
+
         if (missing.isNotEmpty()) {
-            requestPermissionLauncher.launch(REQUIRED_PERMISSIONS)
+            requestPermissionLauncher.launch(missing.toTypedArray())
+        } else {
+            Log.d("SovereignLifeOS", "All permissions granted")
         }
     }
 }

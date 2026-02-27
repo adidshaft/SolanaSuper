@@ -7,8 +7,14 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @Database(
-    entities = [OfflineTransaction::class, WalletBalance::class, ActivityLogEntity::class],
-    version = 2,
+    entities = [
+        OfflineTransaction::class,
+        WalletBalance::class,
+        ActivityLogEntity::class,
+        InvestPosition::class,
+        NonceAccount::class
+    ],
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -17,6 +23,8 @@ abstract class WalletDatabase : RoomDatabase() {
     abstract fun transactionDao(): TransactionDao
     abstract fun walletDao(): WalletDao
     abstract fun activityLogDao(): ActivityLogDao
+    abstract fun investDao(): InvestDao
+    abstract fun nonceAccountDao(): NonceAccountDao
 
     companion object {
         @Volatile

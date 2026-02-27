@@ -4,22 +4,26 @@ import androidx.room.TypeConverter
 
 class Converters {
     @TypeConverter
-    fun fromStatus(status: TransactionStatus): String {
-        return status.name
-    }
+    fun fromStatus(status: TransactionStatus): String = status.name
 
     @TypeConverter
-    fun toStatus(value: String): TransactionStatus {
-        return TransactionStatus.valueOf(value)
-    }
+    fun toStatus(value: String): TransactionStatus = TransactionStatus.valueOf(value)
 
     @TypeConverter
-    fun fromActivityType(type: ActivityType): String {
-        return type.name
-    }
+    fun fromActivityType(type: ActivityType): String = type.name
 
     @TypeConverter
-    fun toActivityType(value: String): ActivityType {
-        return ActivityType.valueOf(value)
-    }
+    fun toActivityType(value: String): ActivityType = ActivityType.valueOf(value)
+
+    @TypeConverter
+    fun fromPositionType(type: PositionType): String = type.name
+
+    @TypeConverter
+    fun toPositionType(value: String): PositionType = PositionType.valueOf(value)
+
+    @TypeConverter
+    fun fromPositionStatus(status: PositionStatus): String = status.name
+
+    @TypeConverter
+    fun toPositionStatus(value: String): PositionStatus = PositionStatus.valueOf(value)
 }

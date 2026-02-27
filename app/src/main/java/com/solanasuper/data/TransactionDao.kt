@@ -10,9 +10,6 @@ interface TransactionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(transaction: OfflineTransaction): Long
 
-    // Simplified balance check: Total Initial Mock Balance - Sum of LOCKED/PENDING/CONFIRMED transactions
-    // In a real app, you'd sync an on-chain balance and subtract pending.
-    // For this prototype, we'll assume a hardcoded initial balance in the Manager or a separate Balance entity.
     @androidx.room.Query("SELECT * FROM offline_transactions ORDER BY timestamp DESC")
     suspend fun getAllTransactions(): List<OfflineTransaction>
 
@@ -21,4 +18,15 @@ interface TransactionDao {
 
     @androidx.room.Query("SELECT * FROM offline_transactions WHERE isLiveBroadcastPending = 1")
     suspend fun getPendingBroadcasts(): List<OfflineTransaction>
+
+    @androidx.room.Query("SELECT * FROM offline_transactions WHERE status IN ('PENDING_SYNC', 'SIGNED_OFFLINE')")
+    suspend fun getPendingSyncTransactions(): List<OfflineTransaction>
+
+    /** True offline signed transactions with a durable nonce — ready to broadcast. */
+    @androidx.room.Query("SELECT * FROM offline_transactions WHERE status = 'SIGNED_OFFLINE'")
+    suspend fun getSignedOfflineTxs(): List<OfflineTransaction>
+
+    @androidx.room.Query("UPDATE offline_transactions SET status = :status WHERE id = :id")
+    suspend fun updateStatus(id: String, status: TransactionStatus)
 }
+

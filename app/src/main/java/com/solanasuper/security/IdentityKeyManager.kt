@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.first
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-class IdentityKeyManager(private val context: Context) {
+class IdentityKeyManager(val context: Context) {
 
     companion object {
         private const val ANDROID_KEYSTORE = "AndroidKeyStore"
@@ -46,6 +46,15 @@ class IdentityKeyManager(private val context: Context) {
     fun getSolanaPublicKey(): String? {
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
             .getString(KEY_PUBKEY, null)
+    }
+
+    /** Returns the plaintext mnemonic string for backup display. Null if no wallet exists. */
+    fun getMnemonic(): String? {
+        return try {
+            decryptMnemonic()
+        } catch (e: Exception) {
+            null
+        }
     }
 
     private fun createWallet() {

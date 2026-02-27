@@ -6,5 +6,8 @@ enum class TransactionStatus {
     LOCKED_SYNCING,     // P2P done, syncing to Solana
     CONFIRMED,          // On-chain confirmation
     FAILED,             // Failed transaction
-    SPENT               // Final state after confirmation
+    SPENT,              // Final state after confirmation
+    PENDING_SYNC,       // Offline commitment (IOU only) waiting for network sync
+    SIGNED_OFFLINE      // REAL: Durable-nonce signed tx bytes stored, ready to broadcast
 }
+

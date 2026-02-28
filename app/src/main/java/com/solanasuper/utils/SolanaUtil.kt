@@ -98,19 +98,29 @@ object SolanaUtil {
         return out.toByteArray()
     }
 
-    // Combines Signature and Message into Final Transaction
+    // Combines Signature and Message into Final Transaction (single signer)
     fun encodeTransaction(signature: ByteArray, message: ByteArray): ByteArray {
         val out = java.io.ByteArrayOutputStream()
-        
-        // 1. Signature Count = 1
         out.write(encodeLength(1))
-        
-        // 2. Signature (64 bytes)
         out.write(signature)
-        
-        // 3. Message
         out.write(message)
-        
+        return out.toByteArray()
+    }
+
+    /**
+     * Encodes a transaction with multiple signatures.
+     * Signatures must be in the same order as the signing accounts in the message header
+     * (i.e., signatures[0] corresponds to accounts[0], etc.)
+     */
+    fun encodeTransactionMultiSig(signatures: List<ByteArray>, message: ByteArray): ByteArray {
+        val out = java.io.ByteArrayOutputStream()
+        out.write(encodeLength(signatures.size))
+        signatures.forEach { sig ->
+            check(sig.size == 64) { "Ed25519 signature must be 64 bytes, got ${sig.size}" }
+            out.write(sig)
+        }
+        out.write(message)
         return out.toByteArray()
     }
 }
+

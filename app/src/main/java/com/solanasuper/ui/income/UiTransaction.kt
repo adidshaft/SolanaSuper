@@ -5,5 +5,6 @@ data class UiTransaction(
     val amount: Double,
     val timestamp: Long,
     val recipientId: String?,
-    val isReceived: Boolean
+    val isReceived: Boolean,
+    val status: com.solanasuper.data.TransactionStatus = com.solanasuper.data.TransactionStatus.CONFIRMED
 )

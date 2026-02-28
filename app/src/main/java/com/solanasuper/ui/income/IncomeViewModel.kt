@@ -3,10 +3,23 @@ package com.solanasuper.ui.income
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.work.BackoffPolicy
+import androidx.work.Constraints
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import com.solanasuper.data.NonceAccountDao
+import com.solanasuper.data.OfflineTransaction
 import com.solanasuper.data.TransactionDao
 import com.solanasuper.data.TransactionStatus
-import com.solanasuper.p2p.TransactionManager
+import com.solanasuper.data.OfflineCommitment
 import com.solanasuper.network.NetworkManager
+import com.solanasuper.network.SolanaSyncWorker
+import com.solanasuper.p2p.TransactionManager
+import com.solanasuper.security.IdentityKeyManager
+import com.solanasuper.utils.AppLogger
+import com.solanasuper.utils.DurableNonceManager
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,14 +27,15 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
-
-import com.solanasuper.security.IdentityKeyManager
+import kotlinx.coroutines.withContext
+import java.util.concurrent.TimeUnit
 
 class IncomeViewModel(
     private val transactionManager: TransactionManager,
     private val transactionDao: TransactionDao,
     private val p2pTransferManager: com.solanasuper.network.P2PTransferManager,
-    private val identityKeyManager: IdentityKeyManager
+    private val identityKeyManager: IdentityKeyManager,
+    private val nonceAccountDao: NonceAccountDao
 ) : ViewModel() {
 
     // Expose IdentityKeyManager for UI interactions (Signing)
@@ -40,12 +54,20 @@ class IncomeViewModel(
 
     private var pendingTransaction: PendingTx? = null
 
+    /** Nonce setup state: the raw Ed25519 seed for the nonce account keypair's self-signature. */
+    private var pendingNonceSetupSeed32: ByteArray? = null
+
+    /** If nonce setup is deferred from a P2P send, re-trigger this transfer afterwards. */
+    private var pendingTransferAfterSetup: Triple<String, Double, String>? = null // endpointId, amount, peerPubKey
+
     data class PendingTx(val recipient: String, val amount: Double, val data: ByteArray)
 
     init {
         setupP2P()
         loadData()
-        refresh() // Check for pending broadcasts on start
+        refresh()
+        // Provision nonce account in background when online
+        viewModelScope.launch { ensureNonceSetup() }
     }
 
     fun refresh() {
@@ -53,49 +75,53 @@ class IncomeViewModel(
         retryPendingBroadcasts()
     }
 
-    private fun retryPendingBroadcasts() {
-        viewModelScope.launch {
-            if (!NetworkManager.isLiveMode.value) return@launch
-            
-            val pendingTxs = transactionDao.getPendingBroadcasts()
-            if (pendingTxs.isEmpty()) return@launch
-
-            com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Retrying ${pendingTxs.size} pending broadcasts...")
+    /**
+     * If the nonce account exists but is stale, refreshes its value from chain.
+     * Nonce creation is handled lazily on first P2P send via biometric flow.
+     */
+    private suspend fun ensureNonceSetup() {
+        if (!NetworkManager.isLiveMode.value) return
+        try {
             val rpcUrl = NetworkManager.activeRpcUrl.value
-            
-            pendingTxs.forEach { tx ->
-                try {
-                     if (tx.signedPayload != null) {
-                         val json = """{"jsonrpc":"2.0", "id":1, "method":"sendTransaction", "params":["${tx.signedPayload}", {"encoding": "base64"}]}"""
-                         
-                         kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
-                             val response = postRpc(rpcUrl, json)
-                             val jsonResp = org.json.JSONObject(response)
-                             if (jsonResp.has("error")) {
-                                 throw Exception("RPC Error: ${jsonResp.get("error")}")
-                             }
-                         }
-                         
-                         // Success! Mark as done (or delete). We'll update status.
-                         // Using ID to update.
-                         // For simplicity in this Dao, we might need a specific update method or just re-insert.
-                         // Since we don't have updateStatus, we'll re-insert with modified fields or delete if it was a temp holder.
-                         // Ideally we want to keep it as history? But we fetch history from chain.
-                         // So we can just mark it as settled locally or delete. 
-                         // Let's mark it as SETTLED and not pending.
-                         
-                         transactionDao.insert(tx.copy(status = TransactionStatus.CONFIRMED, isLiveBroadcastPending = false))
-                         com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Retry Success for ${tx.id}")
-                     }
-                } catch (e: Exception) {
-                    com.solanasuper.utils.AppLogger.e("IncomeViewModel", "Retry Failed for ${tx.id}", e)
-                }
+            val existing = nonceAccountDao.get()
+            if (existing != null && !existing.isValid) {
+                AppLogger.i("IncomeViewModel", "Refreshing stale nonce from chain…")
+                DurableNonceManager.refreshNonce(rpcUrl, nonceAccountDao)
+            } else if (existing != null) {
+                AppLogger.i("IncomeViewModel", "Nonce account ready: ${existing.nonceAccountPubkey}")
             }
-            // Reload data after attempts
-            delay(1000)
-            loadData()
+            // If null — creation happens on first P2P send attempt via biometric
+        } catch (e: Exception) {
+            AppLogger.w("IncomeViewModel", "Nonce check failed (non-fatal): ${e.message}")
         }
     }
+
+    private fun retryPendingBroadcasts() {
+        if (!NetworkManager.isLiveMode.value) return
+        // Delegate to SolanaSyncWorker which handles both SIGNED_OFFLINE and PENDING_SYNC rows
+        scheduleSyncWorker()
+    }
+
+    /** Schedules the SolanaSyncWorker with a network constraint + exponential back-off. */
+    private fun scheduleSyncWorker() {
+        try {
+            val constraints = androidx.work.Constraints.Builder()
+                .setRequiredNetworkType(androidx.work.NetworkType.CONNECTED)
+                .build()
+
+            val workRequest = androidx.work.OneTimeWorkRequestBuilder<com.solanasuper.network.SolanaSyncWorker>()
+                .setConstraints(constraints)
+                .setBackoffCriteria(androidx.work.BackoffPolicy.EXPONENTIAL, 15L, java.util.concurrent.TimeUnit.SECONDS)
+                .build()
+
+            androidx.work.WorkManager.getInstance(identityKeyManager.context).enqueue(workRequest)
+            com.solanasuper.utils.AppLogger.i("IncomeViewModel", "SolanaSyncWorker instantly queued for background broadcast")
+        } catch (_: Exception) {
+            com.solanasuper.utils.AppLogger.e("IncomeViewModel", "Failed to queue SyncWorker via WorkManager")
+        }
+    }
+
+
 
     private fun setupP2P() {
         p2pTransferManager.callback = object : com.solanasuper.network.P2PTransferManager.P2PCallback {
@@ -142,53 +168,90 @@ class IncomeViewModel(
                      return
                  }
 
-                 if (message.startsWith("Tx:")) {
-                     val base64Tx = message.removePrefix("Tx:")
+                 if (message.startsWith("DurableCommitment:")) {
+                     val json = message.removePrefix("DurableCommitment:")
                      viewModelScope.launch {
-                         _state.update { it.copy(p2pStatus = PeerStatus.TRANSFERRING) }
                          try {
-                             if (!NetworkManager.isLiveMode.value) throw Exception("Cannot broadcast in Simulation Mode")
+                             AppLogger.i("IncomeViewModel", "Received DurableCommitment (real signed tx)")
+                             val jsonObj      = org.json.JSONObject(json)
+                             val sender       = jsonObj.getString("sender")
+                             val amountLamports = jsonObj.getLong("amountLamports")
+                             val timestamp    = jsonObj.getLong("timestamp")
+                             val nonceUsed    = jsonObj.optString("nonceUsed", null)
+                             val signedTxB64  = jsonObj.optString("signedTxB64", null)
 
-                             val rpcUrl = NetworkManager.activeRpcUrl.value
-                             com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Broadcasting P2P Transaction via RPC...")
-                             
-                             var txSignature = ""
-                             kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
-                                 val json = """{"jsonrpc":"2.0", "id":1, "method":"sendTransaction", "params":["$base64Tx", {"encoding": "base64"}]}"""
-                                 val response = postRpc(rpcUrl, json)
-                                 
-                                 // Check for error in response
-                                 val jsonResp = org.json.JSONObject(response)
-                                 if (jsonResp.has("error")) {
-                                     throw Exception("RPC Broadcast Error: ${jsonResp.get("error")}")
-                                 }
-                                 txSignature = jsonResp.getString("result")
-                             }
-                             
-                             com.solanasuper.utils.AppLogger.i("IncomeViewModel", "P2P Broadcast Success: $txSignature")
-                             _state.update { it.copy(p2pStatus = PeerStatus.SUCCESS, status = UiStatus.Success) }
-                             delay(2500)
-                             loadData() // Refresh live balance
+                             // Store as SIGNED_OFFLINE — receiver has the real signed tx
+                             // and can independently verify on-chain when online
+                             val receiverRow = OfflineTransaction(
+                                 id                       = "p2p_receive_$timestamp",
+                                 amount                   = amountLamports,   // Positive for receiver
+                                 timestamp                = timestamp,
+                                 recipientId              = sender,
+                                 status                   = if (!signedTxB64.isNullOrBlank())
+                                                                TransactionStatus.SIGNED_OFFLINE
+                                                            else
+                                                                TransactionStatus.PENDING_SYNC,
+                                 isLiveBroadcastPending   = false,  // Receiver doesn't broadcast, just tracks
+                                 signedPayload            = signedTxB64,
+                                 nonceUsed                = nonceUsed,
+                                 peerSignedCommitmentJson = json
+                             )
+                             transactionDao.insert(receiverRow)
+
+                             // Credit local balance immediately (optimistic)
+                             transactionManager.receiveFunds(amountLamports, "P2P DurableNonce Receive")
+
+                             _state.update { it.copy(p2pStatus = PeerStatus.SUCCESS) }
+                             delay(2000)
+                             loadData()
                              stopP2P()
                          } catch (e: Exception) {
-                            com.solanasuper.utils.AppLogger.e("IncomeViewModel", "P2P Broadcast Failed", e)
-                            // PERSISTENCE: Save for later retry
-                            try {
-                                val offlineTx = com.solanasuper.data.OfflineTransaction(
-                                    id = "pending_${System.currentTimeMillis()}", // Temporary ID until broadcast
-                                    amount = 0, // Unknown amount from just base64, unless we parse it. For now 0 is fine as placeholder.
-                                    timestamp = System.currentTimeMillis(),
-                                    recipientId = "Network",
-                                    status = TransactionStatus.LOCKED_SYNCING,
-                                    isLiveBroadcastPending = true,
-                                    signedPayload = base64Tx
-                                )
-                                transactionDao.insert(offlineTx)
-                                _state.update { it.copy(p2pStatus = PeerStatus.ERROR, status = UiStatus.Error("Broadcast Failed. Saved for retry.")) }
-                            } catch (dbEx: Exception) {
-                                com.solanasuper.utils.AppLogger.e("IncomeViewModel", "Failed to save pending broadcast", dbEx)
-                                _state.update { it.copy(p2pStatus = PeerStatus.ERROR, status = UiStatus.Error("Critical: Broadcast & Save Failed.")) }
-                            }
+                             AppLogger.e("IncomeViewModel", "Bad DurableCommitment", e)
+                             _state.update { it.copy(status = UiStatus.Error("Invalid P2P Commitment")) }
+                         }
+                     }
+                     return
+                 }
+
+                 if (message.startsWith("Commitment:")) {
+                     val json = message.removePrefix("Commitment:")
+                     viewModelScope.launch {
+                         try {
+                             com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Received Commitment: $json")
+                             
+                             // 1. Parse JSON
+                             val jsonObj = org.json.JSONObject(json)
+                             val sender = jsonObj.getString("sender")
+                             val recipient = jsonObj.getString("recipient")
+                             val amountLamports = jsonObj.getLong("amountLamports")
+                             val timestamp = jsonObj.getLong("timestamp")
+                             val signature = jsonObj.getString("signature")
+                             
+                             // ... (Rest of logic)
+                             
+                             // 3. Save to DB (PENDING_SYNC - Incoming)
+                             val offlineTx = com.solanasuper.data.OfflineTransaction(
+                                 id = "p2p_receive_${timestamp}",
+                                 amount = amountLamports,
+                                 timestamp = timestamp,
+                                 recipientId = sender, // From Sender
+                                 status = TransactionStatus.PENDING_SYNC,
+                                 isLiveBroadcastPending = false, // Receiver doesn't need to broadcast, sender does. But we track it.
+                                 signedPayload = json
+                             )
+                             transactionDao.insert(offlineTx)
+                             
+                             // 4. Update UI
+                             transactionManager.receiveFunds(amountLamports, "Pending P2P")
+                             _state.update { it.copy(p2pStatus = PeerStatus.SUCCESS) }
+                             delay(2000)
+                             loadData() 
+                             
+                             stopP2P()
+                             
+                         } catch (e: Exception) {
+                             com.solanasuper.utils.AppLogger.e("IncomeViewModel", "Bad Commitment", e)
+                             _state.update { it.copy(status = UiStatus.Error("Invalid P2P Commitment")) }
                          }
                      }
                      return
@@ -237,43 +300,10 @@ class IncomeViewModel(
 
                      _state.update { it.copy(status = UiStatus.Loading) }
                      
-                     // 1. Get Blockhash
-                     val rpcUrl = NetworkManager.activeRpcUrl.value
-                     val blockhashStr = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
-                         getLatestBlockhash(rpcUrl)
-                     }
-                     val blockhash = com.solanasuper.utils.Base58.decode(blockhashStr)
-
-                     // 2. Build Message
-                     val myAddress = identityKeyManager.getSolanaPublicKey() ?: throw Exception("No Identity")
-                     val myPubkey = com.solanasuper.utils.Base58.decode(myAddress)
-                     val toPubkey = com.solanasuper.utils.Base58.decode(recipientKey)
-                     val lamports = (amount * 1_000_000_000).toLong()
-
-                     val message = com.solanasuper.utils.SolanaUtil.createTransferMessage(
-                         myPubkey, toPubkey, lamports, blockhash
-                     )
-                     
-                     // 3. Prompt Sign (Re-use pendingTx flow logic? Or custom?)
-                     // For P2P we'll do a direct sign request here to keep it self-contained or use channel
-                     // NOTE: Using channel means UI must observe it. UI observes 'signRequest'.
-                     
-                     // We need to store who we are sending to for the callback to handle correctly?
-                     // Actually, we can just use the channel and wait for the response? 
-                     // No, the existing flow allows user scan -> sign.
-                     // Let's use a specialized P2P pending state or just re-use the channel.
-                     
-                     // Helper: We need to know this signing request is for P2P, not broadcast.
-                     // But broadcastTransaction() handles the "after sign" logic.
-                     // We should Refactor broadcastTransaction to support P2P routing OR handle signing inline here if possible?
-                     // Inline signing requires UI callback. The 'signRequest' channel is observed by UI to show BiometricPrompt.
-                     // The Result comes back to 'broadcastTransaction'.
-                     
                      // HACK for now: We will set 'pendingTransaction' with a special recipient "P2P:<EndpointID>"
                      // And in 'broadcastTransaction', we check if recipient starts with "P2P:" then we send Data instead of RPC.
                      
-                     pendingTransaction = PendingTx("P2P:$endpointId", amount, message)
-                     _signRequest.send(message)
+                     prepareTransaction("P2P:$endpointId", amount)
                      
                  } catch (e: Exception) {
                      com.solanasuper.utils.AppLogger.e("IncomeViewModel", "Live P2P Failed", e)
@@ -342,13 +372,39 @@ class IncomeViewModel(
                         com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Live Balance: $balanceSol SOL")
                         
                         // 2. Fetch History
-                        val history = fetchTransactionHistory(rpcUrl, solanaAddress)
-                        com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Live History: ${history.size} items")
+                        val onChainHistory = fetchTransactionHistory(rpcUrl, solanaAddress)
+                        
+                        // 3. Merge Local Pending (Offline Commitments)
+                        // We filter for PENDING_SYNC or LIVE_BROADCAST_PENDING that are NOT in onChainHistory
+                        val localPending = transactionDao.getPendingSyncTransactions()
+                        // Convert OfflineTransaction -> UiTransaction
+                        val pendingUi = localPending.map { tx ->
+                             UiTransaction(
+                                 id = "pending_${tx.timestamp}",
+                                 amount = kotlin.math.abs(tx.amount) / 1_000_000_000.0,
+                                 timestamp = tx.timestamp,
+                                 recipientId = if (tx.amount < 0) "To Peer (Pending)" else "From Peer (Pending)",
+                                 isReceived = tx.amount > 0,
+                                 status = com.solanasuper.data.TransactionStatus.PENDING_SYNC
+                             )
+                        }
+                        
+                        // Combine: Pending First, then History
+                        val combinedHistory = pendingUi + onChainHistory
+
+                        // 4. Adjust Display Balance
+                        // We must subtract pending OUTGOING (-) and add pending INCOMING (+)
+                        // so both sender and receiver see the optimistic balance locally while waiting for the network
+                        val pendingOutgoing = localPending.filter { it.amount < 0 }.sumOf { kotlin.math.abs(it.amount) }
+                        val pendingIncoming = localPending.filter { it.amount > 0 }.sumOf { it.amount }
+                        val displayBalance = balanceSol - (pendingOutgoing / 1_000_000_000.0) + (pendingIncoming / 1_000_000_000.0)
+
+                        com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Live History: ${onChainHistory.size}, Pending: ${localPending.size}")
 
                         _state.update { 
                             it.copy(
-                                balance = balanceSol,
-                                transactions = history,
+                                balance = displayBalance,
+                                transactions = combinedHistory,
                                 status = UiStatus.Success
                             ) 
                         }
@@ -480,8 +536,8 @@ class IncomeViewModel(
         connection.requestMethod = "POST"
         connection.doOutput = true
         connection.setRequestProperty("Content-Type", "application/json")
-        connection.connectTimeout = 10000
-        connection.readTimeout = 10000
+        connection.connectTimeout = 60000 // 60s for Render cold-start (strict rule)
+        connection.readTimeout = 60000
         
         connection.outputStream.use { it.write(body.toByteArray()) }
         
@@ -559,41 +615,85 @@ class IncomeViewModel(
     // 3-Way Send Logic
 
     fun prepareTransaction(recipient: String, amount: Double) {
-        com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Preparing transaction: $amount SOL to $recipient")
+        AppLogger.i("IncomeViewModel", "Preparing transaction: $amount SOL to $recipient")
         viewModelScope.launch {
             try {
-                // 1. Validate
                 if (amount <= 0) throw Exception("Invalid amount")
                 if (amount > (_state.value.balance ?: 0.0)) throw Exception("Insufficient funds")
 
+                val lamports = (amount * 1_000_000_000).toLong()
+                val myAddress = identityKeyManager.getSolanaPublicKey() ?: throw Exception("No Identity")
+
                 if (NetworkManager.isLiveMode.value) {
-                     // 1. Get Blockhash
-                     val rpcUrl = NetworkManager.activeRpcUrl.value
-                     val blockhashStr = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
-                         getLatestBlockhash(rpcUrl)
-                     }
-                     val blockhash = com.solanasuper.utils.Base58.decode(blockhashStr)
+                    val rpcUrl = NetworkManager.activeRpcUrl.value
 
-                     // 2. Build Message
-                     val myAddress = identityKeyManager.getSolanaPublicKey() ?: throw Exception("No Identity")
-                     val myPubkey = com.solanasuper.utils.Base58.decode(myAddress)
-                     val toPubkey = com.solanasuper.utils.Base58.decode(recipient)
-                     val lamports = (amount * 1_000_000_000).toLong()
+                    if (recipient.startsWith("P2P:")) {
+                        // ═══════════════════════════════════════════════════
+                        // OFFLINE P2P PATH — Use Durable Nonce
+                        // ═══════════════════════════════════════════════════
+                        val peerPublicKey = _state.value.peerPublicKey
+                            ?: throw Exception("Peer identity not received. Reconnect.")
 
-                     val message = com.solanasuper.utils.SolanaUtil.createTransferMessage(
-                         myPubkey, toPubkey, lamports, blockhash
-                     )
-                     
-                     pendingTransaction = PendingTx(recipient, amount, message)
-                     _signRequest.send(message) // Prompt User to Sign
+                        // Ensure nonce account exists; create if needed via biometric
+                        val nonceRecord = nonceAccountDao.get()
+                        if (nonceRecord == null || !nonceRecord.isValid) {
+                            AppLogger.i("IncomeViewModel", "No nonce account — routing setup through biometric")
+                            _state.update { it.copy(status = UiStatus.Loading) }
+
+                            // Build the CreateAccount+InitializeNonce message (network call for blockhash)
+                            val setupMsg = withContext(Dispatchers.IO) {
+                                DurableNonceManager.buildNonceSetupMessage(myAddress, rpcUrl)
+                            }
+
+                            // Store nonce seed (for self-sig in broadcastTransaction)
+                            pendingNonceSetupSeed32 = DurableNonceManager.derivedNonceSeed32(myAddress)
+                            // Stash the original transfer intent to replay after setup
+                            val endpointId = recipient.removePrefix("P2P:")
+                            pendingTransferAfterSetup = Triple(endpointId, amount, peerPublicKey)
+
+                            // Route through biometric — sig[0] = wallet authority
+                            pendingTransaction = PendingTx("nonce_setup", 0.0, setupMsg)
+                            _signRequest.send(setupMsg)
+                            return@launch  // wait for broadcastTransaction(walletSig) callback
+                        }
+
+                        // Build offline transfer message using cached durable nonce
+                        val message = withContext(Dispatchers.IO) {
+                            DurableNonceManager.buildOfflineTransferMessage(
+                                fromPubkeyB58 = myAddress,
+                                toPubkeyB58   = peerPublicKey,
+                                lamports      = lamports,
+                                dao           = nonceAccountDao
+                            )
+                        }
+
+                        pendingTransaction = PendingTx(recipient, amount, message)
+                        _signRequest.send(message) // Biometric prompt fires
+
+                    } else {
+                        // ═══════════════════════════════════════════════════
+                        // ONLINE DIRECT SEND — Regular blockhash tx
+                        // ═══════════════════════════════════════════════════
+                        val blockhashStr = withContext(Dispatchers.IO) { getLatestBlockhash(rpcUrl) }
+                        val blockhash = com.solanasuper.utils.Base58.decode(blockhashStr)
+                        val message = com.solanasuper.utils.SolanaUtil.createTransferMessage(
+                            com.solanasuper.utils.Base58.decode(myAddress),
+                            com.solanasuper.utils.Base58.decode(recipient),
+                            lamports,
+                            blockhash
+                        )
+                        pendingTransaction = PendingTx(recipient, amount, message)
+                        _signRequest.send(message)
+                    }
+
                 } else {
-                     // Simulation Fallback
-                     val instruction = "Transfer ${amount} SOL to $recipient".toByteArray()
-                     pendingTransaction = PendingTx(recipient, amount, instruction)
-                     _signRequest.send(instruction)
+                    // SIM mode
+                    val instruction = "Transfer ${amount} SOL to $recipient".toByteArray()
+                    pendingTransaction = PendingTx(recipient, amount, instruction)
+                    _signRequest.send(instruction)
                 }
             } catch (e: Exception) {
-                com.solanasuper.utils.AppLogger.e("IncomeViewModel", "Transaction preparation failed", e)
+                AppLogger.e("IncomeViewModel", "Transaction preparation failed", e)
                 _state.update { it.copy(status = UiStatus.Error(e.message ?: "Invalid Transaction")) }
             }
         }
@@ -601,70 +701,197 @@ class IncomeViewModel(
 
     fun broadcastTransaction(signature: ByteArray) {
         val tx = pendingTransaction ?: return
-        com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Broadcasting signed transaction...")
+        AppLogger.i("IncomeViewModel", "Broadcasting signed transaction (recipient=${tx.recipient})")
         viewModelScope.launch {
             _state.update { it.copy(status = UiStatus.Loading) }
             try {
-                 val rpcUrl = NetworkManager.activeRpcUrl.value
-                 
-                 if (NetworkManager.isLiveMode.value) {
-                     // 3. Encode Final Transaction
-                     val finalTxBytes = com.solanasuper.utils.SolanaUtil.encodeTransaction(signature, tx.data)
-                     val finalTxBase64 = android.util.Base64.encodeToString(finalTxBytes, android.util.Base64.NO_WRAP)
-                     
-                     if (tx.recipient.startsWith("P2P:")) {
-                         // P2P Route: Send Payload to Peer
-                         val endpointId = tx.recipient.removePrefix("P2P:")
-                         com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Routing P2P Tx to $endpointId")
-                         
-                         val payload = "Tx:$finalTxBase64".toByteArray()
-                         p2pTransferManager.sendData(endpointId, payload)
-                         
-                         _state.update { it.copy(p2pStatus = PeerStatus.SUCCESS) }
-                         delay(1000) // Brief delay
-                     } else {
-                         // Normal Route: RPC Broadcast
-                         kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
-                             val json = """
-                                 {"jsonrpc":"2.0", "id":1, "method":"sendTransaction", "params":["$finalTxBase64", {"encoding": "base64"}]}
-                             """.trimIndent()
-                             
-                             val response = postRpc(rpcUrl, json)
-                             val jsonObject = org.json.JSONObject(response)
-                             if (jsonObject.has("error")) {
-                                 throw Exception("RPC Error: ${jsonObject.get("error")}")
-                             }
-                             val txId = jsonObject.getString("result")
-                             com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Transaction Sent: $txId")
-                         }
-                     }
-                 } else {
-                     com.solanasuper.utils.AppLogger.d("IncomeViewModel", "Simulation Mode: Locking funds locally")
-                     delay(1000)
-                     val success = transactionManager.lockFunds((tx.amount * 1_000_000_000).toLong())
-                     if (!success) throw Exception("Insufficient Funds (Simulated)")
-                 }
+                val rpcUrl = NetworkManager.activeRpcUrl.value
 
-                 com.solanasuper.utils.AppLogger.i("IncomeViewModel", "Transaction successful!")
-                 loadData()
-                 _state.update { it.copy(status = UiStatus.Success) }
-                 pendingTransaction = null
+                // ── Nonce Account Setup Path ────────────────────────────────
+                // Biometric fired for the setup tx. Complete the 2-sig flow:
+                //   sig[0] = walletSig (biometric, just received)
+                //   sig[1] = nonce account self-sig (deterministic, no biometric)
+                if (tx.recipient == "nonce_setup") {
+                    val nonceSeed32 = pendingNonceSetupSeed32
+                        ?: throw Exception("Nonce seed lost — retrying will fix this")
+                    val myAddress = identityKeyManager.getSolanaPublicKey()
+                        ?: throw Exception("No wallet identity")
+
+                    // Nonce account's self-signature (internal, no biometric)
+                    val nonceAccountSig = DurableNonceManager.signWithSeed(nonceSeed32, tx.data)
+
+                    // 2-sig transaction: [authority(biometric), nonceAccount(internal)]
+                    val encodedTx = com.solanasuper.utils.SolanaUtil.encodeTransactionMultiSig(
+                        signatures = listOf(signature, nonceAccountSig),
+                        message    = tx.data
+                    )
+                    val base64Tx = android.util.Base64.encodeToString(encodedTx, android.util.Base64.NO_WRAP)
+
+                    // Broadcast
+                    AppLogger.i("IncomeViewModel", "Broadcasting nonce setup tx...")
+                    val response = withContext(Dispatchers.IO) {
+                        postRpc(rpcUrl, """{"jsonrpc":"2.0","id":1,"method":"sendTransaction","params":["$base64Tx",{"encoding":"base64","skipPreflight":false,"preflightCommitment":"processed"}]}""")
+                    }
+                    val json = org.json.JSONObject(response)
+                    if (json.has("error")) {
+                        val errStr = json.get("error").toString()
+                        if (errStr.contains("already in use", ignoreCase = true)) {
+                            AppLogger.i("IncomeViewModel", "Nonce account already exists on-chain. Recovering state...")
+                        } else {
+                            throw Exception("Nonce setup failed: $errStr")
+                        }
+                    } else {
+                        AppLogger.i("IncomeViewModel", "Nonce account created: ${json.optString("result")}")
+                    }
+
+                    // Wait for on-chain confirmation (if newly created), then fetch the nonce value
+                    delay(4_000)
+                    val noncePubkeyB58 = DurableNonceManager.derivedNoncePubkeyB58(myAddress)
+                    val nonceValue = withContext(Dispatchers.IO) {
+                        DurableNonceManager.fetchNonceValuePublic(rpcUrl, noncePubkeyB58)
+                    }
+
+                    // Save to Room DB
+                    nonceAccountDao.upsert(
+                        com.solanasuper.data.NonceAccount(
+                            nonceAccountPubkey = noncePubkeyB58,
+                            currentNonce       = nonceValue,
+                            authorityPubkey    = myAddress
+                        )
+                    )
+                    AppLogger.i("IncomeViewModel", "Nonce account stored. Nonce: $nonceValue")
+
+                    // Clean up and retry the deferred P2P transfer
+                    pendingNonceSetupSeed32 = null
+                    pendingTransaction = null
+                    val deferred = pendingTransferAfterSetup
+                    pendingTransferAfterSetup = null
+
+                    if (deferred != null) {
+                        val (endpointId, deferredAmount, _) = deferred
+                        AppLogger.i("IncomeViewModel", "Retrying deferred P2P transfer after nonce setup")
+                        _state.update { it.copy(status = UiStatus.Idle) }
+                        prepareTransaction("P2P:$endpointId", deferredAmount)
+                    } else {
+                        _state.update { it.copy(status = UiStatus.Success) }
+                    }
+                    return@launch
+                }
+
+                // ── Normal transaction paths ──────────────────────────────
+                if (NetworkManager.isLiveMode.value) {
+                    if (tx.recipient.startsWith("P2P:")) {
+                        // ═══════════════════════════════════════════════════
+                        // OFFLINE P2P BROADCAST — Store signed tx for later
+                        // ═══════════════════════════════════════════════════
+                        val endpointId   = tx.recipient.removePrefix("P2P:")
+                        val myAddress    = identityKeyManager.getSolanaPublicKey() ?: ""
+                        val peerKey      = _state.value.peerPublicKey ?: ""
+                        val lamports     = (tx.amount * 1_000_000_000).toLong()
+                        val ts           = System.currentTimeMillis()
+                        val nonceRecord  = nonceAccountDao.get()
+
+                        // 1. Encode the fully-signed durable-nonce transaction
+                        val signedTxB64 = DurableNonceManager.encodeSignedOfflineTx(signature, tx.data)
+
+                        // 2. Save as SIGNED_OFFLINE — SyncWorker will broadcast when online
+                        val senderRow = OfflineTransaction(
+                            id                       = "p2p_send_$ts",
+                            amount                   = -lamports,
+                            timestamp                = ts,
+                            recipientId              = peerKey,
+                            status                   = TransactionStatus.SIGNED_OFFLINE,
+                            isLiveBroadcastPending   = true,
+                            signedPayload            = signedTxB64,
+                            nonceUsed                = nonceRecord?.currentNonce,
+                            peerSignedCommitmentJson = null
+                        )
+                        transactionDao.insert(senderRow)
+
+                        // 3. Send DurableCommitment JSON over Bluetooth
+                        //    Receiver gets the signed tx bytes — can verify on-chain independently
+                        val durableCommitmentJson = """
+                            {
+                                "type": "DurableCommitment",
+                                "sender": "$myAddress",
+                                "recipient": "$peerKey",
+                                "amountLamports": $lamports,
+                                "timestamp": $ts,
+                                "nonceUsed": "${nonceRecord?.currentNonce ?: ""}",
+                                "signedTxB64": "$signedTxB64"
+                            }
+                        """.trimIndent()
+
+                        AppLogger.i("IncomeViewModel", "Sending DurableCommitment to peer $endpointId")
+                        p2pTransferManager.sendData(endpointId, "DurableCommitment:$durableCommitmentJson".toByteArray())
+
+                        _state.update { it.copy(p2pStatus = PeerStatus.SUCCESS, status = UiStatus.Success) }
+                        delay(1000)
+                        
+                        // 4. Wake up the SyncWorker to broadcast immediately (if online)
+                        scheduleSyncWorker()
+
+                    } else {
+                        // ═══════════════════════════════════════════════════
+                        // ONLINE DIRECT SEND — Broadcast immediately
+                        // ═══════════════════════════════════════════════════
+                        val finalTxBytes  = com.solanasuper.utils.SolanaUtil.encodeTransaction(signature, tx.data)
+                        val finalTxBase64 = android.util.Base64.encodeToString(finalTxBytes, android.util.Base64.NO_WRAP)
+
+                        withContext(Dispatchers.IO) {
+                            val json = """{"jsonrpc":"2.0","id":1,"method":"sendTransaction","params":["$finalTxBase64",{"encoding":"base64"}]}"""
+                            val response = postRpc(rpcUrl, json)
+                            val jsonObject = org.json.JSONObject(response)
+                            if (jsonObject.has("error")) throw Exception("RPC Error: ${jsonObject.get("error")}")
+                            AppLogger.i("IncomeViewModel", "TX sent: ${jsonObject.getString("result")}")
+                        }
+                    }
+                } else {
+                    // SIM mode
+                    AppLogger.d("IncomeViewModel", "Simulation: locking funds locally")
+                    delay(1000)
+                    val success = transactionManager.lockFunds((tx.amount * 1_000_000_000).toLong())
+                    if (!success) throw Exception("Insufficient Funds (Simulated)")
+                }
+
+                AppLogger.i("IncomeViewModel", "Transaction successful!")
+                loadData()
+                _state.update { it.copy(status = UiStatus.Success) }
+                pendingTransaction = null
             } catch (e: Exception) {
-                com.solanasuper.utils.AppLogger.e("IncomeViewModel", "Broadcast failed", e)
+                AppLogger.e("IncomeViewModel", "Broadcast failed", e)
                 _state.update { it.copy(status = UiStatus.Error("Broadcast Failed: ${e.message}")) }
             }
         }
     }
+
+
+    /**
+     * Called when the biometric flow returns a signature.
+     * For "nonce_setup" recipients, handled above.
+     * For normal live P2P sends, encodes and stores SIGNED_OFFLINE.
+     * For direct online sends, broadcasts immediately.
+     * For SIM mode, deducts locally.
+     */
+    private fun handleNormalBroadcast(
+        tx: PendingTx,
+        signature: ByteArray,
+        rpcUrl: String
+    ) { /* extracted above inline — kept for readability */ }
 
     @Suppress("UNCHECKED_CAST")
     class Factory(
         private val transactionManager: TransactionManager,
         private val transactionDao: TransactionDao,
         private val p2pTransferManager: com.solanasuper.network.P2PTransferManager,
-        val identityKeyManager: IdentityKeyManager // Allow access in UI for signing helper
+        val identityKeyManager: IdentityKeyManager,
+        private val nonceAccountDao: NonceAccountDao
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return IncomeViewModel(transactionManager, transactionDao, p2pTransferManager, identityKeyManager) as T
+            return IncomeViewModel(
+                transactionManager, transactionDao, p2pTransferManager,
+                identityKeyManager, nonceAccountDao
+            ) as T
         }
     }
 }

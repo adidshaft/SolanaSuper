@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 50" fill="none">
+  <defs>
+    <linearGradient id="ipfs-g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#65C8E0"/>
+      <stop offset="100%" stop-color="#469EA0"/>
+    </linearGradient>
+  </defs>
+  <!-- Cube icon -->
+  <polygon points="22,8 36,16 36,32 22,40 8,32 8,16" stroke="url(#ipfs-g)" stroke-width="2" fill="none"/>
+  <line x1="22" y1="8" x2="22" y2="24" stroke="url(#ipfs-g)" stroke-width="1.5"/>
+  <line x1="8" y1="16" x2="22" y2="24" stroke="url(#ipfs-g)" stroke-width="1.5"/>
+  <line x1="36" y1="16" x2="22" y2="24" stroke="url(#ipfs-g)" stroke-width="1.5"/>
+  <circle cx="22" cy="24" r="3" fill="url(#ipfs-g)"/>
+  <text x="48" y="34" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="white" letter-spacing="0.5">IPFS</text>
+</svg>

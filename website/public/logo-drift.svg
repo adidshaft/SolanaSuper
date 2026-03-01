@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 50" fill="none">
+  <defs>
+    <linearGradient id="drift-g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9945FF"/>
+      <stop offset="100%" stop-color="#03E1FF"/>
+    </linearGradient>
+  </defs>
+  <polygon points="8,10 26,25 8,40 2,25" fill="url(#drift-g)"/>
+  <polygon points="20,10 38,25 20,40 14,25" fill="url(#drift-g)" opacity="0.7"/>
+  <text x="46" y="34" font-family="Arial, sans-serif" font-size="22" font-weight="800" fill="white" letter-spacing="1">DRIFT</text>
+</svg>

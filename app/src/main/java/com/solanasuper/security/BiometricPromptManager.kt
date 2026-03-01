@@ -6,13 +6,14 @@ import androidx.biometric.BiometricPrompt
 import androidx.biometric.BiometricPrompt.PromptInfo
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.channels.BufferOverflow
 
 class BiometricPromptManager(private val activity: FragmentActivity) {
 
-    private val resultChannel = Channel<BiometricResult>()
-    val promptResults = resultChannel.receiveAsFlow()
+    private val resultChannel = MutableSharedFlow<BiometricResult>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    val promptResults = resultChannel.asSharedFlow()
 
     fun showBiometricPrompt(
         title: String,
@@ -42,17 +43,17 @@ class BiometricPromptManager(private val activity: FragmentActivity) {
         val prompt = BiometricPrompt(activity, ContextCompat.getMainExecutor(activity), object : BiometricPrompt.AuthenticationCallback() {
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                 super.onAuthenticationError(errorCode, errString)
-                resultChannel.trySend(BiometricResult.AuthenticationError(errString.toString()))
+                resultChannel.tryEmit(BiometricResult.AuthenticationError(errString.toString()))
             }
 
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
-                resultChannel.trySend(BiometricResult.AuthenticationSuccess(result))
+                resultChannel.tryEmit(BiometricResult.AuthenticationSuccess(result))
             }
 
             override fun onAuthenticationFailed() {
                 super.onAuthenticationFailed()
-                resultChannel.trySend(BiometricResult.AuthenticationFailed)
+                resultChannel.tryEmit(BiometricResult.AuthenticationFailed)
             }
         })
 

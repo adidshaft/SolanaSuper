@@ -31,6 +31,7 @@ object IpfsUploader {
                 connection.requestMethod = "POST"
                 connection.doOutput = true
                 connection.setRequestProperty("Content-Type", "application/json")
+                connection.setRequestProperty("Connection", "close")
                 
                 // AUTHENTICATION
                 val jwt = BuildConfig.IPFS_JWT

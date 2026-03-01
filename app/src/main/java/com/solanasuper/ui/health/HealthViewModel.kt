@@ -113,6 +113,7 @@ class HealthViewModel(
                         connection.requestMethod = "POST"
                         connection.doOutput = true
                         connection.setRequestProperty("Content-Type", "application/json")
+                        connection.setRequestProperty("Connection", "close")
                         
                         // Construct JSON Payload compatible with Relay
                         val json = org.json.JSONObject()

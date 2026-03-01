@@ -536,6 +536,7 @@ class IncomeViewModel(
         connection.requestMethod = "POST"
         connection.doOutput = true
         connection.setRequestProperty("Content-Type", "application/json")
+        connection.setRequestProperty("Connection", "close")
         connection.connectTimeout = 60000 // 60s for Render cold-start (strict rule)
         connection.readTimeout = 60000
         

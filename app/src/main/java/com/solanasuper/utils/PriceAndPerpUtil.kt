@@ -39,6 +39,7 @@ object PriceAndPerpUtil {
             conn.connectTimeout = 8_000
             conn.readTimeout   = 8_000
             conn.setRequestProperty("Accept", "application/json")
+            conn.setRequestProperty("Connection", "close")
 
             if (conn.responseCode != 200) {
                 Log.w(TAG, "Pyth price feed returned ${conn.responseCode}, using fallback")

@@ -154,6 +154,7 @@ class GovernanceViewModel(
                         connection.requestMethod = "POST"
                         connection.doOutput = true
                         connection.setRequestProperty("Content-Type", "application/json")
+                        connection.setRequestProperty("Connection", "close")
                         val proofHex = response.proofData.toByteArray().joinToString("") { "%02x".format(it) }
                         val json = org.json.JSONObject()
                         json.put("proposalId", proposalId)

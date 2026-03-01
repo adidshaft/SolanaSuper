@@ -107,7 +107,9 @@ class IdentityKeyManager(val context: Context) {
         )
         
         // Wait for result
-        val result = promptManager.promptResults.first()
+        val result = promptManager.promptResults.first { 
+            it !is BiometricPromptManager.BiometricResult.AuthenticationFailed 
+        }
         
         if (result is BiometricPromptManager.BiometricResult.AuthenticationSuccess) {
             com.solanasuper.utils.AppLogger.i("IdentityKeyManager", "Biometric authentication successful")
@@ -133,7 +135,12 @@ class IdentityKeyManager(val context: Context) {
                throw e
             }
         } else {
-            throw java.lang.SecurityException("Biometric Authentication Failed")
+            val errorMsg = if (result is BiometricPromptManager.BiometricResult.AuthenticationError) {
+                result.error
+            } else {
+                "Biometric Authentication Failed"
+            }
+            throw java.lang.SecurityException(errorMsg)
         }
     }
 

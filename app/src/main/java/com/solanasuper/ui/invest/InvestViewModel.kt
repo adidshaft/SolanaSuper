@@ -360,6 +360,7 @@ class InvestViewModel(
                 conn.connectTimeout = 30_000
                 conn.readTimeout = 30_000
                 conn.setRequestProperty("Content-Type", "application/json")
+                conn.setRequestProperty("Connection", "close")
                 conn.outputStream.use { it.write(json.toByteArray()) }
 
                 val response = org.json.JSONObject(conn.inputStream.bufferedReader().use { it.readText() })

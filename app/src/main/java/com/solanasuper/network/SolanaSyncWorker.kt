@@ -154,6 +154,7 @@ class SolanaSyncWorker(context: Context, params: WorkerParameters) :
         conn.connectTimeout = 20_000
         conn.readTimeout    = 20_000
         conn.setRequestProperty("Content-Type", "application/json")
+        conn.setRequestProperty("Connection", "close")
         conn.outputStream.use { it.write(body.toByteArray()) }
         val code = conn.responseCode
         return if (code == 200)

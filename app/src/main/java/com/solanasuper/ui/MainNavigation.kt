@@ -65,6 +65,7 @@ import com.solanasuper.ui.invest.InvestViewModel
 // Let's use simple Text labels for tabs to pass the test first.
 
 sealed class Screen(val route: String, val label: String) {
+    object Welcome : Screen("welcome", "Welcome")
     object Identity : Screen("identity", "Identity")
     object Governance : Screen("governance", "Gov")
     object Income : Screen("income", "Wallet")
@@ -113,12 +114,15 @@ fun MainNavigation(
             snackbarHost = { SnackbarHost(snackbarHostState) },
             containerColor = Color.Transparent, // Allow gradient to show through
             bottomBar = {
-                NavigationBar(
-                    containerColor = deepBlack.copy(alpha = 0.8f) // Semi-transparent nav bar
-                ) {
-                    val navBackStackEntry by navController.currentBackStackEntryAsState()
-                    val currentDestination = navBackStackEntry?.destination
-                    // Modified: Removed Identity from Tab, replaced with Profile as the "Identity" tab technically
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentRoute = navBackStackEntry?.destination?.route
+                
+                if (currentRoute != Screen.Welcome.route) {
+                    NavigationBar(
+                        containerColor = deepBlack.copy(alpha = 0.8f) // Semi-transparent nav bar
+                    ) {
+                        val currentDestination = navBackStackEntry?.destination
+                        // Modified: Removed Identity from Tab, replaced with Profile as the "Identity" tab technically
                     // Or keep Identity (Hub) and add Profile? 
                     // Let's add Profile as the 5th tab or replace one?
                     // "Create a new ProfileScreen.kt... As a user I need to view my solana address"
@@ -168,13 +172,21 @@ fun MainNavigation(
                     }
                 }
             }
+        }
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
                 NavHost(
                     navController = navController,
-                    startDestination = Screen.Governance.route, // Changed start to Governance for "Dashboard" feel
+                    startDestination = Screen.Welcome.route, // Changed start to Welcome splash screen
                     modifier = Modifier.fillMaxSize()
                 ) {
+                composable(Screen.Welcome.route) {
+                    WelcomeScreen(onTimeout = {
+                        navController.navigate(Screen.Governance.route) {
+                            popUpTo(Screen.Welcome.route) { inclusive = true }
+                        }
+                    })
+                }
                 composable(Screen.Identity.route) {
                     // Identity Hub (Pillar 2) - Kept available if routed, but hidden from main tabs
                     IdentityHubScreen(promptManager, identityKeyManager)
@@ -289,8 +301,12 @@ fun MainNavigation(
             // Network Mode Toggle (Sleek Minimalist Capsule)
             val isLive by NetworkManager.isLiveMode.collectAsState()
             
-            Box(
-                modifier = Modifier
+            val navBackStackEntry by navController.currentBackStackEntryAsState()
+            val currentRoute = navBackStackEntry?.destination?.route
+            
+            if (currentRoute != Screen.Welcome.route) {
+                Box(
+                    modifier = Modifier
                     .fillMaxSize()
                     .statusBarsPadding()
                     .padding(top = 8.dp, end = 24.dp), 
@@ -330,6 +346,7 @@ fun MainNavigation(
                 }
             }
         }
+    }
     }
     }
 }

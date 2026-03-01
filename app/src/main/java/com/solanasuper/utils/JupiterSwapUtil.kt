@@ -56,6 +56,7 @@ object JupiterSwapUtil {
         conn.connectTimeout = 15_000
         conn.readTimeout   = 15_000
         conn.setRequestProperty("Accept", "application/json")
+        conn.setRequestProperty("Connection", "close")
 
         val responseCode = conn.responseCode
         val body = if (responseCode == 200) {
@@ -107,6 +108,7 @@ object JupiterSwapUtil {
         conn.readTimeout   = 20_000
         conn.setRequestProperty("Content-Type", "application/json")
         conn.setRequestProperty("Accept", "application/json")
+        conn.setRequestProperty("Connection", "close")
         conn.outputStream.use { it.write(payload.toString().toByteArray()) }
 
         val responseCode = conn.responseCode

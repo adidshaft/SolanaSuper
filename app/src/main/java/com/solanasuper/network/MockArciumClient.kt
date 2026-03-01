@@ -26,6 +26,7 @@ class MockArciumClient {
                 connection.connectTimeout = 3000 // Strict 3s timeout
                 connection.readTimeout = 3000
                 connection.setRequestProperty("Content-Type", "application/octet-stream")
+                connection.setRequestProperty("Connection", "close")
                 
                 connection.outputStream.use { os ->
                     os.write(zkProof)

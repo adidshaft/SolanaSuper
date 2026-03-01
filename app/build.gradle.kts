@@ -120,14 +120,10 @@ afterEvaluate {
     }
 }
 
-// Custom Task to build Rust
+// Custom Task to build Rust (Handled by CMakeLists.txt now)
 tasks.register<Exec>("cargoBuild") {
     workingDir(file("src/main/cpp"))
-    if (System.getenv("CI") == "true") {
-        commandLine("./build_rust.sh")
-    } else {
-        commandLine("echo", "Skipping Rust build (Local Environment) - CI Only")
-    }
+    commandLine("echo", "Rust build is handled by CMakeLists.txt during the standard native build phase")
 }
 
 // Hook Rust build into standard build process

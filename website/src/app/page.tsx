@@ -70,14 +70,14 @@ export default function Home() {
       </section>
 
       {/* Ecosystem Integration Bar */}
-      <div className="py-10 border-y border-white/5 bg-black/20 z-10 relative">
-        <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center gap-12 sm:gap-24 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-          {/* Ecosystem Logos - stylized text for demo */}
-          <div className="text-xl font-bold flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-[#00FFA3]"></div> Solana</div>
-          <div className="text-xl font-bold flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-[#03E1FF]"></div> Arcium</div>
-          <div className="text-xl font-bold flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-blue-400"></div> IPFS</div>
-          <div className="text-xl font-bold flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-green-400"></div> Jupiter</div>
-          <div className="text-xl font-bold flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-purple-500"></div> Drift</div>
+      <div className="py-10 border-y border-white/5 bg-black/40 backdrop-blur-md z-10 relative">
+        <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center items-center gap-12 sm:gap-20 opacity-60 hover:opacity-100 transition-opacity duration-500">
+          <img src="https://cryptologos.cc/logos/solana-sol-logo.svg?v=025" alt="Solana" title="Solana" className="h-8 md:h-10 w-auto hover:-translate-y-1 transition-transform" />
+          <img src="https://logo.clearbit.com/jito.network" alt="Jito" title="Jito Networks" className="h-8 md:h-10 w-auto hover:-translate-y-1 transition-transform object-contain grayscale hover:grayscale-0" />
+          <img src="https://logo.clearbit.com/arcium.com" alt="Arcium" title="Arcium" className="h-8 md:h-10 w-auto hover:-translate-y-1 transition-transform object-contain grayscale hover:grayscale-0" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Ipfs-logo-1024-ice-text.png" alt="IPFS" title="IPFS" className="h-8 md:h-10 w-auto hover:-translate-y-1 transition-transform object-contain" />
+          <img src="https://logo.clearbit.com/jup.ag" alt="Jupiter" title="Jupiter" className="h-8 md:h-10 w-auto hover:-translate-y-1 transition-transform object-contain grayscale hover:grayscale-0 rounded-full" />
+          <img src="https://logo.clearbit.com/drift.trade" alt="Drift" title="Drift Protocol" className="h-8 md:h-10 w-auto hover:-translate-y-1 transition-transform object-contain grayscale hover:grayscale-0" />
         </div>
       </div>
 
@@ -109,8 +109,8 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="flex-1 flex justify-center">
-            <div className="relative rounded-[2.5rem] overflow-hidden border-8 border-white/10 shadow-2xl max-w-[300px]">
+          <div className="flex-1 flex justify-center floating">
+            <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_0_60px_rgba(3,225,255,0.15)] max-w-[300px] glass-card">
               {/* USER MUST PROVIDE THE ATTACHED INVEST SCREENSHOT HERE */}
               <img src="/invest.png" alt="SolanaSuper Invest Dashboard Demo" className="w-full h-auto object-cover" />
             </div>
@@ -121,8 +121,8 @@ export default function Home() {
       {/* Offline Feature Highlights */}
       <section id="offline" className="py-32 relative z-10 bg-black/40 border-y border-white/5">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
-          <div className="order-2 md:order-1 flex justify-center">
-            <div className="relative rounded-[2.5rem] overflow-hidden border-8 border-white/10 shadow-2xl max-w-[300px]">
+          <div className="order-2 md:order-1 flex justify-center floating" style={{ animationDelay: "1s" }}>
+            <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_0_60px_rgba(153,69,255,0.15)] max-w-[300px] glass-card">
               {/* USER MUST PROVIDE THE ATTACHED PROFILE/WALLET SCREENSHOT HERE */}
               <img src="/profile.png" alt="SolanaSuper Sovereign Identity Demo" className="w-full h-auto object-cover" />
             </div>
@@ -168,8 +168,8 @@ export default function Home() {
                 Medical records and property deeds encrypted natively on-device and pinned to decentralized IPFS. Powered securely by Arcium.
               </p>
             </div>
-            <div className="flex justify-center">
-              <div className="relative rounded-[2.5rem] overflow-hidden border-8 border-white/10 shadow-2xl max-w-[280px]">
+            <div className="flex justify-center floating" style={{ animationDelay: "2s" }}>
+              <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_0_60px_rgba(3,225,255,0.15)] max-w-[280px] glass-card">
                 {/* USER MUST PROVIDE THE ATTACHED HEALTH SCREENSHOT HERE */}
                 <img src="/health.png" alt="SolanaSuper Health Vault Demo" className="w-full h-auto object-cover" />
               </div>
@@ -184,8 +184,8 @@ export default function Home() {
                 Submit transparent community referendums. The network executes democratic consensus using impenetrable smart contracts.
               </p>
             </div>
-            <div className="flex justify-center">
-              <div className="relative rounded-[2.5rem] overflow-hidden border-8 border-white/10 shadow-2xl max-w-[280px]">
+            <div className="flex justify-center floating" style={{ animationDelay: "0.5s" }}>
+              <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_0_60px_rgba(20,241,149,0.15)] max-w-[280px] glass-card">
                 {/* USER MUST PROVIDE THE ATTACHED GOVERNANCE SCREENSHOT HERE */}
                 <img src="/gov.png" alt="SolanaSuper Democracy Democracy Demo" className="w-full h-auto object-cover" />
               </div>
@@ -209,7 +209,7 @@ export default function Home() {
             <a href="https://github.com/adidshaft/SolanaSuper" target="_blank" className="text-gray-400 hover:text-white transition-colors">Github Source</a>
           </div>
           <p className="text-gray-600 text-sm mb-2">Powered by Native Decentralized Networks & SovereignLife OS. Zero Compromises.</p>
-          <p className="text-[#3DDC84]/80 text-sm font-medium tracking-wide">BUILT BY KYOKA SUIGETSU</p>
+          <a href="https://kyokasuigetsu.xyz" target="_blank" rel="noopener noreferrer" className="text-[#3DDC84] hover:text-[#00FFA3] text-sm font-medium tracking-wide transition-colors">BUILT BY KYOKA SUIGETSU</a>
         </div>
       </footer>
     </main>

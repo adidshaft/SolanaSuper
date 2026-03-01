@@ -96,9 +96,9 @@ export default function Home() {
           Powered by SovereignLife OS
         </div>
 
-        <h1 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter mb-6 leading-[1.05] break-words max-w-full">
+        <h1 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter mb-6 leading-[1.05]">
           The Decentralized
-          <br className="hidden md:block" />
+          <br />
           <span className="bg-gradient-to-r from-[#14F195] via-[#03E1FF] to-[#9945FF] bg-clip-text text-transparent">
             Super App.
           </span>
@@ -145,7 +145,7 @@ export default function Home() {
 
       {/* === Ecosystem Bar === */}
       <div className="py-10 border-y border-white/5 bg-black/50 backdrop-blur-md z-10 relative px-4 text-center">
-        <p className="text-xs font-semibold tracking-widest uppercase text-gray-600 mb-8 break-words">Built on the best infrastructure in crypto</p>
+        <p className="text-xs font-semibold tracking-widest uppercase text-gray-600 mb-8">Built on the best infrastructure in crypto</p>
         <div className="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-6 sm:gap-10 md:gap-16">
           {PARTNERS.map((p) => (
             <a
@@ -174,7 +174,7 @@ export default function Home() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#14F195]/20 bg-[#14F195]/5 text-xs font-bold text-[#14F195] tracking-widest uppercase mb-6">
               DeFi Hub
             </div>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-5 leading-tight break-words">
+            <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-5 leading-tight">
               A Permissionless<br className="hidden sm:block" /> Economy in Your Pocket.
             </h2>
             <p className="text-base md:text-lg text-gray-400 mb-10 leading-relaxed max-w-lg">
@@ -248,7 +248,7 @@ export default function Home() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-500/20 bg-purple-500/5 text-xs font-bold text-purple-400 tracking-widest uppercase mb-6 flex-wrap">
               <Wifi className="w-3 h-3 shrink-0" /> Bluetooth Mesh
             </div>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-5 leading-tight break-words">
+            <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-5 leading-tight">
               Send cash off-the-grid.<br className="hidden sm:block" /> No ISP Required.
             </h2>
             <p className="text-base text-gray-400 mb-8 leading-relaxed">
@@ -278,7 +278,7 @@ export default function Home() {
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#03E1FF]/20 bg-[#03E1FF]/5 text-xs font-bold text-[#03E1FF] tracking-widest uppercase mb-6">
           Data Sovereignty
         </div>
-        <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-5 break-words">Unbreakable Sovereignty.</h2>
+        <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-5">Unbreakable Sovereignty.</h2>
         <p className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-16 md:mb-20 leading-relaxed">
           Centralized cloud providers are single points of failure. Become untethered with
           IPFS distributed storage and Arcium confidential computing.
@@ -336,7 +336,7 @@ export default function Home() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#14F195]/20 bg-[#14F195]/5 text-xs font-bold text-[#14F195] tracking-widest uppercase mb-6 flex-wrap">
               <Lock className="w-3 h-3 shrink-0" /> Self-Sovereign Identity
             </div>
-            <h2 className="text-3xl md:text-4xl font-black tracking-tighter mb-4 leading-tight break-words">
+            <h2 className="text-3xl md:text-4xl font-black tracking-tighter mb-4 leading-tight">
               Your keys. Your identity.<br className="hidden sm:block" />
               <span className="text-[#14F195]">Your rules.</span>
             </h2>
@@ -371,7 +371,7 @@ export default function Home() {
       {/* === Tech Stack === */}
       <section id="tech" className="py-16 md:py-24 relative z-10 bg-gradient-to-b from-transparent via-black/50 to-transparent border-y border-white/5 w-full">
         <div className="max-w-7xl mx-auto px-4 md:px-6 text-center w-full">
-          <h2 className="text-3xl md:text-4xl font-black tracking-tighter mb-4 break-words">Built on Uncompromising Tech</h2>
+          <h2 className="text-3xl md:text-4xl font-black tracking-tighter mb-4">Built on Uncompromising Tech</h2>
           <p className="text-gray-400 max-w-xl mx-auto mb-12 md:mb-16 text-sm leading-relaxed px-2">
             Every layer is open-source, auditable, and battle-tested. No proprietary black boxes.
           </p>
@@ -409,9 +409,9 @@ export default function Home() {
           {/* BG glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 md:w-96 md:h-96 bg-[#14F195]/10 rounded-full blur-3xl pointer-events-none" />
           <div className="relative">
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-4 break-words overflow-wrap-normal">
+            <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-4">
               Ready to become<br className="hidden sm:block" />{' '}
-              <span className="bg-gradient-to-r from-[#14F195] to-[#9945FF] bg-clip-text text-transparent break-words">
+              <span className="bg-gradient-to-r from-[#14F195] to-[#9945FF] bg-clip-text text-transparent">
                 sovereign?
               </span>
             </h2>

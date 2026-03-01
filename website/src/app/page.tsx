@@ -6,12 +6,12 @@ const APK_URL = 'https://github.com/adidshaft/SolanaSuper/releases/tag/latest';
 const GITHUB_URL = 'https://github.com/adidshaft/SolanaSuper';
 
 const PARTNERS = [
-  { name: 'Solana',   logo: '/logo-solana.svg',  href: 'https://solana.com' },
-  { name: 'Jito',     logo: '/logo-jito.svg',    href: 'https://jito.network' },
-  { name: 'Jupiter',  logo: '/logo-jupiter.svg', href: 'https://jup.ag' },
-  { name: 'Drift',    logo: '/logo-drift.svg',   href: 'https://drift.trade' },
-  { name: 'Arcium',   logo: '/logo-arcium.svg',  href: 'https://arcium.com' },
-  { name: 'IPFS',     logo: '/logo-ipfs.svg',    href: 'https://ipfs.tech' },
+  { name: 'Solana', logo: '/logo-solana.svg', href: 'https://solana.com' },
+  { name: 'Jito', logo: '/logo-jito.svg', href: 'https://jito.network' },
+  { name: 'Jupiter', logo: '/logo-jupiter.svg', href: 'https://jup.ag' },
+  { name: 'Drift', logo: '/logo-drift.svg', href: 'https://drift.trade' },
+  { name: 'Arcium', logo: '/logo-arcium.svg', href: 'https://arcium.com' },
+  { name: 'IPFS', logo: '/logo-ipfs.svg', href: 'https://ipfs.tech' },
 ];
 
 const STATS = [
@@ -45,31 +45,31 @@ export default function Home() {
 
       {/* === Nav === */}
       <nav className="fixed w-full z-50 py-4 border-b border-white/5 backdrop-blur-xl bg-black/30">
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#14F195] to-[#9945FF] p-[2px]">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 flex justify-between items-center">
+          <div className="flex items-center gap-2 md:gap-3">
+            <div className="w-8 h-8 md:w-9 md:h-9 rounded-xl bg-gradient-to-br from-[#14F195] to-[#9945FF] p-[2px]">
               <div className="w-full h-full rounded-[10px] bg-[#080B12] flex items-center justify-center">
-                <img src="/logo.svg" alt="Logo" className="w-5 h-5 object-contain" />
+                <img src="/logo.svg" alt="Logo" className="w-4 h-4 md:w-5 md:h-5 object-contain" />
               </div>
             </div>
-            <span className="text-lg font-bold tracking-tight text-white">
+            <span className="text-base md:text-lg font-bold tracking-tight text-white">
               Solana<span className="text-[#14F195]">Super</span>
             </span>
           </div>
 
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
             <a href="#features" className="hover:text-white transition-colors">Features</a>
-            <a href="#offline"  className="hover:text-white transition-colors">Mesh Network</a>
-            <a href="#data"     className="hover:text-white transition-colors">Sovereignty</a>
-            <a href="#tech"     className="hover:text-white transition-colors">Tech</a>
+            <a href="#offline" className="hover:text-white transition-colors">Mesh Network</a>
+            <a href="#data" className="hover:text-white transition-colors">Sovereignty</a>
+            <a href="#tech" className="hover:text-white transition-colors">Tech</a>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <a
               href={GITHUB_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-sm font-medium text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-white/5"
+              className="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors px-2 sm:px-3 py-2 rounded-lg hover:bg-white/5"
             >
               <Github className="w-4 h-4" />
               <span className="hidden sm:inline">GitHub</span>
@@ -78,24 +78,25 @@ export default function Home() {
               href={APK_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-sm font-bold px-4 py-2 rounded-lg bg-[#14F195] text-black hover:bg-[#00FFA3] transition-all hover:scale-105 active:scale-95"
+              className="flex items-center gap-1.5 text-xs sm:text-sm font-bold px-3 py-2 sm:px-4 sm:py-2 rounded-lg bg-[#14F195] text-black hover:bg-[#00FFA3] transition-all hover:scale-105 active:scale-95"
             >
               <Download className="w-4 h-4" />
-              Download APK
+              <span className="hidden sm:inline">Download APK</span>
+              <span className="sm:hidden">Get App</span>
             </a>
           </div>
         </div>
       </nav>
 
       {/* === Hero === */}
-      <section className="relative pt-44 pb-24 px-6 max-w-7xl mx-auto z-10 flex flex-col items-center text-center">
+      <section className="relative pt-36 md:pt-44 pb-16 md:pb-24 px-4 md:px-6 max-w-7xl mx-auto z-10 flex flex-col items-center text-center">
         {/* Badge */}
-        <div className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#14F195]/30 bg-[#14F195]/5 text-xs font-semibold text-[#14F195] tracking-widest uppercase mb-10">
+        <div className="flex items-center gap-2 px-3 md:px-4 py-1.5 rounded-full border border-[#14F195]/30 bg-[#14F195]/5 text-[10px] md:text-xs font-semibold text-[#14F195] tracking-widest uppercase mb-8 md:mb-10 w-fit max-w-[90vw] overflow-hidden text-ellipsis whitespace-nowrap">
           <span className="w-1.5 h-1.5 rounded-full bg-[#14F195] animate-pulse inline-block" />
-          Powered by SovereignLife OS Infrastructure
+          Powered by SovereignLife OS
         </div>
 
-        <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-6 leading-[1.05]">
+        <h1 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter mb-6 leading-[1.05] break-words max-w-full">
           The Decentralized
           <br className="hidden md:block" />
           <span className="bg-gradient-to-r from-[#14F195] via-[#03E1FF] to-[#9945FF] bg-clip-text text-transparent">
@@ -143,9 +144,9 @@ export default function Home() {
       </section>
 
       {/* === Ecosystem Bar === */}
-      <div className="py-10 border-y border-white/5 bg-black/50 backdrop-blur-md z-10 relative">
-        <p className="text-center text-xs font-semibold tracking-widest uppercase text-gray-600 mb-8">Built on the best infrastructure in crypto</p>
-        <div className="max-w-5xl mx-auto px-6 flex flex-wrap justify-center items-center gap-10 sm:gap-16">
+      <div className="py-10 border-y border-white/5 bg-black/50 backdrop-blur-md z-10 relative px-4 text-center">
+        <p className="text-xs font-semibold tracking-widest uppercase text-gray-600 mb-8 break-words">Built on the best infrastructure in crypto</p>
+        <div className="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-6 sm:gap-10 md:gap-16">
           {PARTNERS.map((p) => (
             <a
               key={p.name}
@@ -167,16 +168,16 @@ export default function Home() {
       </div>
 
       {/* === Features: DeFi === */}
-      <section id="features" className="py-32 px-6 max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row gap-16 items-center">
-          <div className="flex-1">
+      <section id="features" className="py-24 md:py-32 px-4 md:px-6 max-w-7xl mx-auto relative z-10">
+        <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-center">
+          <div className="flex-1 w-full">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#14F195]/20 bg-[#14F195]/5 text-xs font-bold text-[#14F195] tracking-widest uppercase mb-6">
               DeFi Hub
             </div>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-5 leading-tight">
-              A Permissionless<br />Economy in Your Pocket.
+            <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-5 leading-tight break-words">
+              A Permissionless<br className="hidden sm:block" /> Economy in Your Pocket.
             </h2>
-            <p className="text-lg text-gray-400 mb-10 leading-relaxed max-w-lg">
+            <p className="text-base md:text-lg text-gray-400 mb-10 leading-relaxed max-w-lg">
               Your treasury shouldn&apos;t sit idle. SolanaSuper gives you direct access to
               deep ecosystem liquidity straight from your mobile.
             </p>
@@ -231,24 +232,24 @@ export default function Home() {
       </section>
 
       {/* === Features: Offline Mesh === */}
-      <section id="offline" className="py-32 relative z-10 bg-gradient-to-b from-transparent via-black/40 to-transparent border-y border-white/5">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
+      <section id="offline" className="py-24 md:py-32 relative z-10 bg-gradient-to-b from-transparent via-black/40 to-transparent border-y border-white/5">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-12 md:gap-20 items-center">
 
           <div className="flex justify-center order-2 md:order-1">
             <div className="relative">
               <div className="absolute inset-0 rounded-[2.5rem] bg-[#9945FF]/20 blur-3xl scale-75" />
-              <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_0_60px_rgba(153,69,255,0.15)] max-w-[290px] bg-white/[0.02] floating" style={{ animationDelay: '1s' }}>
+              <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_0_60px_rgba(153,69,255,0.15)] max-w-[290px] w-full bg-white/[0.02] floating" style={{ animationDelay: '1s' }}>
                 <img src="/wallet.jpg" alt="SolanaSuper Offline Wallet" className="w-full h-auto object-cover" />
               </div>
             </div>
           </div>
 
-          <div className="order-1 md:order-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-500/20 bg-purple-500/5 text-xs font-bold text-purple-400 tracking-widest uppercase mb-6">
-              <Wifi className="w-3 h-3" /> Bluetooth Mesh
+          <div className="order-1 md:order-2 w-full">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-500/20 bg-purple-500/5 text-xs font-bold text-purple-400 tracking-widest uppercase mb-6 flex-wrap">
+              <Wifi className="w-3 h-3 shrink-0" /> Bluetooth Mesh
             </div>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-5 leading-tight">
-              Send cash off-the-grid.<br />No ISP Required.
+            <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-5 leading-tight break-words">
+              Send cash off-the-grid.<br className="hidden sm:block" /> No ISP Required.
             </h2>
             <p className="text-base text-gray-400 mb-8 leading-relaxed">
               If the grid goes down, commerce continues. We implement Jack Dorsey&apos;s
@@ -273,12 +274,12 @@ export default function Home() {
       </section>
 
       {/* === Features: Sovereignty === */}
-      <section id="data" className="py-32 px-6 max-w-7xl mx-auto relative z-10 text-center">
+      <section id="data" className="py-24 md:py-32 px-4 md:px-6 max-w-7xl mx-auto relative z-10 text-center w-full">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#03E1FF]/20 bg-[#03E1FF]/5 text-xs font-bold text-[#03E1FF] tracking-widest uppercase mb-6">
           Data Sovereignty
         </div>
-        <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-5">Unbreakable Sovereignty.</h2>
-        <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-20 leading-relaxed">
+        <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-5 break-words">Unbreakable Sovereignty.</h2>
+        <p className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-16 md:mb-20 leading-relaxed">
           Centralized cloud providers are single points of failure. Become untethered with
           IPFS distributed storage and Arcium confidential computing.
         </p>
@@ -329,14 +330,14 @@ export default function Home() {
       </section>
 
       {/* === Profile / Income Screenshots === */}
-      <section className="py-20 px-6 max-w-7xl mx-auto relative z-10">
+      <section className="py-16 md:py-20 px-4 md:px-6 max-w-7xl mx-auto relative z-10 w-full">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#14F195]/20 bg-[#14F195]/5 text-xs font-bold text-[#14F195] tracking-widest uppercase mb-6">
-              <Lock className="w-3 h-3" /> Self-Sovereign Identity
+          <div className="w-full">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#14F195]/20 bg-[#14F195]/5 text-xs font-bold text-[#14F195] tracking-widest uppercase mb-6 flex-wrap">
+              <Lock className="w-3 h-3 shrink-0" /> Self-Sovereign Identity
             </div>
-            <h2 className="text-3xl md:text-4xl font-black tracking-tighter mb-4 leading-tight">
-              Your keys. Your identity.<br />
+            <h2 className="text-3xl md:text-4xl font-black tracking-tighter mb-4 leading-tight break-words">
+              Your keys. Your identity.<br className="hidden sm:block" />
               <span className="text-[#14F195]">Your rules.</span>
             </h2>
             <p className="text-base text-gray-400 leading-relaxed mb-6">
@@ -354,7 +355,7 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-4">
             {[
               { src: '/profile.png', alt: 'Profile & Identity', delay: '0s' },
-              { src: '/health.png',  alt: 'Health Vault',       delay: '0.8s' },
+              { src: '/health.png', alt: 'Health Vault', delay: '0.8s' },
             ].map(({ src, alt, delay }) => (
               <div key={src} className="relative floating" style={{ animationDelay: delay }}>
                 <div className="absolute inset-0 rounded-3xl bg-[#9945FF]/10 blur-xl" />
@@ -368,21 +369,21 @@ export default function Home() {
       </section>
 
       {/* === Tech Stack === */}
-      <section id="tech" className="py-24 relative z-10 bg-gradient-to-b from-transparent via-black/50 to-transparent border-y border-white/5">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-black tracking-tighter mb-4">Built on Uncompromising Tech</h2>
-          <p className="text-gray-400 max-w-xl mx-auto mb-16 text-sm leading-relaxed">
+      <section id="tech" className="py-16 md:py-24 relative z-10 bg-gradient-to-b from-transparent via-black/50 to-transparent border-y border-white/5 w-full">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 text-center w-full">
+          <h2 className="text-3xl md:text-4xl font-black tracking-tighter mb-4 break-words">Built on Uncompromising Tech</h2>
+          <p className="text-gray-400 max-w-xl mx-auto mb-12 md:mb-16 text-sm leading-relaxed px-2">
             Every layer is open-source, auditable, and battle-tested. No proprietary black boxes.
           </p>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-left max-w-4xl mx-auto">
             {[
-              { icon: Lock,        color: '#14F195', title: 'Android Keystore + Biometrics', desc: 'Hardware-backed key generation. Biometric gating for every signature.' },
-              { icon: Shield,      color: '#9945FF', title: 'ZK Proof Engine (Rust)',         desc: 'Rust-compiled zero-knowledge prover for anonymous governance ballots.' },
-              { icon: Database,    color: '#03E1FF', title: 'SQLCipher Encrypted DB',         desc: 'AES-256 encrypted local database — unreadable without your biometric key.' },
-              { icon: Wifi,        color: '#FF6B6B', title: 'Google Nearby (BT Mesh)',        desc: 'Sub-second peer discovery and payload transfer without internet.' },
-              { icon: Zap,         color: '#FFB84C', title: 'QuickNode RPC + Durable Nonces', desc: 'High-throughput RPC with offline-resilient transactions that never expire.' },
-              { icon: Fingerprint, color: '#C850C0', title: 'Arcium MPC + IPFS',              desc: 'Confidential computation over encrypted data. Storage that can\'t be taken down.' },
+              { icon: Lock, color: '#14F195', title: 'Android Keystore + Biometrics', desc: 'Hardware-backed key generation. Biometric gating for every signature.' },
+              { icon: Shield, color: '#9945FF', title: 'ZK Proof Engine (Rust)', desc: 'Rust-compiled zero-knowledge prover for anonymous governance ballots.' },
+              { icon: Database, color: '#03E1FF', title: 'SQLCipher Encrypted DB', desc: 'AES-256 encrypted local database — unreadable without your biometric key.' },
+              { icon: Wifi, color: '#FF6B6B', title: 'Google Nearby (BT Mesh)', desc: 'Sub-second peer discovery and payload transfer without internet.' },
+              { icon: Zap, color: '#FFB84C', title: 'QuickNode RPC + Durable Nonces', desc: 'High-throughput RPC with offline-resilient transactions that never expire.' },
+              { icon: Fingerprint, color: '#C850C0', title: 'Arcium MPC + IPFS', desc: 'Confidential computation over encrypted data. Storage that can\'t be taken down.' },
             ].map(({ icon: Icon, color, title, desc }) => (
               <div
                 key={title}
@@ -403,14 +404,14 @@ export default function Home() {
       </section>
 
       {/* === Final CTA === */}
-      <section className="py-32 px-6 max-w-4xl mx-auto relative z-10 text-center">
-        <div className="relative rounded-3xl border border-white/10 bg-gradient-to-br from-[#14F195]/5 via-transparent to-[#9945FF]/5 p-12 overflow-hidden">
+      <section className="py-24 md:py-32 px-4 md:px-6 max-w-4xl mx-auto relative z-10 text-center w-full">
+        <div className="relative rounded-3xl border border-white/10 bg-gradient-to-br from-[#14F195]/5 via-transparent to-[#9945FF]/5 p-8 md:p-12 overflow-hidden w-full">
           {/* BG glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#14F195]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 md:w-96 md:h-96 bg-[#14F195]/10 rounded-full blur-3xl pointer-events-none" />
           <div className="relative">
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-4">
-              Ready to become<br />
-              <span className="bg-gradient-to-r from-[#14F195] to-[#9945FF] bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-4 break-words overflow-wrap-normal">
+              Ready to become<br className="hidden sm:block" />{' '}
+              <span className="bg-gradient-to-r from-[#14F195] to-[#9945FF] bg-clip-text text-transparent break-words">
                 sovereign?
               </span>
             </h2>
@@ -443,8 +444,8 @@ export default function Home() {
       </section>
 
       {/* === Footer === */}
-      <footer className="border-t border-white/5 bg-black/60 backdrop-blur-md relative z-10 py-14">
-        <div className="max-w-7xl mx-auto px-6">
+      <footer className="border-t border-white/5 bg-black/60 backdrop-blur-md relative z-10 py-10 md:py-14 w-full">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 w-full">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-10">
             <div>
               <div className="flex items-center gap-2.5 mb-3">

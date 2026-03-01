@@ -123,8 +123,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
           <div className="order-2 md:order-1 flex justify-center floating" style={{ animationDelay: "1s" }}>
             <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_0_60px_rgba(153,69,255,0.15)] max-w-[300px] glass-card">
-              {/* USER MUST PROVIDE THE ATTACHED PROFILE/WALLET SCREENSHOT HERE */}
-              <img src="/profile.png" alt="SolanaSuper Sovereign Identity Demo" className="w-full h-auto object-cover" />
+              {/* USER MUST PROVIDE THE ATTACHED WALLET SCREENSHOT HERE */}
+              <img src="/wallet.jpg" alt="SolanaSuper Offline Wallet Demo" className="w-full h-auto object-cover" />
             </div>
           </div>
           <div className="order-1 md:order-2">
